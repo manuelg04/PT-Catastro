@@ -14,7 +14,7 @@ import {
   UPDATE_TERRENO_MUTATION,
 } from '../../backend/graphql/mutaciones';
 import BarraDeNav from '../menu';
-import { Predio, Terreno } from '../../tipos';
+import { Predio, Terreno } from '../../src/tipos';
 import AppContext from '../api/AppContext';
 import { isEmpty } from 'lodash';
 import router from 'next/router';

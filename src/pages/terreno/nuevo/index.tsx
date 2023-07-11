@@ -1,6 +1,3 @@
-/* eslint-disable react/no-children-prop */
-/* eslint-disable react/jsx-key */
-/* eslint-disable max-len */
 import { useMutation, useQuery } from '@apollo/client';
 import {
   Button, Form, Input, message, Select, Progress,
@@ -11,18 +8,20 @@ import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 import {
   useEffect, useState,
 } from 'react';
-import { CREATE_PROPIETARIO_MUTATION, QUERY_ALL_PREDIOS } from '../../../backend/graphql/mutaciones';
+import {
+  CREATE_TERRENO_MUTATION, QUERY_ALL_PREDIOS,
+} from '../../../backend/graphql/mutaciones';
 import Menu from '../../menu';
-import { Predio, Propietario } from '../../../tipos';
+import { Predio, Terreno } from '../../../src/tipos';
 import { storage } from '../../../backend/firebaseConfig';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export default function Propietarios() {
+export default function Terrenos() {
   const { Option } = Select;
   const [formu] = Form.useForm();
-  const router = useRouter();
   const { data } = useQuery(QUERY_ALL_PREDIOS);
-  const [crearPropietario] = useMutation(CREATE_PROPIETARIO_MUTATION);
+  const router = useRouter();
+  const [crearTerreno] = useMutation(CREATE_TERRENO_MUTATION);
   const [progressUpload, setProgressUpload] = useState<number>(0);
   const [imageFile, setImageFile] = useState<File>();
   const [downloadURL, setDownloadURL] = useState<string>('');
@@ -32,7 +31,6 @@ export default function Propietarios() {
       const { name } = imageFile;
       const storageRef = ref(storage, `image/${name}`);
       const uploadTask = uploadBytesResumable(storageRef, imageFile);
-
       uploadTask.on(
         'state_changed',
         (snapshot) => {
@@ -58,30 +56,30 @@ export default function Propietarios() {
     }
   };
 
-  const onFinish = (values:Propietario) => {
+  const onFinish = (values:Terreno) => {
+    const idpredioInt = (values.idpredio);
     try {
-      crearPropietario((
-
+      crearTerreno((
         {
           variables: {
-            tipoprop: values.tipoprop,
-            tipodoc: values.tipodoc,
-            numdoc: values.numdoc,
-            nombre: values.nombre,
-            direccion: values.direccion,
-            telefono: values.telefono,
-            email: values.email,
+            id: values.id,
+            idpredio: idpredioInt,
+            area: values.area,
+            valorcomer: values.valorcomer,
+            tipoterre: values.tipoterre,
+            consdentro: values.consdentro,
+            fuenagua: values.fuenagua,
             image: values.image,
-
           },
         }
       ));
       message.success('registro creado correctamente');
     } catch (error) {
-      message.error('"error al crear el registro", error');
+      message.error('error al crear el registro , error');
     }
-    router.push('http://localhost:3000/propietarios');
+    router.push('http://localhost:3000/terreno');
   };
+
 
   useEffect(() => {
     formu.setFieldsValue({
@@ -89,7 +87,6 @@ export default function Propietarios() {
     });
     // getters
   }, [downloadURL]);
-
   useEffect(() => {
     if (imageFile) { handleUploadFile(); }
   }, [imageFile]);
@@ -97,7 +94,7 @@ export default function Propietarios() {
   return (
     <>
       <Menu />
-      <h1>Esta es la pagina para Crear propietarios</h1>
+      <h1>Esta es la pagina para Crear terrenos</h1>
       <Form
         name="basic"
         form={formu}
@@ -107,99 +104,74 @@ export default function Propietarios() {
         onFinish={onFinish}
       >
         <Form.Item
-          label="Id Predio"
+          label="Predio"
           name="idpredio"
         >
-          <Select
-            defaultValue="Escoja el Id de un predio"
-          >
+          <Select defaultValue="Escoja un predio">
             {
-              data?.allPredios.edges.map((edge:Predio) => (
-                <Option value={edge.node.idpredio}>{edge.node.idpredio}</Option>
-              ))
-            }
-          </Select>
 
+                          data?.allPredios.edges.map((edge:Predio) => (
+                            // eslint-disable-next-line react/jsx-key, react/no-children-prop
+                            <Option value={edge.node.idpredio} children={undefined} />
+                          ))
+                        }
+          </Select>
         </Form.Item>
         <Form.Item
-          label="Tipo de propietario"
-          name="tipoprop"
+          label="Area"
+          name="area"
           rules={[
             {
               required: true,
-              message: 'Ingresa el tipo de propietario, puede ser Persona natural o Juridica',
+              message: 'Ingresa el area de tu terreno',
             },
           ]}
         >
           <Input />
         </Form.Item>
         <Form.Item
-          label="Tipo de documento"
-          name="tipodoc"
+          label="Valor comercial del terreno"
+          name="valorcomer"
           rules={[
             {
               required: true,
-              message: 'Ingresa tipo de documento, NIT Ó CC',
+              message: 'Ingresa el valor comercial del terreno',
             },
           ]}
         >
           <Input />
         </Form.Item>
         <Form.Item
-          label="Numero de documento"
-          name="numdoc"
+          label="Tipo de terreno"
+          name="tipoterre"
           rules={[
             {
               required: true,
-              message: 'Ingresa el numero de documento',
+              message: 'Ingresa el tipo de terreno',
             },
           ]}
         >
           <Input />
         </Form.Item>
         <Form.Item
-          label="Nombre / razon social"
-          name="nombre"
+          label="¿Tiene construcciones?"
+          name="consdentro"
           rules={[
             {
               required: true,
-              message: 'Ingresa el nombre o razon social',
+              message: 'Ingresa si tiene construcciones dentro de el',
             },
           ]}
         >
           <Input />
         </Form.Item>
         <Form.Item
-          label="Direccion"
-          name="direccion"
+          label="¿Tiene fuentes de agua?"
+          name="fuenagua"
           rules={[
             {
               required: true,
-              message: 'Ingresa tu direccion',
-            },
-          ]}
-        >
-          <Input />
-        </Form.Item>
-        <Form.Item
-          label="Telefono"
-          name="telefono"
-          rules={[
-            {
-              required: true,
-              message: 'Ingresa tu telefono',
-            },
-          ]}
-        >
-          <Input />
-        </Form.Item>
-        <Form.Item
-          label="Email"
-          name="email"
-          rules={[
-            {
-              required: true,
-              message: 'Ingresa tu correo',
+              message: 'Ingresa si tiene fuentes de agua  dentro de el',
             },
           ]}
         >
@@ -212,7 +184,7 @@ export default function Propietarios() {
           <Input
             type="file"
             name="image"
-            placeholder="Selecciona Imagen" // CENTRAR
+            placeholder="Selecciona Imagen"
             accept="image/jpeg"
             onChange={(files) => handleSelectedFile(files.target.files)}
           />
@@ -232,7 +204,13 @@ export default function Propietarios() {
           <Button type="primary" htmlType="submit">
             Guardar
           </Button>
+
         </Form.Item>
+        <Form.Item wrapperCol={{
+          offset: 8,
+          span: 20,
+        }}
+        />
       </Form>
     </>
   );

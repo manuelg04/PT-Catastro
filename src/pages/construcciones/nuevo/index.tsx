@@ -10,7 +10,7 @@ import {
 } from 'react';
 import { CREATE_CONSTRUCION_MUTATION, QUERY_ALL_PREDIOS } from '../../../backend/graphql/mutaciones';
 import Menu from '../../menu';
-import { Construccion, Predio } from '../../../tipos';
+import { Construccion, Predio } from '../../../src/tipos';
 import { storage } from '../../../backend/firebaseConfig';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types

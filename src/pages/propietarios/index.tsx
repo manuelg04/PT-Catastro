@@ -18,7 +18,7 @@ import {
   UPDATE_PROPIETARIO_MUTATION,
 } from '../../backend/graphql/mutaciones';
 import BarraDeNav from '../menu';
-import { Propietario } from '../../tipos';
+import { Propietario } from '../../src/tipos';
 import AppContext from '../api/AppContext';
 import { isEmpty } from 'lodash';
 import router from 'next/router';

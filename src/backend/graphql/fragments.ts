@@ -1,5 +1,5 @@
 import { gql } from '@apollo/client';
-import { Propietario } from '../../tipos';
+import { Propietario } from '../../src/tipos';
 
 export const PredioFragment = gql`
    fragment PredioFragment on Predio {

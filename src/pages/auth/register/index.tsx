@@ -6,7 +6,7 @@ import 'antd/dist/antd.css';
 import styles from '../../../styles/menu.module.css';
 import Menu from '../../menu';
 import { CREATE_USUARIO_MUTATION } from '../../../backend/graphql/mutaciones';
-import { Usuario } from '../../../tipos';
+import { Usuario } from '../../../src/tipos';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export default function Register() {

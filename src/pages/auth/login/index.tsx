@@ -14,7 +14,7 @@ import BarraDeNav from '../../menu';
 import 'antd/dist/antd.css';
 import styles from '../../../styles/menu.module.css';
 import { QUERY_ALL_USUARIOS } from '../../../backend/graphql/mutaciones';
-import { Usuario } from '../../../tipos';
+import { Usuario } from '../../../src/tipos';
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export default function Login() {
   const router = useRouter();
@@ -27,7 +27,7 @@ export default function Login() {
   const dataTablaUsuarios = dataUsuarios?.allUsuarios.edges.map(
     (edge:Usuario) => (
       {
-        id: edge.node.id,
+       
         email: edge.node.email,
         nombre: edge.node.nombre,
         password: edge.node.password,

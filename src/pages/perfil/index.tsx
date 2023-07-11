@@ -9,7 +9,7 @@ import { useContext, useEffect, useState } from 'react';
 import BarraDeNav from '../menu';
 import 'antd/dist/antd.css';
 import { UPDATE_USUARIO_MUTATION, REFRESH_QUERY_USUARIOS } from '../../backend/graphql/mutaciones';
-import { Usuario } from '../../tipos';
+import { Usuario } from '../../src/tipos';
 import AppContext from '../api/AppContext';
 import { clearConfigCache } from 'prettier';
 import { isEmpty } from 'lodash';

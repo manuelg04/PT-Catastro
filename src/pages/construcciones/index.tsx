@@ -16,7 +16,7 @@ import {
   UPDATE_CONSTRUCCION_MUTATION,
 } from '../../backend/graphql/mutaciones';
 import BarraDeNav from '../menu';
-import { Construccion, Predio } from '../../tipos';
+import { Construccion, Predio } from '../../src/tipos';
 import AppContext from '../api/AppContext';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types

@@ -20,7 +20,7 @@ import {
 } from '../../backend/graphql/mutaciones';
 import BarraDeNav from '../menu';
 import styles from '../../styles/menu.module.css';
-import { Predio, Construccion, Terreno } from '../../tipos';
+import { Predio, Construccion, Terreno } from '../../src/tipos';
 import AppContext from '../api/AppContext';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types

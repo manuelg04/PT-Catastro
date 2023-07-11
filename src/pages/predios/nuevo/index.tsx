@@ -10,7 +10,7 @@ import {
 } from 'react';
 import Menu from '../../menu';
 import { CREATE_PREDIO_MUTATION } from '../../../backend/graphql/mutaciones';
-import { Predio } from '../../../tipos';
+import { Predio } from '../../../src/tipos';
 import { storage } from '../../../backend/firebaseConfig';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
