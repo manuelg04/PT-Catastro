@@ -1,0 +1,1 @@
+npx postgraphile -c "postgres://postgres:manuel123@localhost:5432/catastrobd2" --watch --enhance-graphiql -o --cors
