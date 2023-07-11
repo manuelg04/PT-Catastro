@@ -42,5 +42,15 @@ CREATE TABLE propietarios (
 	created_on TIMESTAMP NOT NULL
 );
 
+CREATE TABLE usuarios(
+	idusuario serial PRIMARY KEY NOT NULL,
+	nombre TEXT NOT NULL,
+	email TEXT NOT NULL,
+	numdoc TEXT,
+	password TEXT NOT NULL
+);
+
+
+
 
 

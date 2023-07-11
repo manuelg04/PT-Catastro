@@ -7,16 +7,15 @@ import { EyeTwoTone, UserOutlined } from '@ant-design/icons';
 import { useRouter } from 'next/router';
 import { isEmpty } from 'lodash';
 import AppContext from './api/AppContext';
-import { useAuth } from './protected/AuthContext';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export default function BarraDeNav() {
   const context = useContext(AppContext);
   const router = useRouter();
-  const { logout } = useAuth();
+
 
   const handleCerrarSesion = () => {
-    logout();
+  
     context.setMostrarLogin(true);
     context.llenarForm = [];
     context.setLlenarForm([]);

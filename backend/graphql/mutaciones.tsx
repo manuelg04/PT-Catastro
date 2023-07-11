@@ -373,7 +373,6 @@ export const QUERY_ALL_USUARIOS = gql`
       allUsuarios {
         edges {
           node {
-              id
               email
               nombre
               password
@@ -385,18 +384,16 @@ export const QUERY_ALL_USUARIOS = gql`
   `;
 export const CREATE_USUARIO_MUTATION = gql`  
      mutation createUsuario (
-            $idusuario: Int!
             $nombre: String!,
             $email: String!,
             $numdoc: String,
-            $password: String, 
+            $password: String!, 
             
           
   ) {
       createUsuario (
         input: {
           usuario: {
-            idusuario:$idusuario,
             nombre:$nombre,
             email:$email,
             numdoc: $numdoc,

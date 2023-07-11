@@ -4,8 +4,6 @@ import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
 import { Col, Row } from 'antd';
 import { useState } from 'react';
 import AppContext from './api/AppContext';
-import { ProtectedRoute } from './protected/ProtectedRoute';
-import { AuthProvider } from './protected/AuthContext';
 
 export default function App({ Component, pageProps }: AppProps) {
   const [imageFile, setImageFile] = useState<File>();
@@ -38,11 +36,9 @@ export default function App({ Component, pageProps }: AppProps) {
       <ApolloProvider client={client}>
         <Row justify="space-around">
           <Col span={15}>
-            <AuthProvider>
-              <ProtectedRoute>
+            
                 <Component {...pageProps} />
-              </ProtectedRoute>
-            </AuthProvider>
+          
           </Col>
 
         </Row>

@@ -15,7 +15,6 @@ import 'antd/dist/antd.css';
 import styles from '../../../styles/menu.module.css';
 import { QUERY_ALL_USUARIOS } from '../../../backend/graphql/mutaciones';
 import { Usuario } from '../../../tipos';
-import { useAuth } from '../../protected/AuthContext';
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export default function Login() {
   const router = useRouter();
@@ -23,7 +22,7 @@ export default function Login() {
   const context = useContext(AppContext);
   const { data: dataUsuarios } = useQuery(QUERY_ALL_USUARIOS);
   const [form] = Form.useForm();
-  const { login: loginOK } = useAuth();
+
 
   const dataTablaUsuarios = dataUsuarios?.allUsuarios.edges.map(
     (edge:Usuario) => (
@@ -41,7 +40,6 @@ export default function Login() {
     context.setLlenarForm(result);
     // Constante = ObjetoBUSCAR(condicion)
     if (result) {
-      loginOK();
       context.setMostrarLogin(false);
       setOcultarFormLogin(true);
       message.success('Inicio de sesion con exito');

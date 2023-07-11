@@ -59,7 +59,6 @@ export const PropietarioFragment = gql`
 
 export const UsuarioFragment = gql`
    fragment UsuarioFragment on Usuario {
-            id
             nombre
             email
             numdoc
