@@ -382,6 +382,20 @@ export const QUERY_ALL_USUARIOS = gql`
       }
     }
   `;
+
+export const QUERY_USUARIO = gql`
+  query Usuario($idusuario: Int!) {
+    usuarioByIdusuario(idusuario: $idusuario) {
+      idusuario
+      email
+      password
+      nombre
+      numdoc
+    }
+  }
+`;
+
+
 export const CREATE_USUARIO_MUTATION = gql`  
      mutation createUsuario (
             $nombre: String!,
@@ -436,6 +450,10 @@ mutation updateUsuarioById (
 }
 ${UsuarioFragment}
 `;
+
+
+
+
 
 export const REFRESH_QUERY_PREDIOS = {
   refetchQueries: [{
