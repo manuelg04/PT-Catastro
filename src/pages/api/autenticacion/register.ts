@@ -44,7 +44,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
      const hashedPassword = await bcrypt.hash(password, 10);
 
-     const { data: data2 } = await client.mutate({
+     const { data: resultado } = await client.mutate({
       mutation: gql`
         mutation CrearUsuario($nombre: String!, $numdoc: String!, $email: String!, $password: String!) {
           createUsuario(input: { usuario: { nombre: $nombre, numdoc: $numdoc, email: $email, password: $password } }) {
@@ -60,7 +60,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       },
     });
     
-    if (data2) {
+    if (resultado) {
       return res.status(201).json({ message: 'Usuario creado exitosamente' });
     }
 

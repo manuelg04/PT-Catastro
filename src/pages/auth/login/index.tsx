@@ -10,6 +10,8 @@ import styles from '../../../styles/menu.module.css';
 import { QUERY_USUARIO } from '../../../backend/graphql/mutaciones';
 import { Usuario } from './../../../tipos';
 import axios from 'axios';
+import Cookie from 'js-cookie';
+import { MY_TOKEN_NAME } from '../../../constantes';
 
 export default function Login() {
   const router = useRouter();
@@ -21,22 +23,9 @@ export default function Login() {
 
       const response = await axios.post('http://localhost:3000/api/autenticacion/login', values)
       console.log("🚀 ~ response:", response)
-      console.log("🚀 ~ values:", values)
-      // const { data } = await client.query({
-      //   query: QUERY_USUARIO,
-      //   variables: {
-      //     numdoc: values.numdoc,
-      //     password: values.password,
-      //     idusuario: 1 // Reemplaza el valor 1 con el ID de usuario deseado
-      //   },
-      // });
-
-      // if (data && data.usuarioByIdusuario) {
-      //   message.success('Inicio de sesión exitoso');
-      //   router.push('/perfil');
-      // } else {
-      //   throw new Error();
-      // }
+      Cookie.set('MY_TOKEN_NAME', response.data.MY_TOKEN_NAME, { expires: 7 });
+      router.push('/perfil')
+ 
     } catch (error) {
       message.error('Usuario o clave incorrectos');
     }
