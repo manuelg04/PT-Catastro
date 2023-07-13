@@ -7,23 +7,15 @@ import styles from '../../../styles/menu.module.css';
 import Menu from '../../menu';
 import { CREATE_USUARIO_MUTATION } from '../../../backend/graphql/mutaciones';
 import { Usuario } from '../../../src/tipos';
+import axios from 'axios';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export default function Register() {
   const [crearUsuario] = useMutation(CREATE_USUARIO_MUTATION);
-  const onFinish = (values:Usuario) => {
+  const onFinish = async (values:Usuario) => {
     try {
-      crearUsuario((
-        {
-          variables: {
-            nombre: values.nombre,
-            email: values.email,
-            numdoc: values.numdoc,
-            password: values.password,
-          },
-        }
-      ));
-      message.success('Registro Creado Correctamente');
+     await axios.post('http://localhost:3000/api/autenticacion/register' , values) 
+      //message.success('Registro Creado Correctamente');
     } catch (error) {
       message.error(`error al crear registro, ${error}`);
     }

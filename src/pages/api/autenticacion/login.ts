@@ -1,9 +1,11 @@
 import { message } from 'antd';
 import { ApolloClient, InMemoryCache, gql } from "@apollo/client";
 import bcrypt from "bcrypt";
+import { MY_TOKEN_NAME} from "../../../constantes";
+import jwt from "jsonwebtoken";
 
 export default async function handler(req, res) {
-  console.log("hola backend");
+  //console.log("hola backend");
   const { numdoc, password } = req.body;
   
 
@@ -28,25 +30,25 @@ export default async function handler(req, res) {
     `,
     variables: { numdoc },
   });
-  console.log("🚀 ~ data:", data)
-
-
-  // const user = data.allUsuarios.nodes[0];
   
 
-  // if (!user) {
-  //   return res.status(401).json({ error: "Usuario no encontrado" });
-  // }
+   const user = data.allUsuarios.nodes[0];
+   
 
-  // // Aquí verificas la contraseña del usuario
-  // const passwordIsValid = await bcrypt.compare(password, user.passwordHash);
+  if (!user) {
+    return res.status(401).json({ error: "Usuario no encontrado" });
+  }
 
-  // if (!passwordIsValid) {
-  //   return res.status(401).json({ error: "Contraseña incorrecta" });
-  // }
+  // Aquí verificas la contraseña del usuario
+  const passwordIsValid = await bcrypt.compare(password, user.password);
 
-  // // Aquí generas y devuelves el token JWT
-  // const token = jwt.sign({ id: user.id, email: user.email }, "secret_key"); // Reemplaza "secret_key" con tu clave secreta real
+  if (!passwordIsValid) {
+    return res.status(401).json({ error: "Contraseña incorrecta" });
+  }
 
-   res.json({ password });
+  // Aquí generas y devuelves el token JWT
+  const token = jwt.sign({ id: user.id, email: user.email }, MY_TOKEN_NAME); // Reemplaza "secret_key" con tu clave secreta real
+  //console.log("🚀 ~ token:", token)
+
+   res.json({ MY_TOKEN_NAME: token });
 }
