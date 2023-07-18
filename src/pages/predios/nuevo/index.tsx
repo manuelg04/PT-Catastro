@@ -73,7 +73,7 @@ export default function Predios() {
     } catch (error) {
       message.error(`error al crear registro, ${error}`);
     }
-    router.push('http://localhost:3000/predios');
+    router.push('${MAIN_URL}/predios');
   };
 
   useEffect(() => {

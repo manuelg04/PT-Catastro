@@ -77,7 +77,7 @@ export default function Terrenos() {
     } catch (error) {
       message.error('error al crear el registro , error');
     }
-    router.push('http://localhost:3000/terreno');
+    router.push('${MAIN_URL}/terreno');
   };
 
 

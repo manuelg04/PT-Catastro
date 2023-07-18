@@ -465,8 +465,6 @@ export default function Predios() {
 
   return (
     <>
-
-     (
       <>
         <BarraDeNav />
         <Button type="primary">

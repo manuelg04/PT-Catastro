@@ -10,7 +10,7 @@ import styles from '../../../styles/menu.module.css';
 import { QUERY_USUARIO } from '../../../backend/graphql/mutaciones';
 import { Usuario } from './../../../tipos';
 import axios from 'axios';
-import { MY_TOKEN_NAME } from '../../../constantes';
+import { MAIN_URL, MY_TOKEN_NAME } from '../../../constantes';
 import { useDispatch } from 'react-redux';
 import { setUser } from '../../redux/userSlice';
 
@@ -24,7 +24,7 @@ export default function Login() {
 
     try {
 
-      const response = await axios.post('http://localhost:3000/api/autenticacion/login2', values)
+      const response = await axios.post(`${MAIN_URL}/api/autenticacion/login`, values)
       const { nombre, numdoc } = response.data;
       dispatch(setUser({ nombre, numdoc }));
       if(response.status === 200){

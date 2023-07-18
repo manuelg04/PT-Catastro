@@ -1,6 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import bcrypt from 'bcrypt';
 import { ApolloClient, InMemoryCache, gql } from "@apollo/client";
+import { GRAPH_URL } from '../../../constantes';
 
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -8,12 +9,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
  
 
   const client = new ApolloClient({
-    uri: "http://localhost:5000/graphql", // Reemplaza esto con la URL de tu API GraphQL
+    uri: GRAPH_URL, 
     cache: new InMemoryCache(),
   });
 
   try {
     // Verifica si el usuario ya existe
+    //mutation para registrarse
     const { data } = await client.query({
         query: gql`
           query ($numdoc: String!) {
@@ -30,15 +32,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         `,
         variables: { numdoc },
       });
-
-      //mutation para registrarse
-      
-                       
+             
       const user = data.allUsuarios.nodes[0];
-    
-    
+
     if (user) {
-      // Si el usuario ya existe, devuelve un error
+      // Si el usuario ya existe, devuelve un error, para evitar duplicados
       return res.status(400).json({ message: 'Usuario ya existe' });
     }
 
@@ -66,7 +64,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   } catch (error) {
     // Manejo de errores
-    console.log(error);
     return res.status(500).json({ message: 'Ha habido un error al crear el usuario' });
   }
 }

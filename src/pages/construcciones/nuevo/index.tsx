@@ -74,7 +74,7 @@ export default function Propietarios() {
     } catch (error) {
       message.error('error al crear el registro , error');
     }
-    router.push('http://localhost:3000/construcciones');
+    router.push('${MAIN_URL}/construcciones');
   };
 
   useEffect(() => {

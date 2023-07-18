@@ -1,15 +1,16 @@
 import { ApolloClient, InMemoryCache, gql } from "@apollo/client";
 import bcrypt from "bcrypt";
-import { MY_TOKEN_NAME } from "../../../constantes";
-import jwt from "jsonwebtoken";
+import { GRAPH_URL, MY_TOKEN_NAME } from "../../../constantes";
+import * as jwt from 'jsonwebtoken';
 import { NextApiRequest, NextApiResponse } from "next";
+import { serialize } from 'cookie';
 
 export default async function handler(req: NextApiRequest, res:NextApiResponse) {
   //console.log("hola backend");
   const { numdoc, password } = req.body;
 
   const client = new ApolloClient({
-    uri: "http://localhost:5000/graphql", // Reemplaza esto con la URL de tu API GraphQL
+    uri: GRAPH_URL, 
     cache: new InMemoryCache(),
   });
 
@@ -36,22 +37,36 @@ export default async function handler(req: NextApiRequest, res:NextApiResponse) 
   }
   // Aquí verificas la contraseña del usuario
   const passwordIsValid = await bcrypt.compare(password, user.password);
-
+ 
   if (passwordIsValid) {
-    const token = jwt.sign({ id: user.id, numdoc: user.numdoc }, "secret", {
-      expiresIn: "1h",
-    });
-    
-  
-    return res.status(200).json({
-      token,
-      numdoc,
-    });
-  }
-  
-  return res.status(401).json({ message: 'Invalid credentials' });
 
-  } catch (error) {
-    return res.status(500).json({ message: 'Internal Server Error' });
+    const token = jwt.sign({ 
+        exp: Math.floor(Date.now() / 1000) + 60 * 60 * 24 * 7,
+        username: user.id,
+        numdoc: user.numdoc,
+      }, 'secret');
+  
+    
+    const serializedToken = serialize(MY_TOKEN_NAME, token, {
+        httpOnly: true,
+        sameSite: 'strict', 
+        maxAge: 60 * 60 * 24 * 7,
+        path: '/',
+      });
+  
+      res.setHeader('Set-Cookie', serializedToken);
+      // return res.json('login sucessfully');
+      return res.status(200).json({
+        token,
+        message: 'Inicio de sesión Exitoso',
+      });
+    }
+  
+    return res.status(401).json({ error: 'Usuario o clave incorrectos' });
+
   }
+    catch (error) {
+        return res.status(500).json({ message: 'Error al iniciar sesión' });
+        }
+
 }

@@ -8,6 +8,7 @@ import { Provider } from 'react-redux';
 import { persistStore } from 'redux-persist';
 import { PersistGate } from 'redux-persist/integration/react';
 import store from './redux/store';
+import { GRAPH_URL } from '../constantes';
 
 const persistor = persistStore(store);
 
@@ -20,7 +21,7 @@ export default function App({ Component, pageProps }: AppProps) {
   const [llenarForm, setLlenarForm] = useState([]);
 
   const client = new ApolloClient({
-    uri: 'http://localhost:5000/graphql',
+    uri: GRAPH_URL,
     cache: new InMemoryCache(),
 
   });

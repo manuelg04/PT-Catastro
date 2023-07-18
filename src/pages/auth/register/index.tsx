@@ -14,7 +14,7 @@ export default function Register() {
   const [crearUsuario] = useMutation(CREATE_USUARIO_MUTATION);
   const onFinish = async (values:Usuario) => {
     try {
-     await axios.post('http://localhost:3000/api/autenticacion/register' , values) 
+     await axios.post('${MAIN_URL}/api/autenticacion/register' , values) 
       //message.success('Registro Creado Correctamente');
     } catch (error) {
       message.error(`error al crear registro, ${error}`);
