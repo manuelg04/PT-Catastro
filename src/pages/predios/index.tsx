@@ -27,8 +27,8 @@ import AppContext from '../api/AppContext';
 export default function Predios() {
   const router = useRouter();
   const { data } = useQuery(QUERY_ALL_PREDIOS);
-  const { data: dataConstrucciones } = useQuery(QUERY_ALL_CONSTRUCCIONES);
-  const { data: dataTerrenos } = useQuery(QUERY_ALL_TERRENOS);
+   const { data: dataConstrucciones } = useQuery(QUERY_ALL_CONSTRUCCIONES);
+   const { data: dataTerrenos } = useQuery(QUERY_ALL_TERRENOS);
   const [deletePredio] = useMutation(DELETE_PREDIO_MUTATION, REFRESH_QUERY_PREDIOS);
   const [updatePredio] = useMutation(UPDATE_PREDIO_MUTATION, REFRESH_QUERY_PREDIOS);
   const [ModalAbierto, setModalAbierto] = useState(false);
@@ -202,17 +202,17 @@ export default function Predios() {
     showModal();
   };
 
-  const selectTerreno = (predio: Terreno) => {
-    const arrTerrenosFiltered: Terreno[] = [];
-    dataTablaTerrenos.map((terreno: Terreno) => {
-      if (terreno.idpredio === predio.idpredio) {
-        arrTerrenosFiltered.push(terreno);
-      }
+  // const selectTerreno = (predio: Terreno) => {
+  //   const arrTerrenosFiltered: Terreno[] = [];
+  //   dataTablaTerrenos.map((terreno: Terreno) => {
+  //     if (terreno.idpredio === predio.idpredio) {
+  //       arrTerrenosFiltered.push(terreno);
+  //     }
 
-      setTerrenoActual(arrTerrenosFiltered);
-    });
-    showModal2();
-  };
+  //     setTerrenoActual(arrTerrenosFiltered);
+  //   });
+  //   showModal2();
+  // };
 
   const columnsTerrenos = [
 
@@ -464,9 +464,9 @@ export default function Predios() {
   ];
 
   return (
-    !isEmpty(context.llenarForm)
+    <>
 
-    && (
+     (
       <>
         <BarraDeNav />
         <Button type="primary">
@@ -580,6 +580,6 @@ export default function Predios() {
         </Modal>
       </>
 
-    )
+    </>
   );
 }

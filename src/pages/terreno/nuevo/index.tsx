@@ -178,7 +178,7 @@ export default function Terrenos() {
           <Input />
         </Form.Item>
         <Form.Item
-          label="URL Imagen"
+          label="Foto del terreno"
           name="image"
         >
           <Input

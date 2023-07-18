@@ -173,7 +173,7 @@ export default function Predios() {
           <Input />
         </Form.Item>
         <Form.Item
-          label="URL Imagen"
+          label="Foto del predio"
           name="image"
         >
           <Input

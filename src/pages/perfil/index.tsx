@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-one-expression-per-line */
 /* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import { useMutation, useQuery } from '@apollo/client';
+import { useMutation, useQuery, gql } from '@apollo/client';
 import {
   Button, Form, Input, message,
 } from 'antd';
@@ -10,14 +10,48 @@ import BarraDeNav from '../menu';
 import 'antd/dist/antd.css';
 import { UPDATE_USUARIO_MUTATION, REFRESH_QUERY_USUARIOS } from '../../backend/graphql/mutaciones';
 import { Usuario } from '../../src/tipos';
-import AppContext from '../api/AppContext';
-import { clearConfigCache } from 'prettier';
 import { isEmpty } from 'lodash';
 import router from 'next/router';
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState } from '../redux/store';
+import { setUser } from '../redux/userSlice';
+
+
+const GET_USER_BY_NUMDOC = gql`
+ query MyQuery {
+  allUsuarios {
+    edges {
+      node {
+        nombre
+        numdoc
+      }
+    }
+  }
+}
+
+`;
 
 export default function userPerfil() {
   const [updateUsuario] = useMutation(UPDATE_USUARIO_MUTATION, REFRESH_QUERY_USUARIOS);
-  const context = useContext(AppContext);
+  const dispatch = useDispatch(); // obtén dispatch
+  const numdoc2 = '123456'; // Valor del número de documento del usuario que inició sesión
+  // Obtiene el numdoc del estado de Redux
+  const { nombre, numdoc } = useSelector((state: RootState) => state.user); // Obtén nombre y numdoc del estado de Redux
+  console.log('NuMdOC:', numdoc);
+
+    // Realiza la consulta para obtener los datos del usuario
+    const { loading, error, data } = useQuery(GET_USER_BY_NUMDOC, {
+      variables: { numdoc2 },
+    });
+  console.log('Respuesta de GraphQL:', data);
+
+
+  useEffect(() => {
+    // Cuando los datos estén disponibles y no haya errores, establece el usuario en el estado de Redux
+    if (!loading && !error && data) {
+      dispatch(setUser(data.usuario));  // Asegúrate de que `data.usuario` tiene la estructura correcta
+    }
+  }, [loading, error, data, dispatch]);
 
   const editUsuario = (values:Usuario) => {
     const idUsuarioInt = parseInt((values.id), 10);
@@ -34,27 +68,30 @@ export default function userPerfil() {
 
         }
       ));
-      context.setLlenarForm(values);
       message.success('registro actualizado exitosamente');
     } catch (error) {
       message.error('error al actualizar el registro');
     }
   };
 
+  const usuarios = data?.allUsuarios?.edges.map((edge) => edge.node);
+  const usuario = usuarios?.find((user) => user.numdoc === numdoc);
+  const nombreUsuario = data?.allUsuarios.edges[0]?.node?.nombre || 'Usuario Desconocido';
+
+
   return (
-    !isEmpty(context.llenarForm)
-    && (
+    (
     <>
       <BarraDeNav />
       <h1>
-        Bienvenido { context.llenarForm.nombre || 'USUARIO'} verifique sus datos si son correctos
+        Bienvenido {nombreUsuario} verifique sus datos si son correctos
       </h1>
       <Form
         id="formulario"
         labelCol={{ span: 8 }}
         wrapperCol={{ span: 16 }}
         onFinish={editUsuario}
-        initialValues={context.llenarForm}
+
       >
         <Form.Item
           label="id del usuario"

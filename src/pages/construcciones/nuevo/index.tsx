@@ -162,7 +162,7 @@ export default function Propietarios() {
           <Input />
         </Form.Item>
         <Form.Item
-          label="URL Imagen"
+          label="Foto del propietario"
           name="image"
         >
           <Input
