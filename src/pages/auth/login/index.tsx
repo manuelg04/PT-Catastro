@@ -28,11 +28,8 @@ export default function Login() {
       const { nombre, numdoc } = response.data;
       dispatch(setUser({ nombre, numdoc }));
       if(response.status === 200){
-
-        router.push('/perfil')
-        
+        router.push('/perfil') 
       }
- 
     } catch (error) {
       message.error('Usuario o clave incorrectos');
     }
@@ -58,7 +55,7 @@ export default function Login() {
             span: 8,
           }}
           name="numdoc"
-          rules={[{ required: true, message: 'Por favor ingresa tu cedula' }]}
+          rules={[{ required: true, message: 'Por favor ingresa tu cédula' }]}
         >
           <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Email" />
         </Form.Item>

@@ -42,7 +42,7 @@ export default async function handler(req: NextApiRequest, res:NextApiResponse) 
 
     const token = jwt.sign({ 
         exp: Math.floor(Date.now() / 1000) + 60 * 60 * 24 * 7,
-        username: user.id,
+        nombre: user.nombre,
         numdoc: user.numdoc,
       }, 'secret');
   
@@ -58,6 +58,8 @@ export default async function handler(req: NextApiRequest, res:NextApiResponse) 
       // return res.json('login sucessfully');
       return res.status(200).json({
         token,
+        nombre: user.nombre,
+        numdoc: user.numdoc,
         message: 'Inicio de sesión Exitoso',
       });
     }

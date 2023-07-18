@@ -1,25 +1,27 @@
-import { useMutation } from '@apollo/client';
 import {
   Button, Form, Input, message,
 } from 'antd';
 import 'antd/dist/antd.css';
 import styles from '../../../styles/menu.module.css';
 import Menu from '../../menu';
-import { CREATE_USUARIO_MUTATION } from '../../../backend/graphql/mutaciones';
-import { Usuario } from '../../../src/tipos';
+import type { Usuario } from './../../../tipos';
 import axios from 'axios';
+import { MAIN_URL } from '../../../constantes';
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+
 export default function Register() {
-  const [crearUsuario] = useMutation(CREATE_USUARIO_MUTATION);
+ 
   const onFinish = async (values:Usuario) => {
     try {
-     await axios.post('${MAIN_URL}/api/autenticacion/register' , values) 
-      //message.success('Registro Creado Correctamente');
-    } catch (error) {
-      message.error(`error al crear registro, ${error}`);
+    const response = await axios.post(`${MAIN_URL}/api/autenticacion/register` , values) 
+    if(response.status === 201){
+      message.success('Registro Creado Correctamente');
     }
-  };
+  } catch (error) {
+    message.error(`error al crear registro, ${error}`);
+  }
+};
+console.log(`${MAIN_URL}/api/autenticacion/register`)
   return (
     <>
       <Menu />
@@ -47,8 +49,10 @@ export default function Register() {
           name="email"
           rules={[
             {
+              type: 'email',
               required: true,
               message: 'Ingresa tu correo',
+             
             },
           ]}
         >
@@ -59,6 +63,7 @@ export default function Register() {
           name="numdoc"
           rules={[
             {
+              type: 'number',
               required: true,
               message: 'Ingresa el numero predial',
             },

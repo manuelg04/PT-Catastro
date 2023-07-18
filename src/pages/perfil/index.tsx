@@ -74,17 +74,12 @@ export default function userPerfil() {
     }
   };
 
-  const usuarios = data?.allUsuarios?.edges.map((edge) => edge.node);
-  const usuario = usuarios?.find((user) => user.numdoc === numdoc);
-  const nombreUsuario = data?.allUsuarios.edges[0]?.node?.nombre || 'Usuario Desconocido';
-
-
   return (
     (
     <>
       <BarraDeNav />
       <h1>
-        Bienvenido {nombreUsuario} verifique sus datos si son correctos
+        Bienvenido {nombre || 'Usuario Desconocido'} verifique sus datos si son correctos
       </h1>
       <Form
         id="formulario"
@@ -97,7 +92,7 @@ export default function userPerfil() {
           label="id del usuario"
           name="id"
         >
-          <Input />
+          <Input disabled />
         </Form.Item>
 
         <Form.Item
