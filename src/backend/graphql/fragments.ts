@@ -37,14 +37,14 @@ export const TerrenoFragment = gql`
             tipoterre
             consdentro
             fuenagua
-            image
+            imagen
   
      }
 `;
 
 export const PropietarioFragment = gql`
    fragment PropietarioFragment on Propietario {
-            id
+            idusuario
             tipoprop
             tipodoc
             numdoc
@@ -52,17 +52,10 @@ export const PropietarioFragment = gql`
             direccion
             telefono
             email
-            image
+            password
+            imagen
+         
   
      }
 `;
 
-export const UsuarioFragment = gql`
-   fragment UsuarioFragment on Usuario {
-            nombre
-            email
-            numdoc
-            password 
-  
-     }
-`;

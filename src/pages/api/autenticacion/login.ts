@@ -18,7 +18,7 @@ export default async function handler(req: NextApiRequest, res:NextApiResponse) 
   const { data } = await client.query({
     query: gql`
       query ($numdoc: String!) {
-        allUsuarios(condition: { numdoc: $numdoc }) {
+        allPropietarios(condition: { numdoc: $numdoc }) {
           nodes {
             idusuario
             nombre
@@ -31,7 +31,7 @@ export default async function handler(req: NextApiRequest, res:NextApiResponse) 
     `,
     variables: { numdoc },
   });
-  const user = data.allUsuarios.nodes[0];
+  const user = data.allPropietarios.nodes[0];
   if (!user) {
     return res.status(401).json({ error: "Usuario no encontrado" });
   }

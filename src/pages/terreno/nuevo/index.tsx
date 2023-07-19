@@ -14,6 +14,7 @@ import {
 import Menu from '../../menu';
 import { Predio, Terreno } from '../../../src/tipos';
 import { storage } from '../../../backend/firebaseConfig';
+import { MAIN_URL } from '../../../constantes';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export default function Terrenos() {
@@ -69,7 +70,7 @@ export default function Terrenos() {
             tipoterre: values.tipoterre,
             consdentro: values.consdentro,
             fuenagua: values.fuenagua,
-            image: values.image,
+            imagen: values.imagen,
           },
         }
       ));
@@ -77,7 +78,7 @@ export default function Terrenos() {
     } catch (error) {
       message.error('error al crear el registro , error');
     }
-    router.push('${MAIN_URL}/terreno');
+    router.push(`${MAIN_URL}/terreno`);
   };
 
 
@@ -179,11 +180,11 @@ export default function Terrenos() {
         </Form.Item>
         <Form.Item
           label="Foto del terreno"
-          name="image"
+          name="imagen"
         >
           <Input
             type="file"
-            name="image"
+            name="imagen"
             placeholder="Selecciona Imagen"
             accept="image/jpeg"
             onChange={(files) => handleSelectedFile(files.target.files)}

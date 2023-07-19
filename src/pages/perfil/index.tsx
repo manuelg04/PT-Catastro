@@ -8,18 +8,16 @@ import {
 import { useContext, useEffect, useState } from 'react';
 import BarraDeNav from '../menu';
 import 'antd/dist/antd.css';
-import { UPDATE_USUARIO_MUTATION, REFRESH_QUERY_USUARIOS } from '../../backend/graphql/mutaciones';
-import { Usuario } from '../../src/tipos';
-import { isEmpty } from 'lodash';
-import router from 'next/router';
+import { UPDATE_PROPIETARIO_MUTATION, REFRESH_QUERY_PROPIETARIOS } from '../../backend/graphql/mutaciones';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../redux/store';
 import { setUser } from '../redux/userSlice';
+import { Propietario } from '../../tipos';
 
 
 const GET_USER_BY_NUMDOC = gql`
  query MyQuery {
-  allUsuarios {
+  allPropietarios {
     edges {
       node {
         nombre
@@ -32,7 +30,7 @@ const GET_USER_BY_NUMDOC = gql`
 `;
 
 export default function userPerfil() {
-  const [updateUsuario] = useMutation(UPDATE_USUARIO_MUTATION, REFRESH_QUERY_USUARIOS);
+  const [updateUsuario] = useMutation(UPDATE_PROPIETARIO_MUTATION, REFRESH_QUERY_PROPIETARIOS);
   const dispatch = useDispatch(); // obtén dispatch
   const numdoc2 = '123456'; // Valor del número de documento del usuario que inició sesión
   // Obtiene el numdoc del estado de Redux
@@ -53,8 +51,8 @@ export default function userPerfil() {
     }
   }, [loading, error, data, dispatch]);
 
-  const editUsuario = (values:Usuario) => {
-    const idUsuarioInt = parseInt((values.id), 10);
+  const editUsuario = (values:Propietario) => {
+    const idUsuarioInt = parseInt((values.id || 1 ), 10);
 
     try {
       updateUsuario((

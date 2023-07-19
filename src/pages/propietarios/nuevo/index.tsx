@@ -15,6 +15,7 @@ import { CREATE_PROPIETARIO_MUTATION, QUERY_ALL_PREDIOS } from '../../../backend
 import Menu from '../../menu';
 import { Predio, Propietario } from '../../../src/tipos';
 import { storage } from '../../../backend/firebaseConfig';
+import { MAIN_URL } from '../../../constantes';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export default function Propietarios() {
@@ -71,7 +72,8 @@ export default function Propietarios() {
             direccion: values.direccion,
             telefono: values.telefono,
             email: values.email,
-            image: values.image,
+            imagen: values.imagen,
+            password: values.password,
 
           },
         }
@@ -80,7 +82,7 @@ export default function Propietarios() {
     } catch (error) {
       message.error('"error al crear el registro", error');
     }
-    router.push('${MAIN_URL}/propietarios');
+    router.push(`${MAIN_URL}/propietarios`);
   };
 
   useEffect(() => {
@@ -204,6 +206,18 @@ export default function Propietarios() {
           ]}
         >
           <Input />
+        </Form.Item>
+        <Form.Item
+          label="Password"
+          name="password"
+          rules={[
+            {
+              required: true,
+              message: 'Ingresa tu contraseña',
+            },
+          ]}
+        >
+          <Input.Password />
         </Form.Item>
         <Form.Item
           label="Foto del propietario"

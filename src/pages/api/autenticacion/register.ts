@@ -5,7 +5,7 @@ import { GRAPH_URL } from '../../../constantes';
 
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  const { nombre, numdoc, email, password } = req.body;
+  const { nombre, numdoc, email, password, tipodoc, tipoprop, telefono, direccion } = req.body;
  
 
   const client = new ApolloClient({
@@ -19,7 +19,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const { data } = await client.query({
         query: gql`
           query ($numdoc: String!) {
-            allUsuarios(condition: { numdoc: $numdoc }) {
+            allPropietarios(condition: { numdoc: $numdoc }) {
               nodes {
                   idusuario
                   nombre
@@ -33,7 +33,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         variables: { numdoc },
       });
              
-      const user = data.allUsuarios.nodes[0];
+      const user = data.allPropietarios.nodes[0];
 
     if (user) {
       // Si el usuario ya existe, devuelve un error, para evitar duplicados
@@ -44,8 +44,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
      const { data: resultado } = await client.mutate({
       mutation: gql`
-        mutation CrearUsuario($nombre: String!, $numdoc: String!, $email: String!, $password: String!) {
-          createUsuario(input: { usuario: { nombre: $nombre, numdoc: $numdoc, email: $email, password: $password } }) {
+        mutation CrearPropietario($tipoprop:String, $tipodoc:String!, $direccion:String, $telefono:String, $nombre: String!, $numdoc: String!, $email: String!, $password: String!) {
+          createPropietario(input: { propietario: { tipoprop: $tipoprop, tipodoc: $tipodoc, direccion: $direccion, telefono: $telefono,  nombre: $nombre, numdoc: $numdoc, email: $email, password: $password } }) {
             clientMutationId
           }
         }
@@ -54,6 +54,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
          nombre,
          numdoc, 
          email, 
+         tipoprop,
+         tipodoc,
+         telefono,
+         direccion,
          password: hashedPassword,
       },
     });

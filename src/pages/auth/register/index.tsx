@@ -1,17 +1,17 @@
 import {
-  Button, Form, Input, message,
+  Button, Divider, Form, Input, Select, message,
 } from 'antd';
 import 'antd/dist/antd.css';
 import styles from '../../../styles/menu.module.css';
 import Menu from '../../menu';
-import type { Usuario } from './../../../tipos';
+import type { Propietario } from './../../../tipos';
 import axios from 'axios';
 import { MAIN_URL } from '../../../constantes';
 
 
 export default function Register() {
  
-  const onFinish = async (values:Usuario) => {
+  const onFinish = async (values:Propietario) => {
     try {
     const response = await axios.post(`${MAIN_URL}/api/autenticacion/register` , values) 
     if(response.status === 201){
@@ -45,6 +45,77 @@ console.log(`${MAIN_URL}/api/autenticacion/register`)
           <Input />
         </Form.Item>
         <Form.Item
+          label="Número de documento"
+          name="numdoc"
+          rules={[
+            {
+            
+              required: true,
+              message: 'Ingresa el numero de documento',
+            },
+          ]}
+        >
+          <Input />
+        </Form.Item>
+        <Form.Item
+          label="Tipo de propietario"
+          name="tipoprop"
+          rules={[
+            {
+              required: true,
+              message: 'Selecciona el tipo de propietario',
+            },
+          ]}
+        >
+          <Select>
+            <Select.Option value="personal">Personal Natural</Select.Option>
+            <Select.Option value="juridica">Jurídica</Select.Option>
+          </Select>
+        </Form.Item>
+        
+        <Form.Item
+          label="Tipo documento"
+          name="tipodoc"
+          rules={[
+            {
+              required: true,
+              message: 'Selecciona el tipo de documento',
+            },
+          ]}
+        >
+          <Select>
+            <Select.Option value="cc">CC</Select.Option>
+            <Select.Option value="nit">NIT</Select.Option>
+          </Select>
+        </Form.Item>
+
+        <Form.Item
+          label="Dirección"
+          name="direccion"
+          rules={[
+            {
+              required: true,
+              message: 'Ingresa tu dirección',
+            },
+          ]}
+        >
+          <Input />
+        </Form.Item>
+
+        <Form.Item
+          label="Teléfono"
+          name="telefono"
+          rules={[
+            {
+              required: true,
+              message: 'Ingresa tu número de teléfono',
+            },
+          ]}
+        >
+          <Input />
+        </Form.Item>
+        <Divider />
+        <Form.Item
           label="Email"
           name="email"
           rules={[
@@ -53,19 +124,6 @@ console.log(`${MAIN_URL}/api/autenticacion/register`)
               required: true,
               message: 'Ingresa tu correo',
              
-            },
-          ]}
-        >
-          <Input />
-        </Form.Item>
-        <Form.Item
-          label="Numero de documento"
-          name="numdoc"
-          rules={[
-            {
-              type: 'number',
-              required: true,
-              message: 'Ingresa el numero predial',
             },
           ]}
         >
@@ -83,6 +141,7 @@ console.log(`${MAIN_URL}/api/autenticacion/register`)
         >
           <Input type="password" />
         </Form.Item>
+        
         <Form.Item
           wrapperCol={{
             offset: 8,

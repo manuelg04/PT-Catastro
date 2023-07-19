@@ -52,22 +52,16 @@ export type Terreno = {
 }
 
 export type Propietario = {
-    [x: string]: any;
     node?: any;
-    id:number;
-    tipoprop:string;
-    tipodoc:number;
+    id?:number;
+    tipoprop?:string;
+    tipodoc?:string;
     numdoc:number;
     nombre:string;
-    direccion:string;
-    telefono:number;
-    email:string;
+    direccion?:string;
+    telefono?:number;
+    email?:string;
+    password:string;
 }
 
-export type Usuario = {
-    [x: string]: any;
-    email:string;
-    nombre:string;
-    password:string;
-    numdoc:string;
-}
+

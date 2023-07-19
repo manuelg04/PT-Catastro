@@ -203,7 +203,7 @@ export const CREATE_TERRENO_MUTATION = gql`
             $tipoterre: String,
             $consdentro: String,
             $fuenagua: String,
-            $image: String,         
+            $imagen: String,         
     ) {
       createTerreno (
       input: {
@@ -214,7 +214,7 @@ export const CREATE_TERRENO_MUTATION = gql`
                 tipoterre: $tipoterre,
                 consdentro: $consdentro,
                 fuenagua: $fuenagua,
-                image: $image,
+                imagen: $imagen,
         }
       }
     ) {
@@ -288,19 +288,21 @@ query Propietarios {
 
 export const CREATE_PROPIETARIO_MUTATION = gql`  
   mutation createPropietario (
-        
+              $idusuario: Int!,
               $tipoprop: String,
               $tipodoc: String,
               $numdoc: String!,
-              $nombre: String,
+              $nombre: String!,
               $direccion: String,
               $telefono: String,
-              $email: String,
-              $image:String
+              $email: String!,
+              $password:String!
+              $imagen: String,
   ) {
   createPropietario (
     input: {
       propietario: {
+              idusuario: $idusuario,
               tipoprop: $tipoprop,
               tipodoc: $tipodoc, 
               numdoc: $numdoc,
@@ -308,7 +310,8 @@ export const CREATE_PROPIETARIO_MUTATION = gql`
               direccion: $direccion,
               telefono: $telefono,
               email: $email,
-              image:$image
+              password:$password
+              imagen: $imagen,
       }
     }
   ) {
@@ -320,8 +323,8 @@ export const CREATE_PROPIETARIO_MUTATION = gql`
   ${PropietarioFragment}
 `;
 export const UPDATE_PROPIETARIO_MUTATION = gql`
-  mutation updatePropietarioById (
-              $id: Int!
+  mutation updatePropietarioByIdusuario (
+              $idusuario: Int!
               $tipoprop: String,
               $tipodoc: String,
               $numdoc: String!,
@@ -330,7 +333,7 @@ export const UPDATE_PROPIETARIO_MUTATION = gql`
               $telefono: String,
               $email: String
   ) {
-    updatePropietarioById (
+    updatePropietarioByIdusuario (
       input: {
         propietarioPatch: {
               tipoprop: $tipoprop,
@@ -341,7 +344,7 @@ export const UPDATE_PROPIETARIO_MUTATION = gql`
               telefono: $telefono,
               email: $email
         },
-        id: $id
+        idusuario: $idusuario
       }
     ) {
       propietario {
@@ -353,12 +356,12 @@ export const UPDATE_PROPIETARIO_MUTATION = gql`
 `;
 
 export const DELETE_PROPIETARIO_MUTATION = gql`
-    mutation deletePropietarioById (
-      $id: Int!
+    mutation deletePropietarioByIdusuario (
+      $idusuario: Int!
     ) {
-      deletePropietarioById (
+      deletePropietarioByIdusuario (
         input: {
-          id: $id
+          idusuario: $idusuario
         }
       ) {
         propietario {
@@ -368,88 +371,7 @@ export const DELETE_PROPIETARIO_MUTATION = gql`
     }
     ${PropietarioFragment}
 `;
-export const QUERY_ALL_USUARIOS = gql`
-  query Usuarios {
-      allUsuarios {
-        edges {
-          node {
-              email
-              nombre
-              password
-              numdoc
-          }
-        }
-      }
-    }
-  `;
 
-export const QUERY_USUARIO = gql`
-  query Usuario($idusuario: Int!) {
-    usuarioByIdusuario(idusuario: $idusuario) {
-      idusuario
-      email
-      password
-      nombre
-      numdoc
-    }
-  }
-`;
-
-
-export const CREATE_USUARIO_MUTATION = gql`  
-     mutation createUsuario (
-            $nombre: String!,
-            $email: String!,
-            $numdoc: String,
-            $password: String!, 
-            
-          
-  ) {
-      createUsuario (
-        input: {
-          usuario: {
-            nombre:$nombre,
-            email:$email,
-            numdoc: $numdoc,
-            password:$password, 
-            
-           
-          }
-        }
-      ) {
-        usuario{
-          ...UsuarioFragment
-        }
-      }
-    }
-    ${UsuarioFragment}
-  `;
-
-export const UPDATE_USUARIO_MUTATION = gql`
-mutation updateUsuarioById (
-            $id:Int!,
-            $nombre: String!,
-            $email: String!,
-            $numdoc: String,
-) {
-  updateUsuarioById (
-    input: {
-      usuarioPatch: {
-            nombre:$nombre,
-            email:$email,
-            numdoc: $numdoc,
-    
-      },
-      id:$id
-    }
-  ) {
-    usuario {
-      ...UsuarioFragment
-    }
-  }
-}
-${UsuarioFragment}
-`;
 
 
 
@@ -478,8 +400,4 @@ export const REFRESH_QUERY_CONSTRUCCIONES = {
     query: QUERY_ALL_CONSTRUCCIONES,
   }],
 };
-export const REFRESH_QUERY_USUARIOS = {
-  refetchQueries: [{
-    query: QUERY_ALL_USUARIOS,
-  }],
-};
+

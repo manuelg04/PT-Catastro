@@ -49,11 +49,15 @@ export default function Propietarios() {
     });
   };
   const onBorrarPropietario = (values:Propietario) => {
+    if (!values.idusuario) { // Comprueba si idusuario es nulo o indefinido
+      message.error('El ID del usuario no puede ser nulo o indefinido');
+      return;
+    }
     try {
       deletePropietario((
         {
           variables: {
-            id: values.id,
+            idusuario: values.idusuario,
           },
         }
       ));
@@ -67,6 +71,7 @@ export default function Propietarios() {
     (edge:Propietario) => (
       {
         id: edge.node.id,
+        idusuario: edge.node.idusuario,
         tipoprop: edge.node.tipoprop,
         image: edge.node.image ? <Image src={edge.node.image} width={100} /> : 'No hay Imagen',
         nombre: edge.node.nombre,
@@ -133,13 +138,13 @@ export default function Propietarios() {
 
     {
       title: 'id',
-      dataIndex: 'id',
-      key: 'id',
+      dataIndex: 'idusuario',
+      key: 'idusuario',
     },
     {
       title: 'Imagen',
-      dataIndex: 'image',
-      key: 'image',
+      dataIndex: 'imagen',
+      key: 'imagen',
     },
     {
       title: 'Nombre',
@@ -198,8 +203,7 @@ export default function Propietarios() {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
 
   return (
-    !isEmpty(context.llenarForm)
-    && (
+    (
     <>
       <BarraDeNav />
       <Button type="primary">
@@ -216,7 +220,7 @@ export default function Propietarios() {
         size="large"
       />
       {/* <Table columns={columns2} dataSource={dataFiltro} /> */}
-      ;
+      
       <Modal
         title="Editando propietario"
         cancelText="Cancelar"
@@ -330,5 +334,5 @@ export default function Propietarios() {
       </Modal>
     </>
     )
-  );
+  )
 }

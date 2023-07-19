@@ -7,8 +7,7 @@ import { useRouter } from 'next/router';
 import BarraDeNav from '../../menu';
 import 'antd/dist/antd.css';
 import styles from '../../../styles/menu.module.css';
-import { QUERY_USUARIO } from '../../../backend/graphql/mutaciones';
-import { Usuario } from './../../../tipos';
+import { Propietario } from './../../../tipos';
 import axios from 'axios';
 import { MAIN_URL, MY_TOKEN_NAME } from '../../../constantes';
 import { useDispatch } from 'react-redux';
@@ -20,7 +19,7 @@ export default function Login() {
   const [form] = Form.useForm();
   const dispatch = useDispatch(); // obtén dispatch
 ;
-  const onFinish = async (values: Usuario) => {
+  const onFinish = async (values: Propietario) => {
 
     try {
 

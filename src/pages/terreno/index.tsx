@@ -4,7 +4,7 @@ import {
 } from 'antd';
 import 'antd/dist/antd.css';
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 import Link from 'next/link';
 import {
   DELETE_TERRENO_MUTATION,
@@ -88,7 +88,7 @@ export default function Terrenos() {
       {
         id: edge.node.id,
         idpredio: edge.node.idpredio,
-        image: edge.node.image ? <Image src={edge.node.image} width={100} /> : 'No hay Imagen',
+        imagen: edge.node.image ? <Image src={edge.node.imagen} width={100} /> : 'No hay Imagen',
         area: edge.node.area,
         valorcomer: edge.node.valorcomer,
         tipoterre: edge.node.tipoterre,
@@ -166,9 +166,8 @@ export default function Terrenos() {
   ];
 
   return (
-    !isEmpty(context.llenarForm) 
     
-    && (
+     (
     <>
       <BarraDeNav />
       <Button type="primary">
