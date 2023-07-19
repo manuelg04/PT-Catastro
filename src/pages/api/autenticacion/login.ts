@@ -24,13 +24,20 @@ export default async function handler(req: NextApiRequest, res:NextApiResponse) 
             nombre
             numdoc
             email
+            tipoprop
+            tipodoc
+            telefono
+            direccion
             password
+
           }
         }
       }
     `,
     variables: { numdoc },
   });
+ 
+ 
   const user = data.allPropietarios.nodes[0];
   if (!user) {
     return res.status(401).json({ error: "Usuario no encontrado" });
@@ -59,7 +66,12 @@ export default async function handler(req: NextApiRequest, res:NextApiResponse) 
       return res.status(200).json({
         token,
         nombre: user.nombre,
-        numdoc: user.numdoc,
+        numdoc: user.numdoc, 
+        email: user.email,
+        tipoprop: user.tipoprop,
+        tipodoc: user.tipodoc,
+        telefono: user.telefono,
+        direccion: user.direccion,
         message: 'Inicio de sesión Exitoso',
       });
     }

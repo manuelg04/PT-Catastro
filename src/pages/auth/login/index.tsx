@@ -23,8 +23,8 @@ export default function Login() {
     try {
 
       const response = await axios.post(`${MAIN_URL}/api/autenticacion/login`, values)
-      const { nombre, numdoc } = response.data;
-      dispatch(setUser({ nombre, numdoc }));
+      const { nombre, numdoc, tipodoc, email, telefono, direccion, password, tipoprop } = response.data;
+      dispatch(setUser({ nombre, numdoc, tipodoc, email, telefono, direccion, password, tipoprop }));
       if(response.status === 200){
         router.push('/perfil') 
       }

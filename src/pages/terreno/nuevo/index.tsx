@@ -23,7 +23,7 @@ export default function Terrenos() {
   const { data } = useQuery(QUERY_ALL_PREDIOS);
   const router = useRouter();
   const [crearTerreno] = useMutation(CREATE_TERRENO_MUTATION);
-  const [loadData, { data: filterTerrenobyId }] = useLazyQuery(ALL_TERRENOS_BY_ID_PREDIO);
+  const [loadData] = useLazyQuery(ALL_TERRENOS_BY_ID_PREDIO);
   const [progressUpload, setProgressUpload] = useState<number>(0);
   const [imageFile, setImageFile] = useState<File>();
   const [downloadURL, setDownloadURL] = useState<string>('');
@@ -62,6 +62,7 @@ export default function Terrenos() {
     const idpredioInt = (values.idpredio);
     try {
       const TerrenoConPredioAsignado = await loadData({ variables: { idpredio: idpredioInt } });
+      // TerrenoConPredioAsignado.data.allTerrenos.edges
       const { data: { allTerrenos: { edges } } } = TerrenoConPredioAsignado;
       if(edges && edges.length > 0){
         message.error('El predio ya tiene un terreno asignado');

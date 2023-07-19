@@ -11,7 +11,7 @@ CREATE TABLE predios (
 
 CREATE TABLE terrenos (
 	id serial PRIMARY KEY NOT NULL,
-    idpredio INTEGER NOT NULL,
+    idpredio INTEGER NOT NULL UNIQUE,
 	area TEXT,
 	valorcomer TEXT,
     tipoterre TEXT,

@@ -30,30 +30,39 @@ const GET_USER_BY_NUMDOC = gql`
 `;
 
 export default function userPerfil() {
+  const [form] = Form.useForm();
   const [updateUsuario] = useMutation(UPDATE_PROPIETARIO_MUTATION, REFRESH_QUERY_PROPIETARIOS);
   const dispatch = useDispatch(); // obtén dispatch
   const numdoc2 = '123456'; // Valor del número de documento del usuario que inició sesión
   // Obtiene el numdoc del estado de Redux
-  const { nombre, numdoc } = useSelector((state: RootState) => state.user); // Obtén nombre y numdoc del estado de Redux
-  console.log('NuMdOC:', numdoc);
+  //const { nombre, numdoc, tipodoc, tipoprop, direccion, telefono, email, password } = useSelector((state: RootState) => state.user); // Obtén nombre y numdoc del estado de Redux
+  const usuario = useSelector((state: RootState) => state.user); // Obtén nombre y numdoc del estado de Redux
+  console.log("🚀 ~ usuario:", usuario)
+
 
     // Realiza la consulta para obtener los datos del usuario
-    const { loading, error, data } = useQuery(GET_USER_BY_NUMDOC, {
-      variables: { numdoc2 },
-    });
-  console.log('Respuesta de GraphQL:', data);
+  //   const { loading, error, data } = useQuery(GET_USER_BY_NUMDOC, {
+  //     variables: { numdoc },
+  //   });
+  // console.log('Respuesta de GraphQL:', data);
 
 
-  useEffect(() => {
-    // Cuando los datos estén disponibles y no haya errores, establece el usuario en el estado de Redux
-    if (!loading && !error && data) {
-      dispatch(setUser(data.usuario));  // Asegúrate de que `data.usuario` tiene la estructura correcta
-    }
-  }, [loading, error, data, dispatch]);
+  // useEffect(() => {
+  //   if (!loading && !error && data) {
+  //     const usuario = data.allPropietarios.edges[0]?.node;
+  //     if(usuario) {
+  //       form.setFieldsValue({
+  //         nombre: usuario.nombre,
+  //         numdoc: usuario.numdoc,
+  //         email: usuario.email,
+  //       });
+  //     }
+  //   }
+  // }, [loading, error, data, dispatch, form]);
+  
 
   const editUsuario = (values:Propietario) => {
-    const idUsuarioInt = parseInt((values.id || 1 ), 10);
-
+    const idUsuarioInt = (values.id);// revisar si al editar se va como entero
     try {
       updateUsuario((
         {
@@ -77,7 +86,7 @@ export default function userPerfil() {
     <>
       <BarraDeNav />
       <h1>
-        Bienvenido {nombre || 'Usuario Desconocido'} verifique sus datos si son correctos
+        Bienvenido {'nombre' || 'Usuario Desconocido'} verifique sus datos si son correctos
       </h1>
       <Form
         id="formulario"
