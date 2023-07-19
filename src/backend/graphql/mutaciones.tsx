@@ -1,5 +1,5 @@
 import { gql } from '@apollo/client';
-import { PredioFragment, ConstruccionFragment, TerrenoFragment, PropietarioFragment, UsuarioFragment } from './fragments';
+import { PredioFragment, ConstruccionFragment, TerrenoFragment, PropietarioFragment } from './fragments';
 
 export const QUERY_ALL_PREDIOS = gql`
    query Predios {
@@ -273,6 +273,21 @@ export const DELETE_TERRENO_MUTATION = gql`
     }
     ${TerrenoFragment}
 `;
+
+  export const ALL_TERRENOS_BY_ID_PREDIO = gql`
+    query AllTerrenosByIdPredio($idpredio: Int!) {
+      allTerrenos(condition: { idpredio: $idpredio }) {
+        edges {
+          node {
+            ...TerrenoFragment
+          }
+        }
+      }
+    }
+    ${TerrenoFragment}
+  `;
+
+
 export const QUERY_ALL_PROPIETARIOS = gql`
 query Propietarios {
     allPropietarios {

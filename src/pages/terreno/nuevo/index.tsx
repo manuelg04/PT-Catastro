@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from '@apollo/client';
+import { useLazyQuery, useMutation, useQuery } from '@apollo/client';
 import {
   Button, Form, Input, message, Select, Progress,
 } from 'antd';
@@ -9,7 +9,7 @@ import {
   useEffect, useState,
 } from 'react';
 import {
-  CREATE_TERRENO_MUTATION, QUERY_ALL_PREDIOS,
+  CREATE_TERRENO_MUTATION, QUERY_ALL_PREDIOS, ALL_TERRENOS_BY_ID_PREDIO
 } from '../../../backend/graphql/mutaciones';
 import Menu from '../../menu';
 import { Predio, Terreno } from '../../../src/tipos';
@@ -23,6 +23,7 @@ export default function Terrenos() {
   const { data } = useQuery(QUERY_ALL_PREDIOS);
   const router = useRouter();
   const [crearTerreno] = useMutation(CREATE_TERRENO_MUTATION);
+  const [loadData, { data: filterTerrenobyId }] = useLazyQuery(ALL_TERRENOS_BY_ID_PREDIO);
   const [progressUpload, setProgressUpload] = useState<number>(0);
   const [imageFile, setImageFile] = useState<File>();
   const [downloadURL, setDownloadURL] = useState<string>('');
@@ -57,26 +58,33 @@ export default function Terrenos() {
     }
   };
 
-  const onFinish = (values:Terreno) => {
+  const onFinish = async (values:Terreno) => {
     const idpredioInt = (values.idpredio);
     try {
-      crearTerreno((
-        {
-          variables: {
-            id: values.id,
-            idpredio: idpredioInt,
-            area: values.area,
-            valorcomer: values.valorcomer,
-            tipoterre: values.tipoterre,
-            consdentro: values.consdentro,
-            fuenagua: values.fuenagua,
-            imagen: values.imagen,
-          },
-        }
-      ));
-      message.success('registro creado correctamente');
+      const TerrenoConPredioAsignado = await loadData({ variables: { idpredio: idpredioInt } });
+      const { data: { allTerrenos: { edges } } } = TerrenoConPredioAsignado;
+      if(edges && edges.length > 0){
+        message.error('El predio ya tiene un terreno asignado');
+      }else{
+        crearTerreno((
+          {
+            variables: {
+              id: values.id,
+              idpredio: idpredioInt,
+              area: values.area,
+              valorcomer: values.valorcomer,
+              tipoterre: values.tipoterre,
+              consdentro: values.consdentro,
+              fuenagua: values.fuenagua,
+              imagen: values.imagen,
+            },
+          }
+        ));
+        message.success('registro creado correctamente');
+      }
+
     } catch (error) {
-      message.error('error al crear el registro , error');
+      message.error(`error al crear el registro: ${error}`);
     }
     router.push(`${MAIN_URL}/terreno`);
   };

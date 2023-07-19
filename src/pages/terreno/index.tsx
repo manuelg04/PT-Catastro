@@ -82,21 +82,21 @@ export default function Terrenos() {
     });
   };
 
-  const dataTabla = data?.allTerrenos.edges.map(
-    (edge:Terreno) => (
-      {
-        id: edge.node.id,
-        idpredio: edge.node.idpredio,
-        imagen: edge.node.imagen ? <Image src={edge.node.imagen} width={100} /> : 'No hay Imagen',
-        area: edge.node.area,
-        valorcomer: edge.node.valorcomer,
-        tipoterre: edge.node.tipoterre,
-        consdentro: edge.node.consdentro,
-        fuenagua: edge.node.fuenagua,
+  // const dataTabla = data?.allTerrenos.edges.map(
+  //   (edge:Terreno) => (
+  //     {
+  //       id: edge.node.id,
+  //       idpredio: edge.node.idpredio,
+  //       imagen: edge.node.imagen ? <Image src={edge.node.imagen} width={100} /> : 'No hay Imagen',
+  //       area: edge.node.area,
+  //       valorcomer: edge.node.valorcomer,
+  //       tipoterre: edge.node.tipoterre,
+  //       consdentro: edge.node.consdentro,
+  //       fuenagua: edge.node.fuenagua,
 
-      }
-    ),
-  );
+  //     }
+  //   ),
+  // );
   const columns = [
 
     {
@@ -172,11 +172,11 @@ export default function Terrenos() {
       <Button type="primary">
         <Link href="/terreno/nuevo"> Agregar nuevo terreno </Link>
       </Button>
-      <Table
+      {/* <Table
         dataSource={dataTabla}
         columns={columns}
         size="large"
-      />
+      /> */}
       <Modal
         title="Editando terreno"
         cancelText="Cancelar"
