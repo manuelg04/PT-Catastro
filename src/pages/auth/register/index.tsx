@@ -7,15 +7,20 @@ import Menu from '../../menu';
 import type { Propietario } from './../../../tipos';
 import axios from 'axios';
 import { MAIN_URL } from '../../../constantes';
+import { useRouter } from 'next/router';
 
 
 export default function Register() {
+  const router = useRouter();
+  const [form] = Form.useForm();
  
   const onFinish = async (values:Propietario) => {
     try {
     const response = await axios.post(`${MAIN_URL}/api/autenticacion/register` , values) 
     if(response.status === 201){
       message.success('Registro Creado Correctamente');
+      form.resetFields();
+      router.push('/auth/login');
     }
   } catch (error) {
     message.error(`error al crear registro, ${error}`);
@@ -31,6 +36,7 @@ console.log(`${MAIN_URL}/api/autenticacion/register`)
         labelCol={{ span: 8 }}
         wrapperCol={{ span: 16 }}
         onFinish={onFinish}
+        form={form}
       >
         <Form.Item
           label="Nombre"

@@ -15,11 +15,7 @@ const persistor = persistStore(store);
 
 export default function App({ Component, pageProps }: AppProps) {
   const [imageFile, setImageFile] = useState<File>();
-  const [UserContext, setUserContext] = useState();
-  const [mostrarLogin, setMostrarLogin] = useState(true);
-  const [userLog, setUserLog] = useState([]);
-  const [llenarForm, setLlenarForm] = useState([]);
-
+  
   const client = new ApolloClient({
     uri: GRAPH_URL,
     cache: new InMemoryCache(),
@@ -33,14 +29,6 @@ export default function App({ Component, pageProps }: AppProps) {
       value={{
         imageFile,
         setImageFile,
-        UserContext,
-        setUserContext,
-        mostrarLogin,
-        setMostrarLogin,
-        userLog,
-        setUserLog,
-        llenarForm,
-        setLlenarForm,
       }}
     >
       <ApolloProvider client={client}>

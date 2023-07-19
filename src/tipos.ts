@@ -40,7 +40,7 @@ export type Construccion = {
 }
 
 export type Terreno = {
-    image: any;
+    imagen: any;
     node?: any;
     id:number;
     idpredio:number;

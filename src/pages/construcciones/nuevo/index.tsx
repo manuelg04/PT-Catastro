@@ -12,6 +12,7 @@ import { CREATE_CONSTRUCION_MUTATION, QUERY_ALL_PREDIOS } from '../../../backend
 import Menu from '../../menu';
 import { Construccion, Predio } from '../../../src/tipos';
 import { storage } from '../../../backend/firebaseConfig';
+import { MAIN_URL } from '../../../constantes';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export default function Propietarios() {
@@ -66,7 +67,7 @@ export default function Propietarios() {
             areatotal: values.areatotal,
             tipocons: values.tipocons,
             direccion: values.direccion,
-            image: values.image,
+            imagen: values.imagen,
           },
         }
       ));
@@ -74,7 +75,7 @@ export default function Propietarios() {
     } catch (error) {
       message.error('error al crear el registro , error');
     }
-    router.push('${MAIN_URL}/construcciones');
+    router.push(`${MAIN_URL}/construcciones`);
   };
 
   useEffect(() => {

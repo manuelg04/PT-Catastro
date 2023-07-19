@@ -4,7 +4,7 @@ import { useMutation, useQuery } from '@apollo/client';
 import {
   Button, Form, Input, message, Modal, Table, Image,
 } from 'antd';
-import { useState, useContext, useEffect } from 'react';
+import { useState } from 'react';
 import 'antd/dist/antd.css';
 import { EditOutlined, DeleteOutlined, PlusCircleOutlined } from '@ant-design/icons';
 import Link from 'next/link';
@@ -21,7 +21,7 @@ import {
 import BarraDeNav from '../menu';
 import styles from '../../styles/menu.module.css';
 import { Predio, Construccion, Terreno } from '../../src/tipos';
-import AppContext from '../api/AppContext';
+
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export default function Predios() {
@@ -37,7 +37,7 @@ export default function Predios() {
   const [construccionActual, setConstruccionActual] = useState<Construccion[]>();
   const [terrenoActual, setTerrenoActual] = useState<Terreno[]>();
   const [modalForm] = Form.useForm();
-  const context = useContext(AppContext);
+  
 
   const dataTablaConstrucciones = dataConstrucciones?.allConstrucciones.edges.map(
     (edge:Construccion) => (
@@ -472,6 +472,7 @@ export default function Predios() {
         </Button>
 
         <Table
+          className={styles.tableMargin}
           dataSource={dataTabla}
           columns={columns}
           size="large"

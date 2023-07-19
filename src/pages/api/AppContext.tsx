@@ -1,8 +1,8 @@
 import React, { createContext, useState } from 'react';
 
 const AppContext = createContext({
-    userToken: null as string | null,  // Actualizado
-  setUserToken: (value: string | null) => {}, // valor inicial
+    userToken: null as string | null,  
+  setUserToken: (value: string | null) => {}, 
 });
 
 export const AppContextProvider = ({ children }) => {

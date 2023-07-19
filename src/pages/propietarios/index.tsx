@@ -5,7 +5,7 @@ import { useMutation, useQuery } from '@apollo/client';
 import {
   Button, Form, Input, message, Modal, Table, Space, Image,
 } from 'antd';
-import { useState, useRef, useContext, useEffect } from 'react';
+import { useState } from 'react';
 import 'antd/dist/antd.css';
 import {
   EditOutlined, DeleteOutlined, SearchOutlined,
@@ -19,7 +19,6 @@ import {
 } from '../../backend/graphql/mutaciones';
 import BarraDeNav from '../menu';
 import { Propietario } from '../../src/tipos';
-import AppContext from '../api/AppContext';
 import { isEmpty } from 'lodash';
 import router from 'next/router';
 
@@ -32,7 +31,7 @@ export default function Propietarios() {
   const [propietarioFilter, setPropietarioFilter] = useState();
   const [modalForm] = Form.useForm();
   const [buscar, setBuscar] = useState('');
-  const context = useContext(AppContext);
+ 
 
   const selectPropietario = (propietario:Propietario) => {
     setModalAbierto(true);
@@ -73,7 +72,7 @@ export default function Propietarios() {
         id: edge.node.id,
         idusuario: edge.node.idusuario,
         tipoprop: edge.node.tipoprop,
-        image: edge.node.image ? <Image src={edge.node.image} width={100} /> : 'No hay Imagen',
+        imagen: edge.node.imagen ? <Image src={edge.node.imagen} width={100} /> : 'No hay Imagen',
         nombre: edge.node.nombre,
         tipodoc: edge.node.tipodoc,
         numdoc: edge.node.numdoc,

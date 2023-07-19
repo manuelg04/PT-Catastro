@@ -5,7 +5,7 @@ import { useMutation, useQuery, gql } from '@apollo/client';
 import {
   Button, Form, Input, message,
 } from 'antd';
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import BarraDeNav from '../menu';
 import 'antd/dist/antd.css';
 import { UPDATE_PROPIETARIO_MUTATION, REFRESH_QUERY_PROPIETARIOS } from '../../backend/graphql/mutaciones';

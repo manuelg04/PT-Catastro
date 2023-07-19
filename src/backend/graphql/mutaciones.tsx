@@ -109,11 +109,11 @@ export const QUERY_ALL_CONSTRUCCIONES = gql`
 export const CREATE_CONSTRUCION_MUTATION = gql`  
     mutation createConstruccione (
                 $idpredio: Int!,
-                $numpisos: String,
+                $numpisos: String!,
                 $areatotal: String,
                 $tipocons: String,
                 $direccion: String,
-                $image: String,
+                $imagen: String,
     ) {
       createConstruccione (
       input: {
@@ -123,7 +123,7 @@ export const CREATE_CONSTRUCION_MUTATION = gql`
                 areatotal: $areatotal,
                 tipocons: $tipocons,
                 direccion: $direccion,
-                image: $image
+                imagen: $imagen
         }
       }
     ) {

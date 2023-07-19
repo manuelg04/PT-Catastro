@@ -10,8 +10,10 @@ import {
 } from 'react';
 import Menu from '../../menu';
 import { CREATE_PREDIO_MUTATION } from '../../../backend/graphql/mutaciones';
-import { Predio } from '../../../src/tipos';
+
 import { storage } from '../../../backend/firebaseConfig';
+import type { Predio } from '../../../tipos';
+import { MAIN_URL } from '../../../constantes';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export default function Predios() {
@@ -73,7 +75,7 @@ export default function Predios() {
     } catch (error) {
       message.error(`error al crear registro, ${error}`);
     }
-    router.push('${MAIN_URL}/predios');
+    router.push(`${MAIN_URL}/predios`);
   };
 
   useEffect(() => {
@@ -90,7 +92,7 @@ export default function Predios() {
   return (
     <>
       <Menu />
-      <h1>Esta es la pagina para Crear predios</h1>
+      <h1>Sección Creación de predios</h1>
       <Form
         name="basic"
         form={formu}

@@ -1,6 +1,5 @@
 import { useQuery, useApolloClient } from '@apollo/client';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
-import { useContext, useEffect } from 'react';
 import { Button, Checkbox, Form, Input, message } from 'antd';
 import Link from 'next/link';
 import { useRouter } from 'next/router';

@@ -4,7 +4,7 @@ import {
 } from 'antd';
 import 'antd/dist/antd.css';
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import Link from 'next/link';
 import {
   DELETE_TERRENO_MUTATION,
@@ -15,7 +15,6 @@ import {
 } from '../../backend/graphql/mutaciones';
 import BarraDeNav from '../menu';
 import { Predio, Terreno } from '../../src/tipos';
-import AppContext from '../api/AppContext';
 import { isEmpty } from 'lodash';
 import router from 'next/router';
 
@@ -29,7 +28,7 @@ export default function Terrenos() {
   const [deleteTerreno] = useMutation(DELETE_TERRENO_MUTATION, REFRESH_QUERY_TERRENOS);
   const [ModalAbierto, setModalAbierto] = useState(false);
   const [modalForm] = Form.useForm();
-  const context = useContext(AppContext);
+ 
   const handleCancel = () => {
     setModalAbierto(false);
   };
@@ -88,7 +87,7 @@ export default function Terrenos() {
       {
         id: edge.node.id,
         idpredio: edge.node.idpredio,
-        imagen: edge.node.image ? <Image src={edge.node.imagen} width={100} /> : 'No hay Imagen',
+        imagen: edge.node.imagen ? <Image src={edge.node.imagen} width={100} /> : 'No hay Imagen',
         area: edge.node.area,
         valorcomer: edge.node.valorcomer,
         tipoterre: edge.node.tipoterre,
@@ -112,8 +111,8 @@ export default function Terrenos() {
     },
     {
       title: 'Imagen',
-      dataIndex: 'image',
-      key: 'image',
+      dataIndex: 'imagen',
+      key: 'imagen',
     },
     {
       title: 'Area del terreno',

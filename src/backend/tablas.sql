@@ -27,6 +27,7 @@ CREATE TABLE construcciones (
 	numpisos TEXT NOT NULL,
 	areatotal TEXT,
 	tipocons TEXT,
+	imagen TEXT,
     direccion TEXT,
 	created_on TIMESTAMP 
 );

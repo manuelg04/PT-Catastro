@@ -2,7 +2,7 @@ import { useMutation, useQuery } from '@apollo/client';
 import {
   Button, Form, Input, message, Modal, Select, Table, Image,
 } from 'antd';
-import { useContext, useEffect, useState } from 'react';
+import {  useState } from 'react';
 import 'antd/dist/antd.css';
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import Link from 'next/link';
@@ -17,7 +17,7 @@ import {
 } from '../../backend/graphql/mutaciones';
 import BarraDeNav from '../menu';
 import { Construccion, Predio } from '../../src/tipos';
-import AppContext from '../api/AppContext';
+
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export default function Predios() {
@@ -35,7 +35,7 @@ export default function Predios() {
   );
   const [ModalAbierto, setModalAbierto] = useState(false);
   const [modalForm] = Form.useForm();
-  const context = useContext(AppContext);
+  
 
   const handleCancel = () => {
     setModalAbierto(false);
@@ -93,7 +93,7 @@ export default function Predios() {
       {
         id: edge.node.id,
         idpredio: edge.node.idpredio,
-        image: edge.node.image ? <Image src={edge.node.image} width={100} /> : 'No hay Imagen',
+        imagen: edge.node.imagen ? <Image src={edge.node.imagen} width={100} /> : 'No hay Imagen',
         numpisos: edge.node.numpisos,
         areatotal: edge.node.areatotal,
         tipocons: edge.node.tipocons,
@@ -117,8 +117,8 @@ export default function Predios() {
     },
     {
       title: 'Imagen',
-      dataIndex: 'image',
-      key: 'image',
+      dataIndex: 'imagen',
+      key: 'imagen',
     },
     {
       title: 'Numero de pisos',
@@ -166,9 +166,7 @@ export default function Predios() {
   ];
 
   return (
-    !isEmpty(context.llenarForm)
-
-    && (
+    (
       <>
         <BarraDeNav />
         <Button type="primary">

@@ -23,7 +23,7 @@ export const ConstruccionFragment = gql`
             areatotal
             tipocons
             direccion
-            image
+            imagen
   
      }
 `;
