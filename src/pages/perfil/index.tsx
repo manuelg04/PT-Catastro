@@ -3,7 +3,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { useMutation, useQuery, gql } from '@apollo/client';
 import {
-  Button, Form, Input, message,
+  Button, Form, Input, Select, message,
 } from 'antd';
 import { useEffect, useState } from 'react';
 import BarraDeNav from '../menu';
@@ -13,6 +13,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../redux/store';
 import { setUser } from '../redux/userSlice';
 import { Propietario } from '../../tipos';
+import styles from '../../styles/formStyle.module.css';
 
 
 const GET_USER_BY_NUMDOC = gql`
@@ -34,6 +35,7 @@ export default function userPerfil() {
   const [updateUsuario] = useMutation(UPDATE_PROPIETARIO_MUTATION, REFRESH_QUERY_PROPIETARIOS);
   const dispatch = useDispatch(); // obtén dispatch
   const numdoc2 = '123456'; // Valor del número de documento del usuario que inició sesión
+  const { Option } = Select;
   // Obtiene el numdoc del estado de Redux
   //const { nombre, numdoc, tipodoc, tipoprop, direccion, telefono, email, password } = useSelector((state: RootState) => state.user); // Obtén nombre y numdoc del estado de Redux
   const usuario = useSelector((state: RootState) => state.user); // Obtén nombre y numdoc del estado de Redux
@@ -85,11 +87,11 @@ export default function userPerfil() {
   };
 
   return (
-    (
     <>
       <BarraDeNav />
       <h1>
-        Bienvenido { nombre || 'Usuario Desconocido'} verifique sus datos si son correctos
+        Bienvenido {nombre || "Usuario Desconocido"} verifique sus datos si son
+        correctos
       </h1>
       <Form
         id="formulario"
@@ -97,12 +99,9 @@ export default function userPerfil() {
         wrapperCol={{ span: 16 }}
         onFinish={editUsuario}
         form={form}
-
+        className={styles.form}
       >
-        <Form.Item
-          label="id del usuario"
-          name="idusuario"
-        >
+        <Form.Item label="id del usuario" name="idusuario">
           <Input disabled />
         </Form.Item>
         <Form.Item
@@ -111,24 +110,27 @@ export default function userPerfil() {
           rules={[
             {
               required: true,
-              message: 'Ingresa el tipo de propietario',
+              message: "Ingresa el tipo de propietario",
             },
           ]}
         >
           <Input />
         </Form.Item>
-        
+
         <Form.Item
           label="Tipo de Documento"
           name="tipodoc"
           rules={[
             {
               required: true,
-              message: 'Ingresa el tipo de documento',
+              message: "Ingresa el tipo de documento",
             },
           ]}
         >
-          <Input />
+          <Select placeholder="Selecciona el tipo de documento">
+            <Option value="Cedula">Cédula</Option>
+            <Option value="NIT">NIT</Option>
+          </Select>
         </Form.Item>
 
         <Form.Item
@@ -137,46 +139,32 @@ export default function userPerfil() {
           rules={[
             {
               required: true,
-              message: 'Ingresa tu dirección',
+              message: "Ingresa tu dirección",
             },
           ]}
         >
           <Input />
         </Form.Item>
-        
+
         <Form.Item
           label="Teléfono"
           name="telefono"
           rules={[
             {
               required: true,
-              message: 'Ingresa tu número de teléfono',
+              message: "Ingresa tu número de teléfono",
             },
           ]}
         >
           <Input />
         </Form.Item>
-        
         <Form.Item
-          label="Contraseña"
-          name="password"
-          rules={[
-            {
-              required: true,
-              message: 'Ingresa tu contraseña',
-            },
-          ]}
-        >
-          <Input.Password />
-        </Form.Item>
-
-        <Form.Item
-          label="Nombre"
+          label="Nombre/Razon Social"
           name="nombre"
           rules={[
             {
               required: true,
-              message: 'Ingresa tu nombre',
+              message: "Ingresa tu nombre",
             },
           ]}
         >
@@ -188,7 +176,7 @@ export default function userPerfil() {
           rules={[
             {
               required: true,
-              message: 'Ingresa tu correo',
+              message: "Ingresa tu correo",
             },
           ]}
         >
@@ -200,11 +188,11 @@ export default function userPerfil() {
           rules={[
             {
               required: true,
-              message: 'Ingresa el numero predial',
+              message: "Ingresa tu número de documento",
             },
           ]}
         >
-          <Input />
+          <Input disabled />
         </Form.Item>
         <Form.Item
           wrapperCol={{
@@ -217,8 +205,6 @@ export default function userPerfil() {
           </Button>
         </Form.Item>
       </Form>
-
     </>
-    )
   );
 }

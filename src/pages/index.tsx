@@ -1,5 +1,6 @@
 import { Button, Typography } from 'antd';
 import { useRouter } from 'next/router';
+import 'antd/dist/antd.css';
 import styles from '../styles/background.module.css';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types

@@ -95,9 +95,6 @@ export default function Predios() {
       <Menu />
       <Row justify="center" className={styles.formContainer}>
         <Col xs={24} sm={22} md={20} lg={16} xl={14}>
-        <Typography.Title level={2} className={styles.formTitle}>
-            Sección Creación de predios
-          </Typography.Title>
       <Form
         name="basic"
         form={formu}
@@ -107,7 +104,11 @@ export default function Predios() {
         wrapperCol={{ span: 24 }}
         className={styles.form}
       >
-
+       <center>
+       <Typography.Title level={2} className={styles.formTitle}>
+            Sección Creación de predios
+          </Typography.Title>
+       </center>
         <Form.Item
           label="Numero Predial"
           name="numpre"

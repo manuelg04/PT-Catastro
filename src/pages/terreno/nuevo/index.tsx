@@ -161,7 +161,7 @@ export default function Terrenos() {
     },
   ]}
 >
-  <Select placeholder="Selecciona un tipo de terreno">
+  <Select placeholder="Selecciona una opción">
     <Option value="rural">Rural</Option>
     <Option value="urbano">Urbano</Option>
   </Select>
@@ -177,7 +177,7 @@ export default function Terrenos() {
     },
   ]}
 >
-  <Select placeholder="¿Tiene construcciones?">
+  <Select placeholder="Selecciona una opción">
     <Option value="si">Si</Option>
     <Option value="no">No</Option>
   </Select>

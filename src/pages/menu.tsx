@@ -20,7 +20,6 @@ export default function BarraDeNav() {
   const handleCerrarSesion = async () => {
     
     const response = await axios.post(`${MAIN_URL}/api/autenticacion/logout`)
-    console.log("🚀 ~ response:", response)
     dispatch(setUser({
       nombre: '',
       numdoc: '',
@@ -82,6 +81,9 @@ export default function BarraDeNav() {
           </Link>
         </Menu.Item>
       </Menu>
+      <br />
+      <br />
+      <br />
     </>
   );
 }

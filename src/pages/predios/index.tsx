@@ -410,7 +410,7 @@ export default function Predios() {
 
           <Modal
 
-            title="Aqui se mostraria la tabla de terrenos"
+            title="Terrenos asociados al predio"
             open={isModalOpen2}
             onOk={handleOk2}
             onCancel={handleCancel3}
@@ -436,7 +436,7 @@ export default function Predios() {
 
           <Modal
 
-            title="Aqui se mostraria la tabla de construcciones"
+            title="Construcciones asociadas al predio"
             open={isModalOpen}
             onOk={handleOk}
             onCancel={handleCancel2}
