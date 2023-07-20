@@ -2,12 +2,13 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import Link from 'next/link';
 import { Button, Menu } from 'antd';
-import { EyeTwoTone, UserOutlined } from '@ant-design/icons';
+import { BuildOutlined, EyeTwoTone, HomeOutlined, LogoutOutlined, ProfileOutlined, UnorderedListOutlined, UserOutlined, UsergroupAddOutlined } from '@ant-design/icons';
 import { useRouter } from 'next/router';
 import { MAIN_URL } from '../constantes';
 import axios from 'axios';
 import { setUser } from './redux/userSlice';
 import { useDispatch, useSelector } from 'react-redux';
+import styles from '../styles/navBar.module.css';
 
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
@@ -23,6 +24,13 @@ export default function BarraDeNav() {
     dispatch(setUser({
       nombre: '',
       numdoc: '',
+      email: '',
+      password: '',
+      tipoprop: '',
+      tipodoc: '',
+      telefono: '',
+      direccion: '',
+      idusuario: ''
     }))
    
     router.push('/auth/login');
@@ -40,7 +48,7 @@ export default function BarraDeNav() {
         ) : (
           <Menu.Item key="logout">
             <Button
-              icon={<UserOutlined />}
+              icon={<LogoutOutlined />}
               className="link"
               onClick={() => handleCerrarSesion()}
             >
@@ -48,27 +56,27 @@ export default function BarraDeNav() {
             </Button>
           </Menu.Item>
         )}
-        <Menu.Item key="predios" icon={<EyeTwoTone />}>
+        <Menu.Item key="predios" icon={<HomeOutlined />}>
           <Link className="link" href="/predios">
             Predios
           </Link>
         </Menu.Item>
-        <Menu.Item key="terrenos" icon={<EyeTwoTone />}>
+        <Menu.Item key="terrenos" icon={<UnorderedListOutlined />}>
           <Link className="link" href="/terreno">
             Terrenos
           </Link>
         </Menu.Item>
-        <Menu.Item key="propietarios" icon={<EyeTwoTone />}>
+        <Menu.Item key="propietarios" icon={<UsergroupAddOutlined/>}>
           <Link className="link" href="/propietarios">
             Propietarios
           </Link>
         </Menu.Item>
-        <Menu.Item key="construcciones" icon={<EyeTwoTone />}>
+        <Menu.Item key="construcciones" icon={<BuildOutlined />}>
           <Link className="link" href="/construcciones">
             Construcciones
           </Link>
         </Menu.Item>
-        <Menu.Item key="perfil" icon={<EyeTwoTone />}>
+        <Menu.Item key="perfil" icon={<ProfileOutlined />}>
           <Link className="link" href="/perfil">
             Perfil
           </Link>

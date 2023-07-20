@@ -1,0 +1,15 @@
+.container {
+    background-image: url('/bucaramanga.jpg');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    text-align: center;
+    color: black;
+    padding-top: 50px; /* Este valor puede ajustarse según tus necesidades */
+  }
+  

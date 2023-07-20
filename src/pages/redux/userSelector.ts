@@ -9,6 +9,7 @@ export const selectUserTipoprop = (state: RootState) => state.user.tipoprop;
 export const selectUserTipodoc = (state: RootState) => state.user.tipodoc;
 export const selectUserTelefono = (state: RootState) => state.user.telefono;
 export const selectUserDireccion = (state: RootState) => state.user.direccion;
+export const selectUserIdusuario = (state: RootState) => state.user.idusuario;
 
 
 export const a = '';

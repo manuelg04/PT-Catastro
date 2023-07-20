@@ -65,6 +65,7 @@ export default async function handler(req: NextApiRequest, res:NextApiResponse) 
       // return res.json('login sucessfully');
       return res.status(200).json({
         token,
+        idusuario: user.idusuario,
         nombre: user.nombre,
         numdoc: user.numdoc, 
         email: user.email,

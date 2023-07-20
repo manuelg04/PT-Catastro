@@ -1,0 +1,18 @@
+.ant-menu-dark.ant-menu-horizontal .ant-menu-item {
+    border-bottom: none;
+  }
+  
+  .ant-menu-item > a {
+    color: #ffffff;
+  }
+  
+  .ant-menu-item:hover > a,
+  .ant-menu-item-selected > a,
+  .ant-menu-item-selected:hover > a {
+    color: #1890ff;
+  }
+  
+  .ant-menu-horizontal:not(.ant-menu-dark) .ant-menu-item-selected {
+    border-bottom: 2px solid #1890ff;
+  }
+  

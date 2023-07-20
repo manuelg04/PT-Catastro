@@ -18,5 +18,5 @@ export function middleware(req: NextRequest) {
   }
 }
 export const config = {
-  matcher: ['/perfil/:path*'],
+  matcher: ['/perfil/:path*','/predios/:path*', '/terreno/:path*', '/propietarios/:path*', '/construcciones/:path*'],
 };

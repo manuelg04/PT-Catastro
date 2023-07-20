@@ -9,6 +9,7 @@ type  UserState = {
   tipodoc: string;
   telefono: string;
   direccion: string;
+  idusuario: string;
 }
 
 const initialState: UserState = {
@@ -20,6 +21,7 @@ const initialState: UserState = {
   tipodoc: '',
   telefono: '',
   direccion: '',
+  idusuario: '',
 };
 
 const userSlice = createSlice({
@@ -36,7 +38,8 @@ const userSlice = createSlice({
         state.tipodoc = action.payload.tipodoc;
         state.telefono = action.payload.telefono;
         state.direccion = action.payload.direccion;
-        
+        state.idusuario = action.payload.idusuario;
+
       }
     },
     clearUser: (state) => {

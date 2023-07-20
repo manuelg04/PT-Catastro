@@ -1,6 +1,6 @@
 import { useQuery, useApolloClient } from '@apollo/client';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
-import { Button, Checkbox, Form, Input, message } from 'antd';
+import { Button, Checkbox, Form, Input, Typography, message } from 'antd';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import BarraDeNav from '../../menu';
@@ -23,8 +23,8 @@ export default function Login() {
     try {
 
       const response = await axios.post(`${MAIN_URL}/api/autenticacion/login`, values)
-      const { nombre, numdoc, tipodoc, email, telefono, direccion, password, tipoprop } = response.data;
-      dispatch(setUser({ nombre, numdoc, tipodoc, email, telefono, direccion, password, tipoprop }));
+      const { nombre, numdoc, tipodoc, email, telefono, direccion, password, tipoprop, idusuario } = response.data;
+      dispatch(setUser({ nombre, numdoc, tipodoc, email, telefono, direccion, password, tipoprop, idusuario }));
       if(response.status === 200){
         router.push('/perfil') 
       }
@@ -36,7 +36,12 @@ export default function Login() {
   return (
     <>
       <BarraDeNav />
-      <h1 className={styles.login}>Iniciar Sesión</h1>
+      <Typography.Title level={1} style={{textAlign: 'center'}}>
+        Iniciar Sesión
+      </Typography.Title>
+      <Typography.Text type="warning" style={{textAlign: 'center', display: 'block', fontSize: '20px'}}>
+        Atención: tienes que iniciar sesión para poder visualizar tus predios, terrenos, construcciones y propietarios
+      </Typography.Text>
 
       <Form
         name="normal_login"

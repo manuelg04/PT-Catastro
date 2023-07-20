@@ -38,39 +38,42 @@ export default function userPerfil() {
   //const { nombre, numdoc, tipodoc, tipoprop, direccion, telefono, email, password } = useSelector((state: RootState) => state.user); // Obtén nombre y numdoc del estado de Redux
   const usuario = useSelector((state: RootState) => state.user); // Obtén nombre y numdoc del estado de Redux
   console.log("🚀 ~ usuario:", usuario)
+  const {
+    nombre, numdoc, tipodoc, tipoprop, direccion, telefono, email, password, idusuario
+  } = useSelector((state: RootState) => state.user);
+    const { data } = useQuery(GET_USER_BY_NUMDOC, {
+      variables: { numdoc },
+    });
 
-
-    // Realiza la consulta para obtener los datos del usuario
-  //   const { loading, error, data } = useQuery(GET_USER_BY_NUMDOC, {
-  //     variables: { numdoc },
-  //   });
-  // console.log('Respuesta de GraphQL:', data);
-
-
-  // useEffect(() => {
-  //   if (!loading && !error && data) {
-  //     const usuario = data.allPropietarios.edges[0]?.node;
-  //     if(usuario) {
-  //       form.setFieldsValue({
-  //         nombre: usuario.nombre,
-  //         numdoc: usuario.numdoc,
-  //         email: usuario.email,
-  //       });
-  //     }
-  //   }
-  // }, [loading, error, data, dispatch, form]);
-  
+  useEffect(() => {
+    form.setFieldsValue({
+      idusuario,
+      nombre,
+      numdoc,
+      tipodoc,
+      tipoprop,
+      direccion,
+      telefono,
+      email,
+      password,
+    });
+  }, [usuario]);
 
   const editUsuario = (values:Propietario) => {
-    const idUsuarioInt = (values.id);// revisar si al editar se va como entero
+    const idUsuarioInt = (values.idusuario, 10);// revisar si al editar se va como entero
     try {
       updateUsuario((
         {
           variables: {
-            id: idUsuarioInt,
+            idusuario: idUsuarioInt,
             nombre: values.nombre,
             email: values.email,
             numdoc: values.numdoc,
+            tipodoc: values.tipodoc,
+            tipoprop: values.tipoprop,
+            direccion: values.direccion,
+            telefono: values.telefono,
+            password: values.password,
           },
 
         }
@@ -86,20 +89,85 @@ export default function userPerfil() {
     <>
       <BarraDeNav />
       <h1>
-        Bienvenido {'nombre' || 'Usuario Desconocido'} verifique sus datos si son correctos
+        Bienvenido { nombre || 'Usuario Desconocido'} verifique sus datos si son correctos
       </h1>
       <Form
         id="formulario"
         labelCol={{ span: 8 }}
         wrapperCol={{ span: 16 }}
         onFinish={editUsuario}
+        form={form}
 
       >
         <Form.Item
           label="id del usuario"
-          name="id"
+          name="idusuario"
         >
           <Input disabled />
+        </Form.Item>
+        <Form.Item
+          label="Tipo de Propietario"
+          name="tipoprop"
+          rules={[
+            {
+              required: true,
+              message: 'Ingresa el tipo de propietario',
+            },
+          ]}
+        >
+          <Input />
+        </Form.Item>
+        
+        <Form.Item
+          label="Tipo de Documento"
+          name="tipodoc"
+          rules={[
+            {
+              required: true,
+              message: 'Ingresa el tipo de documento',
+            },
+          ]}
+        >
+          <Input />
+        </Form.Item>
+
+        <Form.Item
+          label="Dirección"
+          name="direccion"
+          rules={[
+            {
+              required: true,
+              message: 'Ingresa tu dirección',
+            },
+          ]}
+        >
+          <Input />
+        </Form.Item>
+        
+        <Form.Item
+          label="Teléfono"
+          name="telefono"
+          rules={[
+            {
+              required: true,
+              message: 'Ingresa tu número de teléfono',
+            },
+          ]}
+        >
+          <Input />
+        </Form.Item>
+        
+        <Form.Item
+          label="Contraseña"
+          name="password"
+          rules={[
+            {
+              required: true,
+              message: 'Ingresa tu contraseña',
+            },
+          ]}
+        >
+          <Input.Password />
         </Form.Item>
 
         <Form.Item

@@ -52,6 +52,7 @@ export type Terreno = {
 }
 
 export type Propietario = {
+    idusuario: number;
     node?: any;
     id?:number;
     tipoprop?:string;

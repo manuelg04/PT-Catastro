@@ -122,7 +122,7 @@ export default function Terrenos() {
 
                           data?.allPredios.edges.map((edge:Predio) => (
                             // eslint-disable-next-line react/jsx-key, react/no-children-prop
-                            <Option value={edge.node.idpredio} children={undefined} />
+                            <Option value={edge.node.idpredio}>{edge.node.idpredio}</Option>
                           ))
                         }
           </Select>
@@ -152,41 +152,53 @@ export default function Terrenos() {
           <Input />
         </Form.Item>
         <Form.Item
-          label="Tipo de terreno"
-          name="tipoterre"
-          rules={[
-            {
-              required: true,
-              message: 'Ingresa el tipo de terreno',
-            },
-          ]}
-        >
-          <Input />
-        </Form.Item>
-        <Form.Item
-          label="¿Tiene construcciones?"
-          name="consdentro"
-          rules={[
-            {
-              required: true,
-              message: 'Ingresa si tiene construcciones dentro de el',
-            },
-          ]}
-        >
-          <Input />
-        </Form.Item>
-        <Form.Item
-          label="¿Tiene fuentes de agua?"
-          name="fuenagua"
-          rules={[
-            {
-              required: true,
-              message: 'Ingresa si tiene fuentes de agua  dentro de el',
-            },
-          ]}
-        >
-          <Input />
-        </Form.Item>
+  label="Tipo de terreno"
+  name="tipoterre"
+  rules={[
+    {
+      required: true,
+      message: 'Selecciona el tipo de terreno',
+    },
+  ]}
+>
+  <Select placeholder="Selecciona un tipo de terreno">
+    <Option value="rural">Rural</Option>
+    <Option value="urbano">Urbano</Option>
+  </Select>
+</Form.Item>
+
+<Form.Item
+  label="¿Tiene construcciones?"
+  name="consdentro"
+  rules={[
+    {
+      required: true,
+      message: 'Selecciona si tiene construcciones dentro de el',
+    },
+  ]}
+>
+  <Select placeholder="¿Tiene construcciones?">
+    <Option value="si">Si</Option>
+    <Option value="no">No</Option>
+  </Select>
+</Form.Item>
+
+<Form.Item
+  label="¿Tiene fuentes de agua?"
+  name="fuenagua"
+  rules={[
+    {
+      required: true,
+      message: 'Selecciona si tiene fuentes de agua  dentro de el',
+    },
+  ]}
+>
+  <Select placeholder="¿Tiene fuentes de agua?">
+    <Option value="si">Si</Option>
+    <Option value="no">No</Option>
+  </Select>
+</Form.Item>
+
         <Form.Item
           label="Foto del terreno"
           name="imagen"

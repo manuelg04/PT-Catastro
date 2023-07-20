@@ -1,6 +1,6 @@
 import { useMutation } from '@apollo/client';
 import {
-  Button, Form, Input, message,Progress,
+  Button, Col, Form, Input, message,Progress, Row, Typography,
 } from 'antd';
 import 'antd/dist/antd.css';
 import { useRouter } from 'next/router';
@@ -14,6 +14,7 @@ import { CREATE_PREDIO_MUTATION } from '../../../backend/graphql/mutaciones';
 import { storage } from '../../../backend/firebaseConfig';
 import type { Predio } from '../../../tipos';
 import { MAIN_URL } from '../../../constantes';
+import styles from '../../../styles/crearNuevoPredio.module.css';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export default function Predios() {
@@ -92,14 +93,19 @@ export default function Predios() {
   return (
     <>
       <Menu />
-      <h1>Sección Creación de predios</h1>
+      <Row justify="center" className={styles.formContainer}>
+        <Col xs={24} sm={22} md={20} lg={16} xl={14}>
+        <Typography.Title level={2} className={styles.formTitle}>
+            Sección Creación de predios
+          </Typography.Title>
       <Form
         name="basic"
         form={formu}
         id="formulario"
-        labelCol={{ span: 8 }}
-        wrapperCol={{ span: 16 }}
         onFinish={onFinish}
+        labelCol={{ span: 8 }}
+        wrapperCol={{ span: 24 }}
+        className={styles.form}
       >
 
         <Form.Item
@@ -198,11 +204,13 @@ export default function Predios() {
             span: 16,
           }}
         >
-          <Button type="primary" htmlType="submit">
+           <Button type="primary" htmlType="submit" className={styles.formButton}>
             Guardar
           </Button>
         </Form.Item>
       </Form>
+      </Col>
+      </Row>
     </>
   );
 }
