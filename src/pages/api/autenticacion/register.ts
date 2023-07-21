@@ -4,10 +4,8 @@ import { ApolloClient, InMemoryCache, gql } from "@apollo/client";
 import { GRAPH_URL } from '../../../constantes';
 import nodemailer from 'nodemailer';
 
-
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  const { nombre, numdoc, email, password, tipodoc, tipoprop, telefono, direccion } = req.body;
- 
+  const { nombre, numdoc, email, password, tipodoc, tipoprop, telefono, direccion } = req.body; 
 
   const client = new ApolloClient({
     uri: GRAPH_URL, 
@@ -74,12 +72,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   }
 }
 
-
 async function sendWelcomeEmail(email: string, name: string) {
   let transporter = nodemailer.createTransport({
     host: 'smtp.hostinger.com',
     port: 465,
-    secure: true, // true for 465, false for other ports
+    secure: true, 
     auth: {
       user: 'catastrotester@transportesmtm.com', // Tu correo de gmail
       pass: 'Leweku123@', // Tu contraseña de gmail

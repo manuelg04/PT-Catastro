@@ -1,8 +1,6 @@
-/* eslint-disable consistent-return */
 import { serialize } from 'cookie';
 import { MY_TOKEN_NAME } from '../../../constantes';
 import { NextApiRequest, NextApiResponse } from 'next';
-
 
 export default function logout(req:NextApiRequest, res:NextApiResponse) {
   const { token } = req.cookies;
@@ -23,8 +21,6 @@ export default function logout(req:NextApiRequest, res:NextApiResponse) {
       res.status(200).json({ message: 'Cierre de sesión exitoso' });
     
  } catch (error) {
-    return res.status(401).json({ error: 'Fallo al cerrar sesión' });
-    
+    return res.status(401).json({ error: 'Fallo al cerrar sesión' });    
  }
-
 }

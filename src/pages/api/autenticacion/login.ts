@@ -6,7 +6,6 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { serialize } from 'cookie';
 
 export default async function handler(req: NextApiRequest, res:NextApiResponse) {
-  //console.log("hola backend");
   const { numdoc, password } = req.body;
 
   const client = new ApolloClient({
@@ -29,7 +28,6 @@ export default async function handler(req: NextApiRequest, res:NextApiResponse) 
             telefono
             direccion
             password
-
           }
         }
       }
@@ -62,7 +60,6 @@ export default async function handler(req: NextApiRequest, res:NextApiResponse) 
       });
   
       res.setHeader('Set-Cookie', serializedToken);
-      // return res.json('login sucessfully');
       return res.status(200).json({
         token,
         idusuario: user.idusuario,
@@ -78,10 +75,8 @@ export default async function handler(req: NextApiRequest, res:NextApiResponse) 
     }
   
     return res.status(401).json({ error: 'Usuario o clave incorrectos' });
-
   }
     catch (error) {
         return res.status(500).json({ message: 'Error al iniciar sesión' });
         }
-
 }

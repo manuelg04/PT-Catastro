@@ -1,14 +1,14 @@
-import { useQuery, useApolloClient } from "@apollo/client";
+import { useApolloClient } from "@apollo/client";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
-import { Button, Checkbox, Form, Input, Typography, message } from "antd";
+import { Button, Form, Input, Typography, message } from "antd";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import BarraDeNav from "../../menu";
 import "antd/dist/antd.css";
-import styles from "../../../styles/homeLogin.module.css";
+// import styles from "../../../styles/homeLogin.module.css";
 import { Propietario } from "./../../../tipos";
 import axios from "axios";
-import { MAIN_URL, MY_TOKEN_NAME } from "../../../constantes";
+import { MAIN_URL } from "../../../constantes";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../redux/userSlice";
 

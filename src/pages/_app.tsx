@@ -3,7 +3,7 @@ import type { AppProps } from 'next/app';
 import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
 import { Col, Row } from 'antd';
 import { useState } from 'react';
-import AppContext from './api/AppContext';
+import AppContext from '../AppContext';
 import { Provider } from 'react-redux';
 import { persistStore } from 'redux-persist';
 import { PersistGate } from 'redux-persist/integration/react';

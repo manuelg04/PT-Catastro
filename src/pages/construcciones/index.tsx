@@ -6,8 +6,6 @@ import {  useState } from 'react';
 import 'antd/dist/antd.css';
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import Link from 'next/link';
-import { isEmpty } from 'lodash';
-import router from 'next/router';
 import {
   DELETE_CONSTRUCCION_MUTATION,
   QUERY_ALL_CONSTRUCCIONES,
@@ -16,12 +14,9 @@ import {
   UPDATE_CONSTRUCCION_MUTATION,
 } from '../../backend/graphql/mutaciones';
 import BarraDeNav from '../menu';
-import { Construccion, Predio } from '../../src/tipos';
+import type { Construccion, Predio } from '../../tipos';
 
-
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export default function Predios() {
-  // logica
   const { Option } = Select;
   const { data } = useQuery(QUERY_ALL_CONSTRUCCIONES);
   const { data: dataPredios } = useQuery(QUERY_ALL_PREDIOS);
@@ -37,11 +32,6 @@ export default function Predios() {
   const [modalForm] = Form.useForm();
   const [filtroIdConstruccion, setFiltroIdConstruccion] = useState('');
   
-
-  const handleCancel = () => {
-    setModalAbierto(false);
-  };
-
   const onBorrarConstruccion = (values: Construccion) => {
     try {
       deleteConstruccion((
@@ -74,7 +64,7 @@ export default function Predios() {
     } catch (error) {
       message.error('error al actualizar el registro');
     }
-    handleCancel();
+    setModalAbierto(false);
   };
   const selectPredio = (construccion: Construccion) => {
     setModalAbierto(true);
@@ -105,7 +95,6 @@ export default function Predios() {
   ) || [];
 
   const columns = [
-
     {
       title: 'id',
       dataIndex: 'id',
@@ -179,7 +168,7 @@ export default function Predios() {
         onChange={e => setFiltroIdConstruccion(e.target.value)}
       />
         <Table
-         dataSource={dataTabla.filter(construccion => String(construccion.id).includes(filtroIdConstruccion))}
+         dataSource={dataTabla.filter((construccion: Construccion) => String(construccion.id).includes(filtroIdConstruccion))}
           columns={columns}
           size="large"
         />
@@ -189,7 +178,7 @@ export default function Predios() {
           okText="Guardar"
           visible={ModalAbierto}
           onOk={modalForm.submit}
-          onCancel={handleCancel}
+          onCancel={() => setModalAbierto(false)}
         >
 
           <Form
@@ -210,7 +199,6 @@ export default function Predios() {
             >
               <Select defaultValue="Escoja un predio">
                 {dataPredios?.allPredios.edges.map((edge: Predio) => (
-                  // eslint-disable-next-line react/jsx-key, react/no-children-prop
                   <Option value={edge.node.idpredio} children={undefined} />
                 ))}
               </Select>

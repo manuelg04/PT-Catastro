@@ -15,7 +15,7 @@ export type Predio = {
 }
 
 export type Construccion = {
-    image: any;
+    imagen: any;
     node?: any;
     id:number;
     idpredio:number;

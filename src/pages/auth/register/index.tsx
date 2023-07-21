@@ -9,7 +9,6 @@ import axios from 'axios';
 import { MAIN_URL } from '../../../constantes';
 import { useRouter } from 'next/router';
 
-
 export default function Register() {
   const router = useRouter();
   const [form] = Form.useForm();
@@ -54,8 +53,7 @@ console.log(`${MAIN_URL}/api/autenticacion/register`)
           label="Número de documento"
           name="numdoc"
           rules={[
-            {
-            
+            {            
               required: true,
               message: 'Ingresa el numero de documento',
             },
