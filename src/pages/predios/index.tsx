@@ -258,6 +258,11 @@ export default function Predios() {
       key: 'imagen',
     },
     {
+      title: 'Tipo de propietario',
+      dataIndex: 'tipoprop',
+      key: 'tipoprop',
+    },
+    {
       title: 'Nombre',
       dataIndex: 'nombre',
       key: 'nombre',
@@ -443,7 +448,7 @@ export default function Predios() {
             title="Propietarios asociados al predio"
             open={openModalPropietarios}
             visible={openModalPropietarios}
-            width={816}
+            width={1000}
             footer={null}
             onCancel={() =>setOpenModalPropietarios(false)}
           >

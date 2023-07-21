@@ -117,6 +117,11 @@ export default function Propietarios() {
       key: 'imagen',
     },
     {
+      title: 'Tipo de propietario',
+      dataIndex: 'tipoprop',
+      key: 'tipoprop',
+    },
+    {
       title: 'Nombre',
       dataIndex: 'nombre',
       key: 'nombre',
