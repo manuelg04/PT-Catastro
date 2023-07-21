@@ -87,7 +87,10 @@ async function sendWelcomeEmail(email: string, name: string) {
   });
 
   let mailOptions = {
-    from: 'catastrotester@transportesmtm.com',
+    from: {
+      name: 'Manuel de Catastro',
+      address: 'catastrotester@transportesmtm.com',
+    },
     to: email,
     subject: 'Bienvenido a nuestro sistema de Catastro!',
     text: `Hola ${name}! Bienvenido a nuestro sistema de Catastro. Estamos encantados de tenerte con nosotros.`,

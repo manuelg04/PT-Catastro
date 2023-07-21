@@ -57,7 +57,7 @@ export default function Home() {
       <Typography.Paragraph>
         El país ha tomado la decisión de aventurarse en un nuevo sistema de administración por eso te invitamos a consultar y hacer uso de esta nueva plataforma.
       </Typography.Paragraph>
-      <Typography.Title level={3}>Si quieres iniciar te invitamos a:</Typography.Title>
+      <Typography.Title level={3}>Te invitamos a:</Typography.Title>
       <Space size="large">
         <Button type="primary" size="large" onClick={handleIniciarSesion}>Iniciar sesión</Button>
         <Button type="primary" size="large" onClick={handleConsultarInstructivo}>Consultar instructivo de uso</Button>

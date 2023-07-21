@@ -32,8 +32,8 @@ export default function Predios() {
   const [deletePredio] = useMutation(DELETE_PREDIO_MUTATION, REFRESH_QUERY_PREDIOS);
   const [updatePredio] = useMutation(UPDATE_PREDIO_MUTATION, REFRESH_QUERY_PREDIOS);
   const [ModalAbierto, setModalAbierto] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isModalOpen2, setIsModalOpen2] = useState(false);
+  const [openModalConstrucciones, setOpenModalConstrucciones] = useState(false);
+  const [openModalTerrenos, setOpenModalTerrenos] = useState(false);
   const [construccionActual, setConstruccionActual] = useState<Construccion[]>();
   const [terrenoActual, setTerrenoActual] = useState<Terreno[]>();
   const [filtroNumeroPredial, setFiltroNumeroPredial] = useState('');
@@ -70,28 +70,6 @@ export default function Predios() {
       }
     ),
   );
-
-  const showModal = () => {
-    setIsModalOpen(true);
-  };
-  const handleOk = () => {
-    setIsModalOpen(false);
-  };
-
-  const handleCancel2 = () => {
-    setIsModalOpen(false);
-  };
-
-  const showModal2 = () => {
-    setIsModalOpen2(true);
-  };
-  const handleOk2 = () => {
-    setIsModalOpen2(false);
-  };
-
-  const handleCancel3 = () => {
-    setIsModalOpen2(false);
-  };
 
   const verConstruccion = (values:Construccion) => {
     try {
@@ -200,7 +178,7 @@ export default function Predios() {
 
       setConstruccionActual(arrConstruccionesFiltered);
     });
-    showModal();
+    setOpenModalConstrucciones(true);
   };
 
   const selectTerreno = (predio: Terreno) => {
@@ -212,7 +190,7 @@ export default function Predios() {
 
       setTerrenoActual(arrTerrenosFiltered);
     });
-    showModal2();
+    setOpenModalTerrenos(true);
   };
 
   const columnsTerrenos = [
@@ -400,18 +378,15 @@ export default function Predios() {
           <Modal
 
             title="Terrenos asociados al predio"
-            open={isModalOpen2}
-            onOk={handleOk2}
-            onCancel={handleCancel3}
+            open={openModalTerrenos}
             width={816}
 
             onClick={(terreno:Terreno) => {
               verTerreno(terreno);
             }}
 
-            cancelText="Cancelar"
-            okText="Guardar"
-            visible={isModalOpen2}
+            footer={null}
+            visible={openModalTerrenos}
           >
             <Table
 
@@ -426,18 +401,15 @@ export default function Predios() {
           <Modal
 
             title="Construcciones asociadas al predio"
-            open={isModalOpen}
-            onOk={handleOk}
-            onCancel={handleCancel2}
+            open={openModalConstrucciones}
             width={616}
 
             onClick={(construccion:Construccion) => {
               verConstruccion(construccion);
             }}
 
-            cancelText="Cancelar"
-            okText="Guardar"
-            visible={isModalOpen}
+            footer={null}
+            visible={openModalConstrucciones}
           >
             <Table
 
