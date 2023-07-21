@@ -1,15 +1,82 @@
 .container {
-    background-image: url('/bucaramanga.jpg');
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-    text-align: center;
-    color: black;
-    padding-top: 50px; /* Este valor puede ajustarse según tus necesidades */
-  }
-  
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: black;
+  padding: 0 30px;
+  box-sizing: border-box;
+}
+
+.content {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.container h2 {
+  font-size: 2em;
+  font-weight: 600;
+  margin-bottom: 1em;
+}
+
+.container p {
+  font-size: 1.2em;
+  line-height: 1.4;
+  max-width: 800px;
+  margin: 0 auto 1em;
+}
+
+.container h3 {
+  font-size: 1.5em;
+  font-weight: 400;
+  margin-bottom: 1em;
+}
+
+.container .ant-btn-primary {
+  font-size: 1em;
+  margin-bottom: 1em;
+}
+
+.cards {
+  width: 100%;
+  max-width: 800px;
+  margin-bottom: 2em;
+}
+
+.cards .ant-card {
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+}
+
+.cards .ant-card img {
+  width: 100%;
+  height: auto;
+  transition: transform 0.3s;
+}
+
+.cards .ant-card:hover img {
+  transform: scale(1.1) rotate(5deg);
+}
+
+.imageContainer {
+  position: relative;
+}
+
+.cityName {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: opacity 0.3s;
+  color: white;
+  font-size: 1.5em;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.cards .ant-card:hover .cityName {
+  opacity: 1;
+}

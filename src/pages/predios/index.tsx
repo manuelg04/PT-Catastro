@@ -36,6 +36,7 @@ export default function Predios() {
   const [isModalOpen2, setIsModalOpen2] = useState(false);
   const [construccionActual, setConstruccionActual] = useState<Construccion[]>();
   const [terrenoActual, setTerrenoActual] = useState<Terreno[]>();
+  const [filtroNumeroPredial, setFiltroNumeroPredial] = useState('');
   const [modalForm] = Form.useForm();
   
 
@@ -202,17 +203,17 @@ export default function Predios() {
     showModal();
   };
 
-  // const selectTerreno = (predio: Terreno) => {
-  //   const arrTerrenosFiltered: Terreno[] = [];
-  //   dataTablaTerrenos.map((terreno: Terreno) => {
-  //     if (terreno.idpredio === predio.idpredio) {
-  //       arrTerrenosFiltered.push(terreno);
-  //     }
+  const selectTerreno = (predio: Terreno) => {
+    const arrTerrenosFiltered: Terreno[] = [];
+    dataTablaTerrenos.map((terreno: Terreno) => {
+      if (terreno.idpredio === predio.idpredio) {
+        arrTerrenosFiltered.push(terreno);
+      }
 
-  //     setTerrenoActual(arrTerrenosFiltered);
-  //   });
-  //   showModal2();
-  // };
+      setTerrenoActual(arrTerrenosFiltered);
+    });
+    showModal2();
+  };
 
   const columnsTerrenos = [
 
@@ -250,19 +251,6 @@ export default function Predios() {
       title: 'Fuentes de agua cerca',
       dataIndex: 'fuenagua',
       key: 'fuenagua',
-    },
-
-    {
-      title: 'Acciones',
-      dataIndex: 'acciones',
-      key: 'acciones',
-      render: (x: unknown, terreno: Terreno) => (
-        <EditOutlined
-          onClick={() => {
-            selectTerreno(terreno);
-          }}
-        />
-      ),
     },
   ];
 
@@ -316,7 +304,7 @@ export default function Predios() {
 
       }
     ),
-  );
+  ) || [];
 
   const columns = [
 
@@ -329,6 +317,7 @@ export default function Predios() {
       title: 'Numero Predial',
       dataIndex: 'numpre',
       key: 'numpre',
+      
     },
     {
       title: 'Imagen',
@@ -341,7 +330,7 @@ export default function Predios() {
       key: 'nombre',
     },
     {
-      title: 'Valor',
+      title: 'Avalúo',
       dataIndex: 'valor',
       key: 'valor',
     },
@@ -470,10 +459,14 @@ export default function Predios() {
         <Button type="primary">
           <Link href="/predios/nuevo"> Agregar nuevo predio </Link>
         </Button>
+        <Input 
+        placeholder="Buscar por número predial"
+        onChange={e => setFiltroNumeroPredial(e.target.value)}
+      />
 
         <Table
           className={styles.tableMargin}
-          dataSource={dataTabla}
+          dataSource={dataTabla.filter(predio => predio.numpre.includes(filtroNumeroPredial))} 
           columns={columns}
           size="large"
         />

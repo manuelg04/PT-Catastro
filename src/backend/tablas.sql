@@ -33,7 +33,8 @@ CREATE TABLE construcciones (
 );
 
 CREATE TABLE propietarios (
-	id serial PRIMARY KEY NOT NULL,
+	idusuario serial PRIMARY KEY NOT NULL,
+	idpredio INTEGER NOT NULL,
     tipoprop TEXT,
 	tipodoc TEXT,
 	numdoc TEXT NOT NULL UNIQUE,
@@ -45,14 +46,6 @@ CREATE TABLE propietarios (
 	created_on TIMESTAMP 
 );
 
-CREATE TABLE usuarios(
-	idusuario serial PRIMARY KEY NOT NULL,
-	nombre TEXT NOT NULL,
-	email TEXT NOT NULL,
-	numdoc TEXT NOT NULL,
-	password TEXT NOT NULL
-
-);
 
 
 

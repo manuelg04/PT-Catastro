@@ -35,6 +35,7 @@ export default function Predios() {
   );
   const [ModalAbierto, setModalAbierto] = useState(false);
   const [modalForm] = Form.useForm();
+  const [filtroIdConstruccion, setFiltroIdConstruccion] = useState('');
   
 
   const handleCancel = () => {
@@ -101,7 +102,7 @@ export default function Predios() {
 
       }
     ),
-  );
+  ) || [];
 
   const columns = [
 
@@ -172,8 +173,12 @@ export default function Predios() {
         <Button type="primary">
           <Link href="/construcciones/nuevo"> Agregar nueva construccion </Link>
         </Button>
+        <Input 
+        placeholder="Buscar por id de construccion"
+        onChange={e => setFiltroIdConstruccion(e.target.value)}
+      />
         <Table
-          dataSource={dataTabla}
+         dataSource={dataTabla.filter(construccion => String(construccion.id).includes(filtroIdConstruccion))}
           columns={columns}
           size="large"
         />

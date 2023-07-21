@@ -13,7 +13,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../redux/store';
 import { setUser } from '../redux/userSlice';
 import { Propietario } from '../../tipos';
-import styles from '../../styles/formStyle.module.css';
+
 
 
 const GET_USER_BY_NUMDOC = gql`
@@ -99,7 +99,7 @@ export default function userPerfil() {
         wrapperCol={{ span: 16 }}
         onFinish={editUsuario}
         form={form}
-        className={styles.form}
+
       >
         <Form.Item label="id del usuario" name="idusuario">
           <Input disabled />

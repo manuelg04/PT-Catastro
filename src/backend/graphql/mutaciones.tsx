@@ -303,7 +303,7 @@ query Propietarios {
 
 export const CREATE_PROPIETARIO_MUTATION = gql`  
   mutation createPropietario (
-              $idusuario: Int!,
+              $idusuario: Int,
               $tipoprop: String,
               $tipodoc: String,
               $numdoc: String!,

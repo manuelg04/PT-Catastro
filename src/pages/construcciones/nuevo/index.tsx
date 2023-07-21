@@ -109,7 +109,7 @@ export default function Propietarios() {
             {
                           data?.allPredios.edges.map((edge: Predio) => (
                             // eslint-disable-next-line react/jsx-key, react/no-children-prop
-                            <Option value={edge.node.idpredio} children={undefined} />
+                            <Option value={edge.node.idpredio}>{edge.node.idpredio}</Option>
                           ))
                 }
           </Select>
@@ -139,17 +139,21 @@ export default function Propietarios() {
           <Input />
         </Form.Item>
         <Form.Item
-          label="Tipo de construccion"
-          name="tipocons"
-          rules={[
-            {
-              required: true,
-              message: 'Ingresa el tipo de construccion',
-            },
-          ]}
-        >
-          <Input />
-        </Form.Item>
+    label="Tipo de construcción"
+    name="tipocons"
+    rules={[
+        {
+            required: true,
+            message: 'Por favor selecciona el tipo de construcción',
+        },
+    ]}
+>
+    <Select placeholder="Selecciona el tipo de construcción">
+        <Option value="Comercial">Comercial</Option>
+        <Option value="Industrial">Industrial</Option>
+        <Option value="Residencial">Residencial</Option>
+    </Select>
+</Form.Item>
         <Form.Item
           label="Direccion"
           name="direccion"

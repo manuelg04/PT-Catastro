@@ -2,6 +2,7 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import bcrypt from 'bcrypt';
 import { ApolloClient, InMemoryCache, gql } from "@apollo/client";
 import { GRAPH_URL } from '../../../constantes';
+import nodemailer from 'nodemailer';
 
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -63,6 +64,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     });
     
     if (resultado) {
+      await sendWelcomeEmail(email, nombre);
       return res.status(201).json({ message: 'Usuario creado exitosamente' });
     }
 
@@ -70,4 +72,32 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     // Manejo de errores
     return res.status(500).json({ message: 'Ha habido un error al crear el usuario' });
   }
+}
+
+
+async function sendWelcomeEmail(email: string, name: string) {
+  let transporter = nodemailer.createTransport({
+    host: 'smtp.hostinger.com',
+    port: 465,
+    secure: true, // true for 465, false for other ports
+    auth: {
+      user: 'catastrotester@transportesmtm.com', // Tu correo de gmail
+      pass: 'Leweku123@', // Tu contraseña de gmail
+    },
+  });
+
+  let mailOptions = {
+    from: 'catastrotester@transportesmtm.com',
+    to: email,
+    subject: 'Bienvenido a nuestro sistema de Catastro!',
+    text: `Hola ${name}! Bienvenido a nuestro sistema de Catastro. Estamos encantados de tenerte con nosotros.`,
+  };
+
+  transporter.sendMail(mailOptions, function (error, info) {
+    if (error) {
+      console.log(error);
+    } else {
+      console.log('Correo enviado: ' + info.response);
+    }
+  });
 }

@@ -65,6 +65,7 @@ export default function Propietarios() {
 
         {
           variables: {
+            idpredio: values.idpredio,
             tipoprop: values.tipoprop,
             tipodoc: values.tipodoc,
             numdoc: values.numdoc,
@@ -129,11 +130,14 @@ export default function Propietarios() {
           rules={[
             {
               required: true,
-              message: 'Ingresa el tipo de propietario, puede ser Persona natural o Juridica',
+              message: 'Selecciona el tipo de propietario',
             },
           ]}
         >
-          <Input />
+          <Select placeholder="Selecciona el tipo de propietario">
+            <Option value="Persona Natural">Persona Natural</Option>
+            <Option value="Persona Juridica">Persona Juridica</Option>
+          </Select>
         </Form.Item>
         <Form.Item
           label="Tipo de documento"
@@ -141,11 +145,14 @@ export default function Propietarios() {
           rules={[
             {
               required: true,
-              message: 'Ingresa tipo de documento, NIT Ó CC',
+              message: 'Selecciona el tipo de documento',
             },
           ]}
         >
-          <Input />
+          <Select placeholder="Selecciona el tipo de documento">
+            <Option value="Cedula">Cédula</Option>
+            <Option value="NIT">NIT</Option>
+          </Select>
         </Form.Item>
         <Form.Item
           label="Numero de documento"

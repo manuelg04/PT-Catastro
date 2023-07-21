@@ -28,6 +28,7 @@ export default function Terrenos() {
   const [deleteTerreno] = useMutation(DELETE_TERRENO_MUTATION, REFRESH_QUERY_TERRENOS);
   const [ModalAbierto, setModalAbierto] = useState(false);
   const [modalForm] = Form.useForm();
+  const [filtroIdTerreno, setFiltroIdTerreno] = useState('');
  
   const handleCancel = () => {
     setModalAbierto(false);
@@ -96,7 +97,7 @@ export default function Terrenos() {
 
       }
     ),
-  );
+  ) || [];
   const columns = [
 
     {
@@ -172,8 +173,12 @@ export default function Terrenos() {
       <Button type="primary">
         <Link href="/terreno/nuevo"> Agregar nuevo terreno </Link>
       </Button>
+      <Input 
+        placeholder="Buscar por id del terreno"
+        onChange={e => setFiltroIdTerreno(e.target.value)}
+      />
       <Table
-        dataSource={dataTabla}
+        dataSource={dataTabla.filter(terreno => String(terreno.id).includes(filtroIdTerreno))}
         columns={columns}
         size="large"
       />

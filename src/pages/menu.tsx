@@ -37,24 +37,7 @@ export default function BarraDeNav() {
 
   return (
     <>
-      <Menu theme="dark" mode="horizontal" defaultSelectedKeys={[""]}>
-        {!numdoc ? (
-          <Menu.Item key="login" icon={<UserOutlined />}>
-            <Link className="link" href="/auth/login">
-              Login
-            </Link>
-          </Menu.Item>
-        ) : (
-          <Menu.Item key="logout">
-            <Button
-              icon={<LogoutOutlined />}
-              className="link"
-              onClick={() => handleCerrarSesion()}
-            >
-              Logout
-            </Button>
-          </Menu.Item>
-        )}
+      <Menu theme="dark" mode="horizontal" defaultSelectedKeys={[""]} style={{ position: 'fixed', zIndex: 1, width: '100%' }}>
         <Menu.Item key="predios" icon={<HomeOutlined />}>
           <Link className="link" href="/predios">
             Predios
@@ -80,10 +63,28 @@ export default function BarraDeNav() {
             Perfil
           </Link>
         </Menu.Item>
+        {!numdoc ? (
+          <Menu.Item key="login" icon={<UserOutlined />}>
+            <Link className="link" href="/auth/login">
+              Login
+            </Link>
+          </Menu.Item>
+        ) : (
+          <Menu.Item key="logout">
+            <Button
+              icon={<LogoutOutlined />}
+              className="link"
+              onClick={() => handleCerrarSesion()}
+            >
+              Logout
+            </Button>
+          </Menu.Item>
+        )}
       </Menu>
       <br />
       <br />
       <br />
     </>
   );
+
 }
