@@ -186,8 +186,7 @@ export const QUERY_ALL_TERRENOS = gql`
       allTerrenos {
         edges {
           node {
-          ...TerrenoFragment
-  
+          ...TerrenoFragment  
           }
         }
       }
@@ -243,8 +242,7 @@ export const UPDATE_TERRENO_MUTATION = gql`
             valorcomer: $valorcomer,
             tipoterre: $tipoterre,
             consdentro: $consdentro,
-            fuenagua: $fuenagua
-          
+            fuenagua: $fuenagua          
         },
         id: $id
       }
@@ -386,11 +384,6 @@ export const DELETE_PROPIETARIO_MUTATION = gql`
     }
     ${PropietarioFragment}
 `;
-
-
-
-
-
 
 export const REFRESH_QUERY_PREDIOS = {
   refetchQueries: [{

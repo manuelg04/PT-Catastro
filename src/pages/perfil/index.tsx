@@ -204,6 +204,9 @@ export default function userPerfil() {
           <Button type="primary" htmlType="submit">
             Actualizar Datos
           </Button>
+          <Button type="primary" href='/misPredios' >
+            Datos correctos
+          </Button>
         </Form.Item>
       </Form>
       </div>

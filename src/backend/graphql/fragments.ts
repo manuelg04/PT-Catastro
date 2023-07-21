@@ -1,5 +1,4 @@
 import { gql } from '@apollo/client';
-import { Propietario } from '../../src/tipos';
 
 export const PredioFragment = gql`
    fragment PredioFragment on Predio {
@@ -23,8 +22,7 @@ export const ConstruccionFragment = gql`
             areatotal
             tipocons
             direccion
-            imagen
-  
+            imagen  
      }
 `;
 
@@ -37,8 +35,7 @@ export const TerrenoFragment = gql`
             tipoterre
             consdentro
             fuenagua
-            imagen
-  
+            imagen  
      }
 `;
 
@@ -53,8 +50,7 @@ export const PropietarioFragment = gql`
             telefono
             email
             password
-            imagen
-         
+            imagen        
   
      }
 `;
