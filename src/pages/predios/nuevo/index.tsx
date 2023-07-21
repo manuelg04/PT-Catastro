@@ -92,6 +92,7 @@ export default function Predios() {
 
   return (
     <>
+    <div style={{ position: 'fixed', top: 0, bottom: 0, left: 0, right: 0, background: '#ffffff'}}>
       <Menu />
       <Row justify="center" className={styles.formContainer}>
         <Col xs={24} sm={22} md={20} lg={16} xl={14}>
@@ -212,6 +213,7 @@ export default function Predios() {
       </Form>
       </Col>
       </Row>
+      </div>
     </>
   );
 }

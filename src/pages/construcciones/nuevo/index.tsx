@@ -1,5 +1,5 @@
 import {
-  Button, Form, Input, message, Select, Progress,
+  Button, Form, Input, message, Select, Progress, Row, Col, Typography,
 } from 'antd';
 import 'antd/dist/antd.css';
 import { useMutation, useQuery } from '@apollo/client';
@@ -13,7 +13,7 @@ import Menu from '../../menu';
 import { Construccion, Predio } from '../../../src/tipos';
 import { storage } from '../../../backend/firebaseConfig';
 import { MAIN_URL } from '../../../constantes';
-
+import styles from '../../../styles/crearNuevoPredio.module.css';
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export default function Propietarios() {
   const { Option } = Select;
@@ -91,8 +91,10 @@ export default function Propietarios() {
 
   return (
     <>
+    <div style={{ position: 'fixed', top: 0, bottom: 0, left: 0, right: 0, background: '#ffffff'}}>
       <Menu />
-      <h1>Esta es la pagina para Crear Construcciones</h1>
+      <Row justify="center" className={styles.formContainer}>
+        <Col xs={24} sm={22} md={20} lg={16} xl={14}>
       <Form
         name="basic"
         form={formu}
@@ -100,7 +102,13 @@ export default function Propietarios() {
         labelCol={{ span: 8 }}
         wrapperCol={{ span: 16 }}
         onFinish={onFinish}
+        className={styles.form}
       >
+        <center>
+       <Typography.Title level={2} className={styles.formTitle}>
+            Sección Creación de Construcciones
+          </Typography.Title>
+       </center>
         <Form.Item
           label="id Predio"
           name="idpredio"
@@ -195,6 +203,9 @@ export default function Propietarios() {
           </Button>
         </Form.Item>
       </Form>
+      </Col>
+      </Row>
+      </div>
     </>
   );
 }

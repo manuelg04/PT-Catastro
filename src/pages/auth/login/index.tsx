@@ -57,14 +57,7 @@ export default function Login() {
 
   return (
     <>
-    <div style={{
-  position: 'fixed',
-  top: 0,
-  bottom: 0,
-  left: 0,
-  right: 0,
-  background: 'linear-gradient(to right, #2b5876, #4e4376)',
-}}>
+    <div style={{ position: 'fixed', top: 0, bottom: 0, left: 0, right: 0, background: '#ffffff'}}>
       <BarraDeNav />
       <Typography.Title level={1} style={{ textAlign: "center" }}>
         Iniciar Sesión

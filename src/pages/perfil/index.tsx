@@ -88,6 +88,7 @@ export default function userPerfil() {
 
   return (
     <>
+    <div style={{ position: 'fixed', top: 0, bottom: 0, left: 0, right: 0, background: '#ffffff'}}>
       <BarraDeNav />
       <h1>
         Bienvenido {nombre || "Usuario Desconocido"} verifique sus datos si son
@@ -205,6 +206,7 @@ export default function userPerfil() {
           </Button>
         </Form.Item>
       </Form>
+      </div>
     </>
   );
 }

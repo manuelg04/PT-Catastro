@@ -29,6 +29,7 @@
     "cors": "^2.8.5",
     "firebase": "^9.14.0",
     "firebase-tools": "^11.16.1",
+    "framer-motion": "^10.13.0",
     "graphql": "^16.7.1",
     "jose": "^4.13.1",
     "jsonwebtoken": "^8.5.1",

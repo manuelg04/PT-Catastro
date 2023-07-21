@@ -169,6 +169,7 @@ export default function Terrenos() {
     
      (
     <>
+    <div style={{ position: 'fixed', top: 0, bottom: 0, left: 0, right: 0, background: '#ffffff'}}>
       <BarraDeNav />
       <Button type="primary">
         <Link href="/terreno/nuevo"> Agregar nuevo terreno </Link>
@@ -279,6 +280,7 @@ export default function Terrenos() {
           </Form.Item>
         </Form>
       </Modal>
+    </div>
     </>
     )
   );

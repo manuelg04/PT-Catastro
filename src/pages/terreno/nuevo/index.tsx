@@ -1,6 +1,6 @@
 import { useLazyQuery, useMutation, useQuery } from '@apollo/client';
 import {
-  Button, Form, Input, message, Select, Progress,
+  Button, Form, Input, message, Select, Progress, Row, Col, Typography,
 } from 'antd';
 import 'antd/dist/antd.css';
 import { useRouter } from 'next/router';
@@ -15,6 +15,7 @@ import Menu from '../../menu';
 import { Predio, Terreno } from '../../../src/tipos';
 import { storage } from '../../../backend/firebaseConfig';
 import { MAIN_URL } from '../../../constantes';
+import styles from '../../../styles/crearNuevoPredio.module.css';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export default function Terrenos() {
@@ -103,8 +104,10 @@ export default function Terrenos() {
 
   return (
     <>
+    <div style={{ position: 'fixed', top: 0, bottom: 0, left: 0, right: 0, background: '#ffffff'}}>
       <Menu />
-      <h1>Esta es la pagina para Crear terrenos</h1>
+      <Row justify="center" className={styles.formContainer}>
+        <Col xs={24} sm={22} md={20} lg={16} xl={14}>
       <Form
         name="basic"
         form={formu}
@@ -112,7 +115,14 @@ export default function Terrenos() {
         labelCol={{ span: 8 }}
         wrapperCol={{ span: 16 }}
         onFinish={onFinish}
+        className={styles.form}
+       
       >
+        <center>
+       <Typography.Title level={2} className={styles.formTitle}>
+            Sección Creación de terrenos
+          </Typography.Title>
+       </center>
         <Form.Item
           label="Predio"
           name="idpredio"
@@ -234,6 +244,9 @@ export default function Terrenos() {
         }}
         />
       </Form>
+      </Col>
+      </Row>
+    </div>
     </>
   );
 }
