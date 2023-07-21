@@ -1,6 +1,3 @@
-/* eslint-disable import/no-unresolved */
-/* eslint-disable react/no-unstable-nested-components */
-/* eslint-disable no-use-before-define */
 import { useMutation, useQuery } from '@apollo/client';
 import {
   Button, Form, Input, message, Modal, Table, Space, Image,
@@ -8,7 +5,7 @@ import {
 import { useState } from 'react';
 import 'antd/dist/antd.css';
 import {
-  EditOutlined, DeleteOutlined, SearchOutlined,
+  EditOutlined, DeleteOutlined,
 } from '@ant-design/icons';
 import Link from 'next/link';
 import {
@@ -18,20 +15,15 @@ import {
   UPDATE_PROPIETARIO_MUTATION,
 } from '../../backend/graphql/mutaciones';
 import BarraDeNav from '../menu';
-import { Propietario } from '../../src/tipos';
-import { isEmpty } from 'lodash';
-import router from 'next/router';
+import type { Propietario } from '../../tipos';
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export default function Propietarios() {
   const { data } = useQuery(QUERY_ALL_PROPIETARIOS);
   const [updatePropietario] = useMutation(UPDATE_PROPIETARIO_MUTATION, REFRESH_QUERY_PROPIETARIOS);
   const [deletePropietario] = useMutation(DELETE_PROPIETARIO_MUTATION, REFRESH_QUERY_PROPIETARIOS);
   const [ModalAbierto, setModalAbierto] = useState(false);
   const [propietarioFilter, setPropietarioFilter] = useState();
-  const [modalForm] = Form.useForm();
-  const [buscar, setBuscar] = useState('');
- 
+  const [modalForm] = Form.useForm(); 
 
   const selectPropietario = (propietario:Propietario) => {
     setModalAbierto(true);
@@ -80,16 +72,8 @@ export default function Propietarios() {
         email: edge.node.email,
         direccion: edge.node.direccion,
       }
-
     ),
   );
-
-  const funcionFiltrar = (value:string) => {
-    const dataTablaFiltrada = dataTabla
-      .filter((propietario:any) => propietario.numdoc.includes(value));
-    // console.log(dataTablaFiltrada);
-    setBuscar(dataTablaFiltrada);
-  };
 
   const filtrarLodash = (value:string) => {
     const dataTablaFiltradalodash = dataTabla
@@ -102,12 +86,6 @@ export default function Propietarios() {
     }
 
     setPropietarioFilter(dataTablaFiltradalodash);
-  };
-
-  // eslint-disable-next-line no-console
-
-  const handleCancel = () => {
-    setModalAbierto(false);
   };
 
   const editPropietario = (values: Propietario) => {
@@ -130,11 +108,10 @@ export default function Propietarios() {
     } catch (error) {
       message.error('error al actualizar el registro');
     }
-    handleCancel();
+    setModalAbierto(false);
   };
 
   const columns = [
-
     {
       title: 'id',
       dataIndex: 'idusuario',
@@ -181,13 +158,11 @@ export default function Propietarios() {
       key: 'acciones',
       render: (x: unknown, propietario:Propietario) => (
         <>
-
           <EditOutlined
             onClick={() => {
               selectPropietario(propietario);
             }}
           />
-
           <DeleteOutlined
             onClick={() => {
               onBorrarPropietario(propietario);
@@ -199,10 +174,8 @@ export default function Propietarios() {
     },
   ];
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
 
-  return (
-    (
+  return (    
     <>
     <div style={{ position: 'fixed', top: 0, bottom: 0, left: 0, right: 0, background: '#ffffff'}}>
       <BarraDeNav />
@@ -219,7 +192,6 @@ export default function Propietarios() {
         columns={columns}
         size="large"
       />
-      {/* <Table columns={columns2} dataSource={dataFiltro} /> */}
       
       <Modal
         title="Editando propietario"
@@ -227,9 +199,8 @@ export default function Propietarios() {
         okText="Guardar"
         visible={ModalAbierto}
         onOk={modalForm.submit}
-        onCancel={handleCancel}
+        onCancel={()=>setModalAbierto(false)}
       >
-
         <Form
           form={modalForm}
           labelCol={{ span: 8 }}
@@ -333,7 +304,6 @@ export default function Propietarios() {
         </Form>
       </Modal>
     </div>
-    </>
-    )
+    </>    
   )
 }

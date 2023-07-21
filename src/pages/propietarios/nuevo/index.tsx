@@ -1,6 +1,4 @@
-/* eslint-disable react/no-children-prop */
-/* eslint-disable react/jsx-key */
-/* eslint-disable max-len */
+
 import { useMutation, useQuery } from '@apollo/client';
 import {
   Button, Form, Input, message, Select, Progress, Row, Col, Typography,
@@ -13,12 +11,11 @@ import {
 } from 'react';
 import { CREATE_PROPIETARIO_MUTATION, QUERY_ALL_PREDIOS } from '../../../backend/graphql/mutaciones';
 import Menu from '../../menu';
-import { Predio, Propietario } from '../../../src/tipos';
 import { storage } from '../../../backend/firebaseConfig';
 import { MAIN_URL } from '../../../constantes';
 import styles from '../../../styles/crearNuevoPredio.module.css';
+import type { Predio, Propietario } from '../../../tipos';
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export default function Propietarios() {
   const { Option } = Select;
   const [formu] = Form.useForm();
@@ -44,7 +41,6 @@ export default function Propietarios() {
         (error) => {
           message.error(error.message);
         },
-        // eslint-disable-next-line promise/catch-or-return, promise/always-return
         () => { getDownloadURL(uploadTask.snapshot.ref).then((url) => { setDownloadURL(url); }); },
       );
     } else {
@@ -63,7 +59,6 @@ export default function Propietarios() {
   const onFinish = (values:Propietario) => {
     try {
       crearPropietario((
-
         {
           variables: {
             idpredio: values.idpredio,
@@ -76,7 +71,6 @@ export default function Propietarios() {
             email: values.email,
             imagen: values.imagen,
             password: values.password,
-
           },
         }
       ));
@@ -242,9 +236,9 @@ export default function Propietarios() {
           <Input
             type="file"
             name="image"
-            placeholder="Selecciona Imagen" // CENTRAR
+            placeholder="Selecciona Imagen"
             accept="image/jpeg"
-            onChange={(files) => handleSelectedFile(files.target.files)}
+            onChange={(files) => handleSelectedFile(files.target.files as any)}
           />
           {progressUpload !== 0 && (
           <Progress percent={progressUpload} />

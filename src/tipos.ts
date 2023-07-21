@@ -53,6 +53,7 @@ export type Terreno = {
 
 export type Propietario = {
     idusuario: number;
+    idpredio?: number;
     node?: any;
     id?:number;
     tipoprop?:string;
@@ -63,6 +64,7 @@ export type Propietario = {
     telefono?:number;
     email?:string;
     password:string;
+    imagen?: any;
 }
 
 
