@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-no-constructed-context-values */
 import type { AppProps } from 'next/app';
 import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
 import { Col, Row } from 'antd';
@@ -12,9 +11,8 @@ import { GRAPH_URL } from '../constantes';
 
 const persistor = persistStore(store);
 
-
 export default function App({ Component, pageProps }: AppProps) {
-  const [imageFile, setImageFile] = useState<File>();
+  const [imageFile, setImageFile] = useState();
   
   const client = new ApolloClient({
     uri: GRAPH_URL,

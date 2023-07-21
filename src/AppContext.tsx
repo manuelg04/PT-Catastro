@@ -5,7 +5,7 @@ const AppContext = createContext({
   setUserToken: (value: string | null) => {}, 
 });
 
-export const AppContextProvider = ({ children }) => {
+export const AppContextProvider = ({ children }:any) => {
   const [userToken, setUserToken] = useState<string | null>(null);
 
   return (

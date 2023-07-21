@@ -1,5 +1,3 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
-/* eslint-disable react-hooks/rules-of-hooks */
 import Link from 'next/link';
 import { Button, Menu } from 'antd';
 import { BuildOutlined, EyeTwoTone, HomeOutlined, LogoutOutlined, ProfileOutlined, UnorderedListOutlined, UserOutlined, UsergroupAddOutlined } from '@ant-design/icons';
@@ -8,10 +6,8 @@ import { MAIN_URL } from '../constantes';
 import axios from 'axios';
 import { setUser } from './redux/userSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import styles from '../styles/navBar.module.css';
+// import styles from '../styles/navBar.module.css';
 
-
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export default function BarraDeNav() {
   const router = useRouter();
   const dispatch = useDispatch();
@@ -19,7 +15,7 @@ export default function BarraDeNav() {
   
   const handleCerrarSesion = async () => {
     
-    const response = await axios.post(`${MAIN_URL}/api/autenticacion/logout`)
+    await axios.post(`${MAIN_URL}/api/autenticacion/logout`)
     dispatch(setUser({
       nombre: '',
       numdoc: '',
