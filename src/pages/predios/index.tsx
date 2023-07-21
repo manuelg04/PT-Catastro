@@ -357,11 +357,11 @@ export default function Predios() {
       title: 'Propietarios',
       dataIndex: 'propietarios',
       key: 'propietarios',
-      render: (x: unknown, propietario: Propietario) => (
+      render: (x: unknown, predio: Predio) => (
         <PlusCircleOutlined
           className={styles.circuloinfo}
           onClick={() => {
-            selectPropietario(propietario);
+            selectPropietario(predio);
           }}
         />
       ),
@@ -370,11 +370,11 @@ export default function Predios() {
       title: 'Construcciones',
       dataIndex: 'construcciones',
       key: 'construcciones',
-      render: (x: unknown, construccion: Construccion) => (
+      render: (x: unknown, predio: Predio) => (
         <PlusCircleOutlined
           className={styles.circuloinfo}
           onClick={() => {
-            selectConstruccion(construccion);
+            selectConstruccion(predio);
           }}
         />
       ),
@@ -383,11 +383,11 @@ export default function Predios() {
       title: 'Terrenos',
       dataIndex: 'terreno',
       key: 'terreno',
-      render: (x: unknown, terreno: Terreno) => (
+      render: (x: unknown, predio: Predio) => (
         <PlusCircleOutlined
           className={styles.circuloinfo}
           onClick={() => {
-            selectTerreno(terreno);
+            selectTerreno(predio);
           }}
         />
       ),
