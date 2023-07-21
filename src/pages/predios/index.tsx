@@ -1,5 +1,3 @@
-/* eslint-disable array-callback-return */
-/* eslint-disable react/jsx-props-no-multi-spaces */
 import { useMutation, useQuery } from '@apollo/client';
 import {
   Button, Form, Input, message, Modal, Table, Image,
@@ -8,8 +6,6 @@ import { useState } from 'react';
 import 'antd/dist/antd.css';
 import { EditOutlined, DeleteOutlined, PlusCircleOutlined } from '@ant-design/icons';
 import Link from 'next/link';
-import { isEmpty } from 'lodash';
-import { useRouter } from 'next/router';
 import {
   QUERY_ALL_CONSTRUCCIONES,
   QUERY_ALL_PREDIOS,
@@ -20,28 +16,24 @@ import {
 } from '../../backend/graphql/mutaciones';
 import BarraDeNav from '../menu';
 import styles from '../../styles/menu.module.css';
-import { Predio, Construccion, Terreno } from '../../src/tipos';
+import type { Terreno, Predio, Construccion } from '../../tipos';
 
-
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export default function Predios() {
-  const router = useRouter();
   const { data } = useQuery(QUERY_ALL_PREDIOS);
-   const { data: dataConstrucciones } = useQuery(QUERY_ALL_CONSTRUCCIONES);
-   const { data: dataTerrenos } = useQuery(QUERY_ALL_TERRENOS);
+  const { data: dataConstrucciones } = useQuery(QUERY_ALL_CONSTRUCCIONES);
+  const { data: dataTerrenos } = useQuery(QUERY_ALL_TERRENOS);
   const [deletePredio] = useMutation(DELETE_PREDIO_MUTATION, REFRESH_QUERY_PREDIOS);
   const [updatePredio] = useMutation(UPDATE_PREDIO_MUTATION, REFRESH_QUERY_PREDIOS);
-  const [ModalAbierto, setModalAbierto] = useState(false);
+  const [openModalPredio, setOpenModalPredio] = useState(false);
   const [openModalConstrucciones, setOpenModalConstrucciones] = useState(false);
   const [openModalTerrenos, setOpenModalTerrenos] = useState(false);
   const [construccionActual, setConstruccionActual] = useState<Construccion[]>();
   const [terrenoActual, setTerrenoActual] = useState<Terreno[]>();
   const [filtroNumeroPredial, setFiltroNumeroPredial] = useState('');
   const [modalForm] = Form.useForm();
-  
 
   const dataTablaConstrucciones = dataConstrucciones?.allConstrucciones.edges.map(
-    (edge:Construccion) => (
+    (edge: Construccion) => (
       {
         id: edge.node.id,
         idpredio: edge.node.idpredio,
@@ -70,52 +62,6 @@ export default function Predios() {
       }
     ),
   );
-
-  const verConstruccion = (values:Construccion) => {
-    try {
-      mostrarConstruccione((
-        {
-          variables: {
-            id: values.id,
-            idpredio: values.idpredio,
-            numpisos: values.numpisos,
-            areatotal: values.areatotal,
-            tipocons: values.tipocons,
-            direccion: values.direccion,
-          },
-        }
-      ));
-      message.success('Esta viendo la tabla de construccion exitosamente');
-    } catch (error) {
-      message.error('No esta viendo la tabla de construiccion fallo');
-    }
-  };
-
-  const verTerreno = (values: Terreno) => {
-    try {
-      mostrarTerrenos((
-        {
-          variables: {
-            id: values.id,
-            idpredio: values.idpredio,
-            area: values.area,
-            valorcomer: values.valorcomer,
-            tipoterre: values.tipoterre,
-            consdentro: values.consdentro,
-            fuenagua: values.fuenagua,
-          },
-        }
-      ));
-      message.success('Esta viendo la tabla de terrenos exitosamente');
-    } catch (error) {
-      message.error('No esta viendo la tabla de terrenos fallo');
-    }
-  };
-
-  const handleCancel = () => {
-    setModalAbierto(false);
-  };
-
   const onBorrarPredio = (values: Predio) => {
     try {
       deletePredio((
@@ -150,10 +96,10 @@ export default function Predios() {
     } catch (error) {
       message.error('error al actualizar el registro');
     }
-    handleCancel();
+    setOpenModalPredio(false);
   };
   const selectPredio = (predio: Predio) => {
-    setModalAbierto(true);
+    setOpenModalPredio(true);
     modalForm.setFieldsValue({
       idpredio: predio.idpredio,
       numpre: predio.numpre,
@@ -169,9 +115,9 @@ export default function Predios() {
     });
   };
   // return general
-  const selectConstruccion = (predio:Construccion) => {
+  const selectConstruccion = (predio: Construccion) => {
     const arrConstruccionesFiltered: Construccion[] = [];
-    dataTablaConstrucciones.map((construccion:Construccion) => {
+    dataTablaConstrucciones.map((construccion: Construccion) => {
       if (construccion.idpredio === predio.idpredio) {
         arrConstruccionesFiltered.push(construccion);
       }
@@ -269,7 +215,7 @@ export default function Predios() {
   ];
 
   const dataTabla = data?.allPredios.edges.map(
-    (edge:Predio) => (
+    (edge: Predio) => (
       {
         idpredio: edge.node.idpredio,
         numpre: edge.node.numpre,
@@ -295,7 +241,7 @@ export default function Predios() {
       title: 'Numero Predial',
       dataIndex: 'numpre',
       key: 'numpre',
-      
+
     },
     {
       title: 'Imagen',
@@ -332,7 +278,7 @@ export default function Predios() {
       title: 'Construcciones',
       dataIndex: 'construcciones',
       key: 'construcciones',
-      render: (x: unknown, construccion:Construccion) => (
+      render: (x: unknown, construccion: Construccion) => (
         <PlusCircleOutlined
           className={styles.circuloinfo}
           onClick={() => {
@@ -376,21 +322,14 @@ export default function Predios() {
           />
 
           <Modal
-
             title="Terrenos asociados al predio"
             open={openModalTerrenos}
             width={816}
-
-            onClick={(terreno:Terreno) => {
-              verTerreno(terreno);
-            }}
-
             footer={null}
             visible={openModalTerrenos}
+            onCancel={() =>setOpenModalTerrenos(false)}
           >
             <Table
-
-                // dataSource={dataTablaTerrenos}
               dataSource={terrenoActual}
               columns={columnsTerrenos}
               size="large"
@@ -399,21 +338,14 @@ export default function Predios() {
           </Modal>
 
           <Modal
-
             title="Construcciones asociadas al predio"
             open={openModalConstrucciones}
             width={616}
-
-            onClick={(construccion:Construccion) => {
-              verConstruccion(construccion);
-            }}
-
             footer={null}
             visible={openModalConstrucciones}
+            onCancel={() => setOpenModalConstrucciones(false)}
           >
             <Table
-
-      // dataSource={dataTablaConstrucciones}
               dataSource={construccionActual}
               columns={columnsConstrucciones}
               size="large"
@@ -426,125 +358,125 @@ export default function Predios() {
 
   return (
     <>
-    <div style={{ position: 'fixed', top: 0, bottom: 0, left: 0, right: 0, background: '#ffffff'}}>
-      <>
-        <BarraDeNav />
-        <Button type="primary">
-          <Link href="/predios/nuevo"> Agregar nuevo predio </Link>
-        </Button>
-        <Input 
-        placeholder="Buscar por número predial"
-        onChange={e => setFiltroNumeroPredial(e.target.value)}
-      />
+      <div style={{ position: 'fixed', top: 0, bottom: 0, left: 0, right: 0, background: '#ffffff' }}>
+        <>
+          <BarraDeNav />
+          <Button type="primary">
+            <Link href="/predios/nuevo"> Agregar nuevo predio </Link>
+          </Button>
+          <Input
+            placeholder="Buscar por número predial"
+            onChange={e => setFiltroNumeroPredial(e.target.value)}
+          />
 
-        <Table
-          className={styles.tableMargin}
-          dataSource={dataTabla.filter(predio => predio.numpre.includes(filtroNumeroPredial))} 
-          columns={columns}
-          size="large"
-        />
+          <Table
+            className={styles.tableMargin}
+            dataSource={dataTabla.filter((predio: Predio) => predio.numpre.includes(filtroNumeroPredial))}
+            columns={columns as any}
+            size="large"
+          />
 
-        <Modal
-          title="Editando predio"
-          cancelText="Cancelar"
-          okText="Guardar"
-          visible={ModalAbierto}
-          onOk={modalForm.submit}
-          onCancel={handleCancel}
-        >
-
-          <Form
-            form={modalForm}
-            labelCol={{ span: 8 }}
-            wrapperCol={{ span: 8 }}
-            onFinish={editPredio}
+          <Modal
+            title="Editando predio"
+            cancelText="Cancelar"
+            okText="Guardar"
+            visible={openModalPredio}
+            onOk={modalForm.submit}
+            onCancel={()=>setOpenModalPredio(false)}
           >
-            <Form.Item label="ID" name="id" hidden>
-              <Input />
-            </Form.Item>
-            <Form.Item
-              label="Id predio"
-              name="idpredio"
-            >
-              <Input disabled />
-            </Form.Item>
-            <Form.Item
-              label="Numero Predial"
-              name="numpre"
-              rules={[
-                {
-                  required: true,
-                  message: 'Ingresa el numero predial',
-                },
-              ]}
-            >
-              <Input />
-            </Form.Item>
-            <Form.Item
-              label="Avaluo"
-              name="valor"
-              rules={[
-                {
-                  required: true,
-                  message: 'Ingrese el avaluo de tu predio',
-                },
-              ]}
-            >
-              <Input />
-            </Form.Item>
-            <Form.Item
-              label="Nombre"
-              name="nombre"
-              rules={[
-                {
-                  required: true,
-                  message: 'Ingrese el nombre del predio',
-                },
-              ]}
-            >
-              <Input />
-            </Form.Item>
-            <Form.Item
-              label="Departamento"
-              name="depto"
-              rules={[
-                {
-                  required: true,
-                  message: 'Ingrese el departamento asociado a tu predio',
-                },
-              ]}
-            >
-              <Input />
-            </Form.Item>
-            <Form.Item
-              label="Municipio"
-              name="municipio"
-              rules={[
-                {
-                  required: true,
-                  message: 'Ingrese el municipio asociado a tu predio',
-                },
-              ]}
-            >
-              <Input />
-            </Form.Item>
-            <Form.Item
-              label="Propietarios"
-              name="propietarios"
-              rules={[
-                {
-                  required: true,
-                  message: 'Ingresa el propietario del predio',
-                },
-              ]}
-            >
-              <Input />
-            </Form.Item>
 
-          </Form>
-        </Modal>
-      </>
-      </div>        
+            <Form
+              form={modalForm}
+              labelCol={{ span: 8 }}
+              wrapperCol={{ span: 8 }}
+              onFinish={editPredio}
+            >
+              <Form.Item label="ID" name="id" hidden>
+                <Input />
+              </Form.Item>
+              <Form.Item
+                label="Id predio"
+                name="idpredio"
+              >
+                <Input disabled />
+              </Form.Item>
+              <Form.Item
+                label="Numero Predial"
+                name="numpre"
+                rules={[
+                  {
+                    required: true,
+                    message: 'Ingresa el numero predial',
+                  },
+                ]}
+              >
+                <Input />
+              </Form.Item>
+              <Form.Item
+                label="Avaluo"
+                name="valor"
+                rules={[
+                  {
+                    required: true,
+                    message: 'Ingrese el avaluo de tu predio',
+                  },
+                ]}
+              >
+                <Input />
+              </Form.Item>
+              <Form.Item
+                label="Nombre"
+                name="nombre"
+                rules={[
+                  {
+                    required: true,
+                    message: 'Ingrese el nombre del predio',
+                  },
+                ]}
+              >
+                <Input />
+              </Form.Item>
+              <Form.Item
+                label="Departamento"
+                name="depto"
+                rules={[
+                  {
+                    required: true,
+                    message: 'Ingrese el departamento asociado a tu predio',
+                  },
+                ]}
+              >
+                <Input />
+              </Form.Item>
+              <Form.Item
+                label="Municipio"
+                name="municipio"
+                rules={[
+                  {
+                    required: true,
+                    message: 'Ingrese el municipio asociado a tu predio',
+                  },
+                ]}
+              >
+                <Input />
+              </Form.Item>
+              <Form.Item
+                label="Propietarios"
+                name="propietarios"
+                rules={[
+                  {
+                    required: true,
+                    message: 'Ingresa el propietario del predio',
+                  },
+                ]}
+              >
+                <Input />
+              </Form.Item>
+
+            </Form>
+          </Modal>
+        </>
+      </div>
     </>
   );
 }

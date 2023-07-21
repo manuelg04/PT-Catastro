@@ -16,7 +16,6 @@ import type { Predio } from '../../../tipos';
 import { MAIN_URL } from '../../../constantes';
 import styles from '../../../styles/crearNuevoPredio.module.css';
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export default function Predios() {
   // logica
   const router = useRouter();
@@ -41,7 +40,6 @@ export default function Predios() {
         (error) => {
           message.error(error.message);
         },
-        // eslint-disable-next-line promise/catch-or-return, promise/always-return
         () => { getDownloadURL(uploadTask.snapshot.ref).then((url) => { setDownloadURL(url); }); },
       );
     } else {
@@ -189,9 +187,9 @@ export default function Predios() {
           <Input
             type="file"
             name="image"
-            placeholder="Selecciona Imagen" // CENTRAR
+            placeholder="Selecciona Imagen"
             accept="image/jpeg"
-            onChange={(files) => handleSelectedFile(files.target.files)}
+            onChange={(files) => handleSelectedFile(files.target.files as any)}
           />
           {progressUpload !== 0 && (
           <Progress percent={progressUpload} />

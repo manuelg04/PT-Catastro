@@ -1,6 +1,3 @@
-/* eslint-disable react/jsx-one-expression-per-line */
-/* eslint-disable react-hooks/rules-of-hooks */
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { useMutation, useQuery, gql } from '@apollo/client';
 import {
   Button, Form, Input, Select, message,
@@ -11,10 +8,7 @@ import 'antd/dist/antd.css';
 import { UPDATE_PROPIETARIO_MUTATION, REFRESH_QUERY_PROPIETARIOS } from '../../backend/graphql/mutaciones';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../redux/store';
-import { setUser } from '../redux/userSlice';
 import { Propietario } from '../../tipos';
-
-
 
 const GET_USER_BY_NUMDOC = gql`
  query MyQuery {
@@ -27,7 +21,6 @@ const GET_USER_BY_NUMDOC = gql`
     }
   }
 }
-
 `;
 
 export default function userPerfil() {
