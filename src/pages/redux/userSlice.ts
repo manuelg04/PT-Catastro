@@ -39,7 +39,6 @@ const userSlice = createSlice({
         state.telefono = action.payload.telefono;
         state.direccion = action.payload.direccion;
         state.idusuario = action.payload.idusuario;
-
       }
     },
     clearUser: (state) => {

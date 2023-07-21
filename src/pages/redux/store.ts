@@ -1,5 +1,3 @@
-// src/redux/store.js
-// src/redux/store.js
 import { configureStore } from '@reduxjs/toolkit';
 import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';

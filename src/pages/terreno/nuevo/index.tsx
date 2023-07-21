@@ -12,12 +12,11 @@ import {
   CREATE_TERRENO_MUTATION, QUERY_ALL_PREDIOS, ALL_TERRENOS_BY_ID_PREDIO
 } from '../../../backend/graphql/mutaciones';
 import Menu from '../../menu';
-import { Predio, Terreno } from '../../../src/tipos';
 import { storage } from '../../../backend/firebaseConfig';
 import { MAIN_URL } from '../../../constantes';
 import styles from '../../../styles/crearNuevoPredio.module.css';
+import { Predio, Terreno } from '../../../tipos';
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export default function Terrenos() {
   const { Option } = Select;
   const [formu] = Form.useForm();
@@ -43,7 +42,6 @@ export default function Terrenos() {
         (error) => {
           message.error(error.message);
         },
-        // eslint-disable-next-line promise/catch-or-return, promise/always-return
         () => { getDownloadURL(uploadTask.snapshot.ref).then((url) => { setDownloadURL(url); }); },
       );
     } else {
@@ -128,13 +126,11 @@ export default function Terrenos() {
           name="idpredio"
         >
           <Select defaultValue="Escoja un predio">
-            {
-
-                          data?.allPredios.edges.map((edge:Predio) => (
-                            // eslint-disable-next-line react/jsx-key, react/no-children-prop
-                            <Option value={edge.node.idpredio}>{edge.node.idpredio}</Option>
-                          ))
-                        }
+                  {
+                    data?.allPredios.edges.map((edge: Predio) => (
+                      <Option value={edge.node.idpredio}>{edge.node.idpredio}</Option>
+                    ))
+                  }
           </Select>
         </Form.Item>
         <Form.Item
@@ -218,7 +214,7 @@ export default function Terrenos() {
             name="imagen"
             placeholder="Selecciona Imagen"
             accept="image/jpeg"
-            onChange={(files) => handleSelectedFile(files.target.files)}
+            onChange={(files) => handleSelectedFile(files.target.files as any)}
           />
           {progressUpload !== 0 && (
           <Progress percent={progressUpload} />

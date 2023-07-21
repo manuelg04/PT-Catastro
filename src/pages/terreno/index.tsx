@@ -14,11 +14,8 @@ import {
   UPDATE_TERRENO_MUTATION,
 } from '../../backend/graphql/mutaciones';
 import BarraDeNav from '../menu';
-import { Terreno } from '../../tipos';
+import type { Predio, Terreno } from '../../tipos';
 
-
-
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export default function Terrenos() {
   // logica
   const { Option } = Select;
@@ -29,10 +26,6 @@ export default function Terrenos() {
   const [ModalAbierto, setModalAbierto] = useState(false);
   const [modalForm] = Form.useForm();
   const [filtroIdTerreno, setFiltroIdTerreno] = useState('');
- 
-  const handleCancel = () => {
-    setModalAbierto(false);
-  };
 
   const onBorrarTerreno = (values:Terreno) => {
     try {
@@ -67,7 +60,7 @@ export default function Terrenos() {
     } catch (error) {
       message.error('error al actualizar el registro');
     }
-    handleCancel();
+    setModalAbierto(false);
   };
   const selectTerreno = (terreno:Terreno) => {
     setModalAbierto(true);
@@ -179,7 +172,7 @@ export default function Terrenos() {
         onChange={e => setFiltroIdTerreno(e.target.value)}
       />
       <Table
-        dataSource={dataTabla.filter(terreno => String(terreno.id).includes(filtroIdTerreno))}
+        dataSource={dataTabla.filter((terreno: Terreno) => String(terreno.id).includes(filtroIdTerreno))}
         columns={columns}
         size="large"
       />
@@ -189,7 +182,7 @@ export default function Terrenos() {
         okText="Guardar"
         visible={ModalAbierto}
         onOk={modalForm.submit}
-        onCancel={handleCancel}
+        onCancel={()=>setModalAbierto(false)}
       >
 
         <Form
@@ -211,7 +204,6 @@ export default function Terrenos() {
             <Select defaultValue="Escoja un predio">
               {
                           dataPredios?.allPredios.edges.map((edge:Predio) => (
-                            // eslint-disable-next-line react/jsx-key, react/no-children-prop
                             <Option value={edge.node.idpredio} children={edge.node.idpredio} />
                           ))
                 }
