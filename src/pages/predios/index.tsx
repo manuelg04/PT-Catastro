@@ -13,21 +13,25 @@ import {
   REFRESH_QUERY_PREDIOS,
   UPDATE_PREDIO_MUTATION,
   DELETE_PREDIO_MUTATION,
+  QUERY_ALL_PROPIETARIOS,
 } from '../../backend/graphql/mutaciones';
 import BarraDeNav from '../menu';
 import styles from '../../styles/menu.module.css';
-import type { Terreno, Predio, Construccion } from '../../tipos';
+import type { Terreno, Predio, Construccion, Propietario } from '../../tipos';
 
 export default function Predios() {
   const { data } = useQuery(QUERY_ALL_PREDIOS);
   const { data: dataConstrucciones } = useQuery(QUERY_ALL_CONSTRUCCIONES);
   const { data: dataTerrenos } = useQuery(QUERY_ALL_TERRENOS);
+  const { data: dataPropietarios } = useQuery(QUERY_ALL_PROPIETARIOS);
   const [deletePredio] = useMutation(DELETE_PREDIO_MUTATION, REFRESH_QUERY_PREDIOS);
   const [updatePredio] = useMutation(UPDATE_PREDIO_MUTATION, REFRESH_QUERY_PREDIOS);
   const [openModalPredio, setOpenModalPredio] = useState(false);
   const [openModalConstrucciones, setOpenModalConstrucciones] = useState(false);
   const [openModalTerrenos, setOpenModalTerrenos] = useState(false);
+  const [openModalPropietarios, setOpenModalPropietarios] = useState(false);
   const [construccionActual, setConstruccionActual] = useState<Construccion[]>();
+  const [propietarioActual, setPropietarioActual] = useState<Propietario[]>();
   const [terrenoActual, setTerrenoActual] = useState<Terreno[]>();
   const [filtroNumeroPredial, setFiltroNumeroPredial] = useState('');
   const [modalForm] = Form.useForm();
@@ -59,6 +63,23 @@ export default function Predios() {
         consdentro: edge.node.consdentro,
         fuenagua: edge.node.fuenagua,
 
+      }
+    ),
+  );
+
+  const dataTablaPropietarios = dataPropietarios?.allPropietarios.edges.map(
+    (edge: Propietario) => (
+      {
+        id: edge.node.id,
+        idusuario: edge.node.idusuario,
+        tipoprop: edge.node.tipoprop,
+        imagen: edge.node.imagen ? <Image src={edge.node.imagen} width={100} /> : 'No hay Imagen',
+        nombre: edge.node.nombre,
+        tipodoc: edge.node.tipodoc,
+        numdoc: edge.node.numdoc,
+        telefono: edge.node.telefono,
+        email: edge.node.email,
+        direccion: edge.node.direccion,
       }
     ),
   );
@@ -115,7 +136,7 @@ export default function Predios() {
     });
   };
   // return general
-  const selectConstruccion = (predio: Construccion) => {
+  const selectConstruccion = (predio: Predio) => {
     const arrConstruccionesFiltered: Construccion[] = [];
     dataTablaConstrucciones.map((construccion: Construccion) => {
       if (construccion.idpredio === predio.idpredio) {
@@ -127,7 +148,7 @@ export default function Predios() {
     setOpenModalConstrucciones(true);
   };
 
-  const selectTerreno = (predio: Terreno) => {
+  const selectTerreno = (predio: Predio) => {
     const arrTerrenosFiltered: Terreno[] = [];
     dataTablaTerrenos.map((terreno: Terreno) => {
       if (terreno.idpredio === predio.idpredio) {
@@ -137,6 +158,17 @@ export default function Predios() {
       setTerrenoActual(arrTerrenosFiltered);
     });
     setOpenModalTerrenos(true);
+  };
+
+  const selectPropietario = (predio:Predio) => {
+    const arrPropietariosFiltered: Propietario[] = [];
+    dataTablaPropietarios.map((propietario: Propietario) => {
+      if (propietario.nombre === predio.propietarios) {
+        arrPropietariosFiltered.push(propietario);
+      }
+      setPropietarioActual(arrPropietariosFiltered);
+    });
+    setOpenModalPropietarios(true);
   };
 
   const columnsTerrenos = [
@@ -214,6 +246,49 @@ export default function Predios() {
     },
   ];
 
+  const columnsPropietario = [
+    {
+      title: 'id',
+      dataIndex: 'idusuario',
+      key: 'idusuario',
+    },
+    {
+      title: 'Imagen',
+      dataIndex: 'imagen',
+      key: 'imagen',
+    },
+    {
+      title: 'Nombre',
+      dataIndex: 'nombre',
+      key: 'nombre',
+    },
+    {
+      title: 'Tipo de documento',
+      dataIndex: 'tipodoc',
+      key: 'tipodoc',
+    },
+    {
+      title: 'Numero de documento',
+      dataIndex: 'numdoc',
+      key: 'numdoc',
+    },
+    {
+      title: 'Telefono',
+      dataIndex: 'telefono',
+      key: 'telefono',
+    },
+    {
+      title: 'Email',
+      dataIndex: 'email',
+      key: 'email',
+    },
+    {
+      title: 'Direccion',
+      dataIndex: 'direccion',
+      key: 'direccion',
+    },
+  ];
+
   const dataTabla = data?.allPredios.edges.map(
     (edge: Predio) => (
       {
@@ -268,12 +343,24 @@ export default function Predios() {
       dataIndex: 'municipio',
       key: 'municipio',
     },
+    // {
+    //   title: 'Propietarios',
+    //   dataIndex: 'propietarios',
+    //   key: 'propietarios',
+    // },
     {
       title: 'Propietarios',
       dataIndex: 'propietarios',
       key: 'propietarios',
+      render: (x: unknown, propietario: Propietario) => (
+        <PlusCircleOutlined
+          className={styles.circuloinfo}
+          onClick={() => {
+            selectPropietario(propietario);
+          }}
+        />
+      ),
     },
-
     {
       title: 'Construcciones',
       dataIndex: 'construcciones',
@@ -350,6 +437,22 @@ export default function Predios() {
               columns={columnsConstrucciones}
               size="large"
             />
+          </Modal>
+
+          <Modal
+            title="Propietarios asociados al predio"
+            open={openModalPropietarios}
+            visible={openModalPropietarios}
+            width={816}
+            footer={null}
+            onCancel={() =>setOpenModalPropietarios(false)}
+          >
+            <Table
+              dataSource={propietarioActual}
+              columns={columnsPropietario}
+              size="large"
+            />
+
           </Modal>
         </>
       ),
