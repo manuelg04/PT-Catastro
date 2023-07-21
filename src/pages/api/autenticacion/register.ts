@@ -93,11 +93,9 @@ async function sendWelcomeEmail(email: string, name: string) {
     text: `Hola ${name}! Bienvenido a nuestro sistema de Catastro. Estamos encantados de tenerte con nosotros.`,
   };
 
-  transporter.sendMail(mailOptions, function (error, info) {
+  transporter.sendMail(mailOptions, function (error) {
     if (error) {
-      console.log(error);
-    } else {
-      console.log('Correo enviado: ' + info.response);
-    }
+      throw new Error(error);
+    } 
   });
 }

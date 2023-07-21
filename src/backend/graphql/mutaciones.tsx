@@ -385,6 +385,46 @@ export const DELETE_PROPIETARIO_MUTATION = gql`
     ${PropietarioFragment}
 `;
 
+// //este es el query para la tabla predios en el + de propietarios
+// export const QUERY_PREDIOS_POR_USUARIO = gql`
+//     query MyQuery($numdoc: String!) {
+//       allPropietarios(condition: {numdoc: $numdoc}) {
+//         edges {
+//           node {
+//             numdoc
+//             tipoprop
+//             tipodoc
+//             direccion
+//             telefono
+//             createdOn
+//             imagen
+//           }
+//         }
+//         variables: { numdoc },
+//       }
+//     }
+//   `;
+
+export const QUERY_PREDIOS_POR_NOMBREPROPIETARIO = gql`
+query MyQuery($nombre: String!) {
+  allPredios(condition: {propietarios: $nombre}) {
+    edges {
+      node {
+        valor
+        depto
+        municipio
+        propietarios
+        createdOn
+        image
+        idpredio
+        nombre
+        numpre
+      }
+    }
+  }
+}
+`;
+
 export const REFRESH_QUERY_PREDIOS = {
   refetchQueries: [{
     query: QUERY_ALL_PREDIOS,

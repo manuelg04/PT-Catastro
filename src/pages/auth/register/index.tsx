@@ -25,7 +25,7 @@ export default function Register() {
     message.error(`error al crear registro, ${error}`);
   }
 };
-console.log(`${MAIN_URL}/api/autenticacion/register`)
+// console.log(`${MAIN_URL}/api/autenticacion/register`)
   return (
     <>
       <Menu />

@@ -1,6 +1,6 @@
-import { useMutation } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
 import {
-  Button, Col, Form, Input, message,Progress, Row, Typography,
+  Button, Col, Form, Input, message,Progress, Row, Select, Typography,
 } from 'antd';
 import 'antd/dist/antd.css';
 import { useRouter } from 'next/router';
@@ -15,6 +15,7 @@ import { storage } from '../../../backend/firebaseConfig';
 import type { Predio } from '../../../tipos';
 import { MAIN_URL } from '../../../constantes';
 import styles from '../../../styles/crearNuevoPredio.module.css';
+import { gql } from '@apollo/client';
 
 export default function Predios() {
   // logica
@@ -24,6 +25,20 @@ export default function Predios() {
   const [progressUpload, setProgressUpload] = useState<number>(0);
   const [imageFile, setImageFile] = useState<File>();
   const [downloadURL, setDownloadURL] = useState<string>('');
+  const { Option } = Select;
+
+  const PROPIETARIOS_QUERY = gql`
+  query MyQuery {
+    allPropietarios {
+      edges {
+        node {
+          nombre
+        }
+      }
+    }
+  }
+`;
+const { loading, error, data } = useQuery(PROPIETARIOS_QUERY);
 
   const handleUploadFile = () => {
     if (imageFile) {
@@ -169,17 +184,33 @@ export default function Predios() {
           <Input />
         </Form.Item>
         <Form.Item
-          label="Propietarios"
-          name="propietarios"
-          rules={[
-            {
-              required: true,
-              message: 'Ingresa el propietario asociado',
-            },
-          ]}
-        >
-          <Input />
-        </Form.Item>
+  label="Propietarios"
+  name="propietarios"
+  rules={[
+    {
+      required: true,
+      message: 'Ingresa el propietario asociado',
+    },
+  ]}
+>
+  <Select placeholder="Selecciona un propietario">
+    {loading ? (
+      <Option value="" disabled>
+        Cargando...
+      </Option>
+    ) : error ? (
+      <Option value="" disabled>
+        Error al cargar propietarios
+      </Option>
+    ) : (
+      data.allPropietarios.edges.map(({ node: { nombre } }, index) => (
+        <Option key={index} value={nombre}>
+          {nombre}
+        </Option>
+      ))
+    )}
+  </Select>
+</Form.Item>
         <Form.Item
           label="Foto del predio"
           name="image"

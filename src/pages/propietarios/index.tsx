@@ -78,13 +78,7 @@ export default function Propietarios() {
   const filtrarLodash = (value:string) => {
     const dataTablaFiltradalodash = dataTabla
       .filter((propietario:any) => propietario.numdoc.includes(value));
-
-    if (value === null) {
-      console.log('Viene nulo');
-    } else {
-      console.log('No viene Nulo');
-    }
-
+  
     setPropietarioFilter(dataTablaFiltradalodash);
   };
 

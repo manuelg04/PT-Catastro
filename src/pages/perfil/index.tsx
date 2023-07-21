@@ -31,8 +31,7 @@ export default function userPerfil() {
   const { Option } = Select;
   // Obtiene el numdoc del estado de Redux
   //const { nombre, numdoc, tipodoc, tipoprop, direccion, telefono, email, password } = useSelector((state: RootState) => state.user); // Obtén nombre y numdoc del estado de Redux
-  const usuario = useSelector((state: RootState) => state.user); // Obtén nombre y numdoc del estado de Redux
-  console.log("🚀 ~ usuario:", usuario)
+  const usuario = useSelector((state: RootState) => state.user); 
   const {
     nombre, numdoc, tipodoc, tipoprop, direccion, telefono, email, password, idusuario
   } = useSelector((state: RootState) => state.user);

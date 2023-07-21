@@ -13,6 +13,7 @@ import { CREATE_PROPIETARIO_MUTATION, QUERY_ALL_PREDIOS } from '../../../backend
 import Menu from '../../menu';
 import { storage } from '../../../backend/firebaseConfig';
 import { MAIN_URL } from '../../../constantes';
+import bcrypt from 'bcryptjs';
 import styles from '../../../styles/crearNuevoPredio.module.css';
 import type { Predio, Propietario } from '../../../tipos';
 
@@ -56,8 +57,9 @@ export default function Propietarios() {
     }
   };
 
-  const onFinish = (values:Propietario) => {
+  const onFinish = async (values:Propietario) => {
     try {
+      const hashedPassword = await bcrypt.hash(values.password, 10); // Hashea la contraseña
       crearPropietario((
         {
           variables: {
@@ -70,7 +72,7 @@ export default function Propietarios() {
             telefono: values.telefono,
             email: values.email,
             imagen: values.imagen,
-            password: values.password,
+            password: hashedPassword,  // Envía la contraseña hasheada
           },
         }
       ));
