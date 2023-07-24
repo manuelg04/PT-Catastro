@@ -12,9 +12,9 @@ import { CREATE_PROPIETARIO_MUTATION, QUERY_ALL_PREDIOS } from '../../../backend
 import Menu from '../../menu';
 import { storage } from '../../../backend/firebaseConfig';
 import { MAIN_URL } from '../../../constantes';
-import bcrypt from 'bcrypt';
 import styles from '../../../styles/crearNuevoPredio.module.css';
 import type { Predio, Propietario } from '../../../tipos';
+import axios from 'axios';
 
 export default function Propietarios() {
   const { Option } = Select;
@@ -58,23 +58,7 @@ export default function Propietarios() {
 
   const onFinish = async (values:Propietario) => {
     try {
-      const hashedPassword = await bcrypt.hash(values.password, 10); 
-      crearPropietario((
-        {
-          variables: {
-            idpredio: values.idpredio,
-            tipoprop: values.tipoprop,
-            tipodoc: values.tipodoc,
-            numdoc: values.numdoc,
-            nombre: values.nombre,
-            direccion: values.direccion,
-            telefono: values.telefono,
-            email: values.email,
-            imagen: values.imagen,
-            password: hashedPassword,  // Envía la contraseña hasheada
-          },
-        }
-      ));
+      await axios.post(`${MAIN_URL}/api/createPropietario`, values)
       message.success('registro creado correctamente');
     } catch (error) {
       message.error('"error al crear el registro", error');
