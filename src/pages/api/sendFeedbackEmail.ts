@@ -1,6 +1,7 @@
 import nodemailer from 'nodemailer';
 
-const sendFeedbackEmail = async (name: string, observations: string, rating: number) => {
+const sendFeedbackEmail = async (name: string, email: string, observations: string, rating: number) => {
+ 
   let transporter = nodemailer.createTransport({
     host: 'smtp.hostinger.com',
     port: 465,
@@ -16,9 +17,10 @@ const sendFeedbackEmail = async (name: string, observations: string, rating: num
       name: 'Formulario de Feedback',
       address: 'catastrotester@transportesmtm.com',
     },
-    to: 'manuelg9704@gmail.com', // Aquí debes poner tu correo electrónico donde deseas recibir la retroalimentación
+    to: 'manuelg9704@gmail.com',
+    cc: email,
     subject: 'Nuevo feedback de Prueba Tecnica',
-    text: `Has recibido un nuevo feedback de ${name}. Su calificación es ${rating} estrellas. Observaciones: ${observations}`,
+    text: `Has recibido un nuevo feedback de ${name}. Su calificación es de ${rating} ${rating === 1 ? 'Estrella' : 'Estrellas'}. Observaciones: ${observations}`,
   };
 
   return transporter.sendMail(mailOptions);

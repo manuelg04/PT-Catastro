@@ -3,12 +3,18 @@ import BarraDeNav from './menu';
 import styles from '../styles/crearNuevoPredio.module.css';
 import { MAIN_URL } from '../constantes';
 import axios from 'axios';
+import { useState } from 'react';
+import { set } from 'lodash';
 const { TextArea } = Input;
 
 const ContactMe = () => {
+  const [valuesRating, setValuesRating] = useState(0);
 
   const onFinish = async (values: any) => {
     try {
+     //Agrega valuesRating a values antes de enviar la solicitud
+      values.rating = valuesRating;
+      //console.log("🚀 ~ values:", values, valuesRating)
       await axios.post(`${MAIN_URL}/api/sendFeeback`, values)
       message.success('Feedback enviado correctamente');
       form.resetFields();
@@ -49,6 +55,12 @@ const ContactMe = () => {
               >
                   <Input placeholder="Nombre" />
               </Form.Item>
+              <Form.Item
+                  name="email"
+                  rules={[{ required: true, message: 'Por favor, ingresa tu email.' }]}
+              >
+                  <Input placeholder="Email" />
+              </Form.Item>
 
               <Form.Item
                   name="observations"
@@ -61,8 +73,10 @@ const ContactMe = () => {
                   name="rating"
                   rules={[{  message: 'Por favor, califica mi trabajo.' }]}
               >
+                  <Rate defaultValue={0}
+                  onChange={(e)=>setValuesRating(e)} 
+                  />
                   <Typography.Text>Califica mi trabajo:</Typography.Text>
-                  <Rate />
               </Form.Item>
 
               <Form.Item>

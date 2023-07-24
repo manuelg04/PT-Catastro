@@ -3,10 +3,10 @@ import sendFeedbackEmail from '../api/sendFeedbackEmail';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'POST') {
-    const { name, observations, rating } = req.body;
-
+    const { name, observations, rating, email } = req.body;
+  
     try {
-      await sendFeedbackEmail(name, observations, rating);
+      await sendFeedbackEmail(name, email, observations, rating);
       res.status(200).json({ status: 'Feedback enviado correctamente' });
     } catch (error) {
       console.error(error);
