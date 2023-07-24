@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 import BarraDeNav from '../menu';
 import { UPDATE_PROPIETARIO_MUTATION, REFRESH_QUERY_PROPIETARIOS } from '../../backend/graphql/mutaciones';
 import { useSelector, useDispatch } from 'react-redux';
-import { RootState } from '../redux/store';
+import { RootState } from '../../redux/store';
 import { Propietario } from '../../tipos';
 import styles from '../../styles/crearNuevoPredio.module.css';
 

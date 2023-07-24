@@ -6,7 +6,7 @@ import AppContext from '../AppContext';
 import { Provider } from 'react-redux';
 import { persistStore } from 'redux-persist';
 import { PersistGate } from 'redux-persist/integration/react';
-import store from './redux/store';
+import store from '../redux/store';
 import { GRAPH_URL } from '../constantes';
 import BarraDeNav from './menu';
 

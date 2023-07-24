@@ -3,7 +3,7 @@ import { useQuery } from '@apollo/client';
 import {  Predio } from '../tipos';
 import { useSelector } from 'react-redux';
 import { QUERY_PREDIOS_POR_NOMBREPROPIETARIO } from '../backend/graphql/mutaciones';
-import { RootState } from './redux/store';
+import { RootState } from '../redux/store';
 
 function MisPredios() {
     const usuario = useSelector((state: RootState) => state.user); // 

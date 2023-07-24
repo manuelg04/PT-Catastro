@@ -4,7 +4,7 @@ import { BuildOutlined, EyeTwoTone, HomeOutlined, LogoutOutlined, MailOutlined, 
 import { useRouter } from 'next/router';
 import { MAIN_URL } from '../constantes';
 import axios from 'axios';
-import { setUser } from './redux/userSlice';
+import { setUser } from '../redux/userSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { Propietario } from '../tipos';
 

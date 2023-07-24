@@ -10,7 +10,7 @@ import { Propietario } from "./../../../tipos";
 import axios from "axios";
 import { MAIN_URL } from "../../../constantes";
 import { useDispatch } from "react-redux";
-import { setUser } from "../../redux/userSlice";
+import { setUser } from "../../../redux/userSlice";
 
 export default function Login() {
   const router = useRouter();
