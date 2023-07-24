@@ -1,6 +1,6 @@
 import type { AppProps } from 'next/app';
 import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
-import { Col, Row } from 'antd';
+import { Col, Menu, Row } from 'antd';
 import { useState } from 'react';
 import AppContext from '../AppContext';
 import { Provider } from 'react-redux';
@@ -8,12 +8,14 @@ import { persistStore } from 'redux-persist';
 import { PersistGate } from 'redux-persist/integration/react';
 import store from './redux/store';
 import { GRAPH_URL } from '../constantes';
+import BarraDeNav from './menu';
+
 
 const persistor = persistStore(store);
 
 export default function App({ Component, pageProps }: AppProps) {
-  const [imageFile, setImageFile] = useState();
-  
+  const [imageFile, setImageFile] = useState<File | undefined>();
+
   const client = new ApolloClient({
     uri: GRAPH_URL,
     cache: new InMemoryCache(),
@@ -21,6 +23,7 @@ export default function App({ Component, pageProps }: AppProps) {
   });
 
   return (
+   
     <Provider store={store}>
       <PersistGate persistor={persistor}>
     <AppContext.Provider

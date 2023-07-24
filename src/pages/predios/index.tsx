@@ -3,8 +3,7 @@ import {
   Button, Form, Input, message, Modal, Table, Image,
 } from 'antd';
 import { useState } from 'react';
-import 'antd/dist/antd.css';
-import { EditOutlined, DeleteOutlined, PlusCircleOutlined } from '@ant-design/icons';
+import { EditOutlined, DeleteOutlined, PlusCircleOutlined, SearchOutlined } from '@ant-design/icons';
 import Link from 'next/link';
 import {
   QUERY_ALL_CONSTRUCCIONES,
@@ -16,7 +15,7 @@ import {
   QUERY_ALL_PROPIETARIOS,
 } from '../../backend/graphql/mutaciones';
 import BarraDeNav from '../menu';
-import styles from '../../styles/menu.module.css';
+import styles from '../../styles/filter.module.css';
 import type { Terreno, Predio, Construccion, Propietario } from '../../tipos';
 
 export default function Predios() {
@@ -209,8 +208,6 @@ export default function Predios() {
       key: 'fuenagua',
     },
   ];
-
-  // console.log("🚀 ~ dataTablaConstrucciones", dataTablaConstrucciones)
 
   const columnsConstrucciones = [
 
@@ -469,15 +466,21 @@ export default function Predios() {
       <div style={{ position: 'fixed', top: 0, bottom: 0, left: 0, right: 0, background: '#ffffff' }}>
         <>
           <BarraDeNav />
-          <Button type="primary">
-            <Link href="/predios/nuevo"> Agregar nuevo predio </Link>
-          </Button>
-          <Input
-            placeholder="Buscar por número predial"
-            onChange={e => setFiltroNumeroPredial(e.target.value)}
-          />
-
-          <Table
+          <div className={styles.container}>
+  <Button type="primary">
+    <Link href="/predios/nuevo"> Agregar nuevo predio </Link>
+  </Button>
+  <div>
+    <Input
+      className={styles.miInput}
+      style={{width: '200px'}}
+      placeholder="Buscar por número predial"
+      onChange={e => setFiltroNumeroPredial(e.target.value)}
+      suffix={<SearchOutlined />}
+    />
+  </div>
+</div>
+        <Table
             className={styles.tableMargin}
             dataSource={dataTabla.filter((predio: Predio) => predio.numpre.includes(filtroNumeroPredial))}
             columns={columns as any}

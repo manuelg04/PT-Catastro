@@ -1,14 +1,14 @@
 import { useMutation, useQuery, gql } from '@apollo/client';
 import {
-  Button, Form, Input, Select, message,
+  Button, Col, Form, Input, Row, Select, Typography, message,
 } from 'antd';
 import { useEffect, useState } from 'react';
 import BarraDeNav from '../menu';
-import 'antd/dist/antd.css';
 import { UPDATE_PROPIETARIO_MUTATION, REFRESH_QUERY_PROPIETARIOS } from '../../backend/graphql/mutaciones';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../redux/store';
 import { Propietario } from '../../tipos';
+import styles from '../../styles/crearNuevoPredio.module.css';
 
 const GET_USER_BY_NUMDOC = gql`
  query MyQuery {
@@ -82,18 +82,23 @@ export default function userPerfil() {
     <>
     <div style={{ position: 'fixed', top: 0, bottom: 0, left: 0, right: 0, background: '#ffffff'}}>
       <BarraDeNav />
-      <h1>
-        Bienvenido {nombre || "Usuario Desconocido"} verifique sus datos si son
-        correctos
-      </h1>
+      <Row justify="center" className={styles.formContainer}>
+        <Col xs={24} sm={22} md={20} lg={16} xl={14}>
       <Form
         id="formulario"
         labelCol={{ span: 8 }}
         wrapperCol={{ span: 16 }}
         onFinish={editUsuario}
         form={form}
+        className={styles.form}
 
       >
+         <center>
+       <Typography.Title level={2} className={styles.formTitle}>
+       Bienvenido {nombre || "Usuario Desconocido"} verifique sus datos si son
+        correctos, de lo contrario actualicelos
+          </Typography.Title>
+       </center>
         <Form.Item label="id del usuario" name="idusuario">
           <Input disabled />
         </Form.Item>
@@ -201,6 +206,8 @@ export default function userPerfil() {
           </Button>
         </Form.Item>
       </Form>
+      </Col>
+      </Row>
       </div>
     </>
   );

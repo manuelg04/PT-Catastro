@@ -3,7 +3,6 @@ import { useMutation, useQuery } from '@apollo/client';
 import {
   Button, Form, Input, message, Select, Progress, Row, Col, Typography,
 } from 'antd';
-import 'antd/dist/antd.css';
 import { useRouter } from 'next/router';
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 import {
@@ -13,7 +12,7 @@ import { CREATE_PROPIETARIO_MUTATION, QUERY_ALL_PREDIOS } from '../../../backend
 import Menu from '../../menu';
 import { storage } from '../../../backend/firebaseConfig';
 import { MAIN_URL } from '../../../constantes';
-import bcrypt from 'bcryptjs';
+import bcrypt from 'bcrypt';
 import styles from '../../../styles/crearNuevoPredio.module.css';
 import type { Predio, Propietario } from '../../../tipos';
 
@@ -59,7 +58,7 @@ export default function Propietarios() {
 
   const onFinish = async (values:Propietario) => {
     try {
-      const hashedPassword = await bcrypt.hash(values.password, 10); // Hashea la contraseña
+      const hashedPassword = await bcrypt.hash(values.password, 10); 
       crearPropietario((
         {
           variables: {

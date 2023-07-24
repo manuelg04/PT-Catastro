@@ -1,15 +1,16 @@
 import React, { createContext, useState } from 'react';
 
 const AppContext = createContext({
-    userToken: null as string | null,  
-  setUserToken: (value: string | null) => {}, 
+
+  imageFile: undefined as File | undefined,
+  setImageFile: (value: File | undefined) => {},
 });
 
 export const AppContextProvider = ({ children }:any) => {
-  const [userToken, setUserToken] = useState<string | null>(null);
+  const [imageFile, setImageFile] = useState<File | undefined>();
 
   return (
-    <AppContext.Provider value={{ userToken, setUserToken }}>
+    <AppContext.Provider value={{imageFile, setImageFile }}>
       {children}
     </AppContext.Provider>
   );

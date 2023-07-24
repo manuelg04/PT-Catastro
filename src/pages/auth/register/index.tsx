@@ -1,13 +1,13 @@
 import {
   Button, Divider, Form, Input, Select, message,
-} from 'antd';
-import 'antd/dist/antd.css';
+} from 'antd'; 
 import styles from '../../../styles/menu.module.css';
 import Menu from '../../menu';
 import type { Propietario } from './../../../tipos';
 import axios from 'axios';
 import { MAIN_URL } from '../../../constantes';
 import { useRouter } from 'next/router';
+
 
 export default function Register() {
   const router = useRouter();
@@ -25,7 +25,7 @@ export default function Register() {
     message.error(`error al crear registro, ${error}`);
   }
 };
-// console.log(`${MAIN_URL}/api/autenticacion/register`)
+
   return (
     <>
       <Menu />

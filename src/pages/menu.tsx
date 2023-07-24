@@ -1,17 +1,18 @@
 import Link from 'next/link';
 import { Button, Menu } from 'antd';
-import { BuildOutlined, EyeTwoTone, HomeOutlined, LogoutOutlined, ProfileOutlined, UnorderedListOutlined, UserOutlined, UsergroupAddOutlined } from '@ant-design/icons';
+import { BuildOutlined, EyeTwoTone, HomeOutlined, LogoutOutlined, MailOutlined, ProfileOutlined, UnorderedListOutlined, UserOutlined, UsergroupAddOutlined } from '@ant-design/icons';
 import { useRouter } from 'next/router';
 import { MAIN_URL } from '../constantes';
 import axios from 'axios';
 import { setUser } from './redux/userSlice';
 import { useDispatch, useSelector } from 'react-redux';
-// import styles from '../styles/navBar.module.css';
+import { Propietario } from '../tipos';
+
 
 export default function BarraDeNav() {
   const router = useRouter();
   const dispatch = useDispatch();
-  const { numdoc } = useSelector((state) => state.user);
+  const { numdoc } = useSelector((state: {user: Propietario} ) => state.user);
   
   const handleCerrarSesion = async () => {
     
@@ -59,6 +60,11 @@ export default function BarraDeNav() {
             Perfil
           </Link>
         </Menu.Item>
+        <Menu.Item key="contactame" icon={<MailOutlined />}>
+        <Link className="link" href="/contactame">
+          Contáctame
+        </Link>
+      </Menu.Item>
         {!numdoc ? (
           <Menu.Item key="login" icon={<UserOutlined />}>
             <Link className="link" href="/auth/login">

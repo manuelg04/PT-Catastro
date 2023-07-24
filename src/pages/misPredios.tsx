@@ -1,6 +1,5 @@
-import 'antd/dist/antd.css';
 import { Table, Image } from 'antd';
-import { useQuery, gql } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import {  Predio } from '../tipos';
 import { useSelector } from 'react-redux';
 import { QUERY_PREDIOS_POR_NOMBREPROPIETARIO } from '../backend/graphql/mutaciones';

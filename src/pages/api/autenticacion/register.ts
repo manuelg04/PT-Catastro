@@ -95,7 +95,7 @@ async function sendWelcomeEmail(email: string, name: string) {
 
   transporter.sendMail(mailOptions, function (error) {
     if (error) {
-      throw new Error(error);
+      throw (error);
     } 
   });
 }

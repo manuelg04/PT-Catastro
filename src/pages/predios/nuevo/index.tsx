@@ -2,7 +2,6 @@ import { useMutation, useQuery } from '@apollo/client';
 import {
   Button, Col, Form, Input, message,Progress, Row, Select, Typography,
 } from 'antd';
-import 'antd/dist/antd.css';
 import { useRouter } from 'next/router';
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 import {
@@ -203,7 +202,7 @@ const { loading, error, data } = useQuery(PROPIETARIOS_QUERY);
         Error al cargar propietarios
       </Option>
     ) : (
-      data.allPropietarios.edges.map(({ node: { nombre } }, index) => (
+      data.allPropietarios.edges.map(({ node: { nombre } }: { node: { nombre: string } }, index: number) => (
         <Option key={index} value={nombre}>
           {nombre}
         </Option>

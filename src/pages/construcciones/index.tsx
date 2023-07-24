@@ -3,7 +3,6 @@ import {
   Button, Form, Input, message, Modal, Select, Table, Image,
 } from 'antd';
 import {  useState } from 'react';
-import 'antd/dist/antd.css';
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import Link from 'next/link';
 import {
@@ -15,6 +14,7 @@ import {
 } from '../../backend/graphql/mutaciones';
 import BarraDeNav from '../menu';
 import type { Construccion, Predio } from '../../tipos';
+
 
 export default function Predios() {
   const { Option } = Select;
@@ -173,7 +173,7 @@ export default function Predios() {
           size="large"
         />
         <Modal
-          title="Editando predio"
+          title="Editando Construccion"
           cancelText="Cancelar"
           okText="Guardar"
           visible={ModalAbierto}
@@ -199,7 +199,7 @@ export default function Predios() {
             >
               <Select defaultValue="Escoja un predio">
                 {dataPredios?.allPredios.edges.map((edge: Predio) => (
-                  <Option value={edge.node.idpredio} children={undefined} />
+                  <Option value={edge.node.idpredio}>{edge.node.idpredio}</Option>
                 ))}
               </Select>
             </Form.Item>

@@ -10,7 +10,7 @@ export default function logout(req:NextApiRequest, res:NextApiResponse) {
   }
 
  try {
-    const serialized = serialize(MY_TOKEN_NAME, null, {
+    const serialized = serialize(MY_TOKEN_NAME, '', {
         httpOnly: true,
         sameSite: 'strict',
         maxAge: -1,

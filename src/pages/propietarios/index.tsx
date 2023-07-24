@@ -3,7 +3,6 @@ import {
   Button, Form, Input, message, Modal, Table, Space, Image,
 } from 'antd';
 import { useState } from 'react';
-import 'antd/dist/antd.css';
 import {
   EditOutlined, DeleteOutlined,
 } from '@ant-design/icons';

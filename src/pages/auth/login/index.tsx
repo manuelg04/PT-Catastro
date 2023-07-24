@@ -1,10 +1,10 @@
 import { useApolloClient } from "@apollo/client";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Form, Input, Typography, message } from "antd";
+'antd/dist/antd.css';
 import Link from "next/link";
 import { useRouter } from "next/router";
 import BarraDeNav from "../../menu";
-import "antd/dist/antd.css";
 // import styles from "../../../styles/homeLogin.module.css";
 import { Propietario } from "./../../../tipos";
 import axios from "axios";

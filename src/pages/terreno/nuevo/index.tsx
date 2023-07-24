@@ -2,7 +2,6 @@ import { useLazyQuery, useMutation, useQuery } from '@apollo/client';
 import {
   Button, Form, Input, message, Select, Progress, Row, Col, Typography,
 } from 'antd';
-import 'antd/dist/antd.css';
 import { useRouter } from 'next/router';
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 import {

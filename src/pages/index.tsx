@@ -1,6 +1,5 @@
 import { Button, Typography, Card, Row, Col, Space } from 'antd';
 import { useRouter } from 'next/router';
-import 'antd/dist/antd.css';
 import styles from '../styles/background.module.css';
 import { motion } from "framer-motion";
 

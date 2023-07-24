@@ -2,7 +2,6 @@ import { useMutation, useQuery } from '@apollo/client';
 import {
   Button, Form, Input, message, Modal, Select, Table, Image,
 } from 'antd';
-import 'antd/dist/antd.css';
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import { useState } from 'react';
 import Link from 'next/link';
